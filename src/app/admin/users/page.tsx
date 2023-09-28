@@ -35,7 +35,7 @@ const Users = () => {
               </th>
               <th
                 scope="col"
-                className="hidden md:block py-1.5 border border-gray-600"
+                className="max-sm:hidden py-1.5 border border-gray-600"
               >
                 Type
               </th>
@@ -62,7 +62,7 @@ const Users = () => {
                         <td className="py-1.5 border border-gray-600">
                           {item.role}
                         </td>
-                        <td className="hidden md:block py-1.5 border border-gray-600">
+                        <td className="max-sm:hidden py-1.5 border border-gray-600">
                           {item.balance.sports_betting +
                             item.balance.casino +
                             item.balance.sports_betting_bonus +
@@ -140,7 +140,7 @@ const Users = () => {
                 </th>
                 <th
                   scope="col"
-                  className="hidden md:block py-1.5 border border-gray-600"
+                  className="max-sm:hidden py-1.5 border border-gray-600"
                 >
                   Type
                 </th>
@@ -167,7 +167,7 @@ const Users = () => {
                           <td className="py-1.5 border border-gray-600">
                             {item.role}
                           </td>
-                          <td className="hidden md:block py-1.5 border border-gray-600">
+                          <td className="max-sm:hidden py-1.5 border border-gray-600">
                             {item.balance.sports_betting +
                               item.balance.casino +
                               item.balance.sports_betting_bonus +

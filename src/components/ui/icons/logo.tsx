@@ -43,21 +43,6 @@ export const BurgerSearch   = (props: SVGProps<SVGSVGElement>) => (
         fill="#28FFBB"
         d="M0 5h10.777l-.104.303-.107.322-.101.378-.072.247H0zm0 4h10v.958l.022.292H0zm0 4h10.453l.19.625.222.625H0z"
       />
-      <g stroke="#FFF" transform="translate(16 4)">
-        <ellipse
-          cx={5.451}
-          cy={5.425}
-          strokeWidth={1.125}
-          rx={5.451}
-          ry={5.425}
-        />
-        <path
-          fill="#FFF"
-          fillRule="nonzero"
-          strokeWidth={0.5}
-          d="m8.445 10.094.704-.548L13 14.452l-.704.548z"
-        />
-      </g>
     </g>
   </svg>
 )

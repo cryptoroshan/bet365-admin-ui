@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { navItems, navDropdowns } from './list';
+import { navItems } from './list';
 import CustomLink from './ui/Link';
 
 function Sidenav() {

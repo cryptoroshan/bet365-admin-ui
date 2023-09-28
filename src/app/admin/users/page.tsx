@@ -11,13 +11,13 @@ const Users = () => {
 
   const getUserInfo = async () => {
     const _userinfo = await getUsersCreatedBy(0);
-    console.log(_userinfo);
+    // console.log(_userinfo)
     setSuperAgent(_userinfo);
   };
 
-  const getChildren = async (index: number, id: number) => {
+  const getChildren = async (username: string, id: number) => {
+    console.log(username, id);
     const _childrenInfo = await getUsersCreatedBy(id);
-    console.log(_childrenInfo);
     setSuperAgent((arr: any) => [...arr, _childrenInfo] as any);
   };
 
@@ -35,7 +35,7 @@ const Users = () => {
               </th>
               <th
                 scope="col"
-                className="py-1.5 border border-gray-600"
+                className="hidden md:block py-1.5 border border-gray-600"
               >
                 Type
               </th>
@@ -49,7 +49,6 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {console.log(child)}
             {Array.isArray(child) === true &&
               child?.map((item: any, index: number) => {
                 return (
@@ -63,7 +62,7 @@ const Users = () => {
                         <td className="py-1.5 border border-gray-600">
                           {item.role}
                         </td>
-                        <td className="py-1.5 border border-gray-600">
+                        <td className="hidden md:block py-1.5 border border-gray-600">
                           {item.balance.sports_betting +
                             item.balance.casino +
                             item.balance.sports_betting_bonus +
@@ -73,20 +72,20 @@ const Users = () => {
                           <div className="flex gap-2 w-full justify-center">
                             <button
                               type="button"
-                              className="bg-brand-button text-brand-button-text hover:text-white px-4 h-9 border border-black"
+                              className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-9 border border-black"
                             >
                               Transfer
                             </button>
                             <button
                               type="button"
-                              className="bg-brand-button text-brand-button-text hover:text-white px-4 h-9 border border-black"
-                              onClick={() => getChildren(index + 1, item._id)}
+                              className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-9 border border-black"
+                              onClick={() => getChildren(item.username, item._id)}
                             >
                               Users
                             </button>
                             <button
                               type="button"
-                              className="bg-brand-button text-brand-button-text hover:text-white px-4 h-9 border border-black"
+                              className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-9 border border-black"
                             >
                               Block
                             </button>
@@ -141,7 +140,7 @@ const Users = () => {
                 </th>
                 <th
                   scope="col"
-                  className="py-1.5 border border-gray-600"
+                  className="hidden md:block py-1.5 border border-gray-600"
                 >
                   Type
                 </th>
@@ -168,7 +167,7 @@ const Users = () => {
                           <td className="py-1.5 border border-gray-600">
                             {item.role}
                           </td>
-                          <td className="py-1.5 border border-gray-600">
+                          <td className="hidden md:block py-1.5 border border-gray-600">
                             {item.balance.sports_betting +
                               item.balance.casino +
                               item.balance.sports_betting_bonus +
@@ -178,20 +177,20 @@ const Users = () => {
                             <div className="flex gap-2 w-full justify-center">
                               <button
                                 type="button"
-                                className="bg-brand-button text-brand-button-text hover:text-white px-4 h-9 border border-black"
+                                className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-9 border border-black"
                               >
                                 Transfer
                               </button>
                               <button
                                 type="button"
-                                className="bg-brand-button text-brand-button-text hover:text-white px-4 h-9 border border-black"
-                                onClick={() => getChildren(index + 1, item._id)}
+                                className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-9 border border-black"
+                                onClick={() => getChildren(item.username, item._id)}
                               >
                                 Users
                               </button>
                               <button
                                 type="button"
-                                className="bg-brand-button text-brand-button-text hover:text-white px-4 h-9 border border-black"
+                                className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-9 border border-black"
                               >
                                 Block
                               </button>

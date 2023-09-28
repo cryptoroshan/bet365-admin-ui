@@ -1,0 +1,2 @@
+export const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiU3VwZXJBZ2VudCIsImlhdCI6MTY4MTU2ODM4MSwiZXhwIjoxNzEzMTA0MzgxfQ.uiDUMj12GvbWH1TIi7SuFuqTi6ilD74S2LJhoQz3JD8";
+export const SERVER_URL="http://odds.f11-sport.net:3000";

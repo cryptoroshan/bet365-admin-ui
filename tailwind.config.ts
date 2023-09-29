@@ -59,6 +59,7 @@ module.exports = {
           "navbar": '#333',
           "green-light": "#26ffbe",
           "button": "#474747",
+          "clicked-button": "#14805e",
           "button-text": "#bbb",
           yellow: "#ffdf1b",
           "light-grey":"#e4e4e4",

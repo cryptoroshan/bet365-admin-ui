@@ -1,7 +1,6 @@
 import "./globals.css";
 import Link from "next/link";
 
-import { ModalProvider } from "@/contexts/ModalContext";
 import PrimaryHeader from "./components/PrimaryHeader";
 import Sidenav from "./components/Sidenav";
 
@@ -22,11 +21,9 @@ export default function RootLayout({
         </header>
         <div className="flex flex-row">
           <Sidenav />
-          <ModalProvider>
-            <main className="w-full h-[calc(100vh-60px)] bg-[#545454]">
-              {children}
-            </main>
-          </ModalProvider>
+          <main className="w-full h-[calc(100vh-60px)] bg-[#545454]">
+            {children}
+          </main>
         </div>
       </body>
     </html>

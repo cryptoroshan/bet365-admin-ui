@@ -4,20 +4,16 @@ import clsx from "clsx";
 
 import { getUsersCreatedBy } from "@/api/userManagement";
 import UserTable from "@/app/components/table/UserTable";
-import { useModalContext } from "@/contexts/ModalContext";
+import { ModalProvider } from "@/contexts/ModalContext";
 import ModalTransfer from "./ModalTransfer";
 
 const Users = () => {
-  const { openTransferModal } = useModalContext();
-
   const [userList, setUserList] = useState(null);
   const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(0);
 
   //transfer
-  const [id, setId] = useState(0);
-  const [name, setName] = useState("");
-  const [balance, setBalance] = useState(0);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     getUserInfo();
@@ -31,14 +27,13 @@ const Users = () => {
   const getChildren = async (username: string, id: number) => {
     const _childrenInfo = await getUsersCreatedBy(id);
     const _newUserList = addUserList(userList, username, _childrenInfo);
-    const _nextUserInfo = [..._newUserList];
-    setUserList(_nextUserInfo);
+    console.log(_newUserList)
+    setUserList([..._newUserList]);
   };
 
   const removeChildren = (username: string, id: number) => {
     const _newUserList = removeUserList(userList, username, id);
-    const _nextUserInfo = [..._newUserList];
-    setUserList(_nextUserInfo);
+    setUserList([..._newUserList]);
   };
 
   const removeUserList = (userInfo_: any[], username: string, id: number) => {
@@ -75,13 +70,16 @@ const Users = () => {
     return (
       <>
         {open === true && (
-          <UserTable
-            parentId_={parentId}
-            child={child}
-            createTable={createTable}
-            getChildren={getChildren}
-            removeChildren={removeChildren}
-          />
+          <td colSpan={7} className="p-2 border border-gray-600">
+            <UserTable
+              parentId_={parentId}
+              child={child}
+              createTable={createTable}
+              getChildren={getChildren}
+              removeChildren={removeChildren}
+              onHandleTransfer={(item: any) => setSelectedItem(item)}
+            />
+          </td>
         )}
       </>
     );
@@ -113,103 +111,122 @@ const Users = () => {
           </div>
         </div>
         <div className="relative overflow-x-auto">
-          {/* <UsersTable child={} /> */}
-          <table className="w-full text-sm text-gray-400 text-center">
-            <thead className="text-sm bg-brand-yellow text-black">
-              <tr>
-                <th scope="col" className="py-1.5 border border-gray-600">
-                  User
-                </th>
-                <th
-                  scope="col"
-                  className="max-sm:hidden py-1.5 border border-gray-600"
-                >
-                  Type
-                </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
-                  Sum
-                </th>
-                <th scope="col" className="py-1.5 border border-gray-600"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(userList) === true &&
-                (userList as unknown as any[])?.map(
-                  (item: any, index: number) => {
-                    return (
-                      <tr key={index} className="bg-brand-table text-white">
-                        {Array.isArray(item) === true &&
-                          createTable(item, open, parentId + 1)}
-                        {Array.isArray(item) === false && (
-                          <>
-                            <td className="py-1.5 border border-gray-600">
-                              {item.username}
-                            </td>
-                            <td className="py-1.5 border border-gray-600">
-                              {item.role}
-                            </td>
-                            <td className="max-sm:hidden py-1.5 border border-gray-600">
-                              {item.balance.sports_betting +
-                                item.balance.casino +
-                                item.balance.sports_betting_bonus +
-                                item.balance.casino_bonus}
-                            </td>
-                            <td className="py-1.5 border border-gray-600">
-                              <div className="flex gap-2 w-full justify-center">
-                                <button
-                                  type="button"
-                                  className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
-                                  onClick={() => {
-                                    setId(item._id);
-                                    setName(item.username);
-                                    setBalance(
-                                      item.balance.sports_betting +
-                                        item.balance.casino +
-                                        item.balance.sports_betting_bonus +
-                                        item.balance.casino_bonus
-                                    );
-                                    openTransferModal();
-                                  }}
-                                >
-                                  Transfer
-                                </button>
-                                <button
-                                  type="button"
-                                  className={clsx(
-                                    "text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black",
-                                    open && parentId === item._id - 1
-                                      ? "bg-brand-clicked-button"
-                                      : "bg-brand-button"
-                                  )}
-                                  onClick={() => {
-                                    if (parentId === item._id - 1 && !open)
-                                      getChildren(item.username, item._id);
-                                    else
-                                      removeChildren(item.username, item._id);
-                                    setOpen(!open);
-                                  }}
-                                >
-                                  Users
-                                </button>
-                                <button
-                                  type="button"
-                                  className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
-                                >
-                                  Block
-                                </button>
-                              </div>
-                            </td>
-                          </>
-                        )}
-                      </tr>
-                    );
-                  }
-                )}
-            </tbody>
-          </table>
+          <ModalProvider>
+            <UserTable
+              parentId_={parentId}
+              child={userList}
+              createTable={createTable}
+              getChildren={getChildren}
+              removeChildren={removeChildren}
+              onHandleTransfer={(item: any) => setSelectedItem(item)}
+            />
+            <ModalTransfer item_={selectedItem}/>
+            {/* <table className="w-full text-sm text-gray-400 text-center">
+              <thead className="text-sm bg-brand-yellow text-black">
+                <tr>
+                  <th scope="col" className="py-1.5 border border-gray-600">
+                    User
+                  </th>
+                  <th
+                    scope="col"
+                    className="max-sm:hidden py-1.5 border border-gray-600"
+                  >
+                    Type
+                  </th>
+                  <th scope="col" className="py-1.5 border border-gray-600">
+                    Sum
+                  </th>
+                  <th
+                    scope="col"
+                    className="py-1.5 border border-gray-600"
+                  ></th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.isArray(userList) === true &&
+                  (userList as unknown as any[])?.map(
+                    (item: any, index: number) => {
+                      return (
+                        <tr key={index} className="bg-brand-table text-white">
+                          {Array.isArray(item) === true &&
+                            createTable(item, open, parentId + 1)}
+                          {Array.isArray(item) === false && (
+                            <>
+                              <td className="py-1.5 border border-gray-600">
+                                {item.username}
+                              </td>
+                              <td className="py-1.5 border border-gray-600">
+                                {item.role}
+                              </td>
+                              <td className="max-sm:hidden py-1.5 border border-gray-600">
+                                {item.balance.sports_betting +
+                                  item.balance.casino +
+                                  item.balance.sports_betting_bonus +
+                                  item.balance.casino_bonus}
+                              </td>
+                              <td className="py-1.5 border border-gray-600">
+                                <div className="flex gap-2 w-full justify-center">
+                                  <button
+                                    type="button"
+                                    className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
+                                    onClick={() => {
+                                      setId(item._id);
+                                      setName(item.username);
+                                      setBalance(
+                                        item.balance.sports_betting +
+                                          item.balance.casino +
+                                          item.balance.sports_betting_bonus +
+                                          item.balance.casino_bonus
+                                      );
+                                      openTransferModal();
+                                    }}
+                                  >
+                                    Transfer
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className={clsx(
+                                      "text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black",
+                                      open && parentId === item._id - 1
+                                        ? "bg-brand-clicked-button"
+                                        : "bg-brand-button"
+                                    )}
+                                    onClick={() => {
+                                      if (parentId === item._id - 1 && !open)
+                                        getChildren(item.username, item._id);
+                                      else
+                                        removeChildren(item.username, item._id);
+                                      setOpen(!open);
+                                    }}
+                                  >
+                                    Users
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
+                                  >
+                                    Block
+                                  </button>
+                                </div>
+                              </td>
+                              <td>
+                                <ModalTransfer
+                                  id={id}
+                                  name={name}
+                                  balance={balance}
+                                />
+                              </td>
+                            </>
+                          )}
+                        </tr>
+                      );
+                    }
+                  )}
+              </tbody>
+            </table> */}
+          </ModalProvider>
         </div>
       </section>
-      <ModalTransfer id={id} name={name} balance={balance} />
     </section>
   );
 };

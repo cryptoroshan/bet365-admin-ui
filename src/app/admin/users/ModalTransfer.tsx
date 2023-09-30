@@ -1,18 +1,28 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Modal } from "antd";
 import { useModalContext } from "@/contexts/ModalContext";
 
-function TransferModal({ id, name, balance }) {
+function TransferModal(props) {
   const { isTransferModalOpen, closeTransferModal } = useModalContext();
+  const [id, setId] = useState(0);
+  const [name, setName] = useState("");
+  const [balance, setBalance] = useState(0);
   const [transactionType, setTransactionType] = useState("Deposit");
-  const [sum, setSum] = useState(0)
+  const [sum, setSum] = useState(0);
 
-  const handleOk = () => {
-    closeTransferModal();
-  };
+  useEffect(() => {
+    if (props.item_ !== null) {
+      setId(props.item_._id);
+      setName(props.item_.username);
+      setBalance(props.item_.balance.sports_betting + props.item_.balance.casino + props.item_.balance.sports_betting_bonus + props.item_.balance.casino_bonus);
+    }
+  }, [props]);
 
-  const handleCancel = () => {
+  const onHandleConfirm = () => {
+    setSum(0);
     closeTransferModal();
   };
 
@@ -21,12 +31,22 @@ function TransferModal({ id, name, balance }) {
       <Modal
         title="Transfers"
         open={isTransferModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        onCancel={closeTransferModal}
         footer={[
-          <div className="flex justify-center">
-            <button className={clsx("px-4 py-1.5 rounded-md", sum === 0 ? "bg-brand-disabled-dialog-button" : "bg-brand-dialog-button")} disabled={sum === 0 ? true : false}>Confirm</button>
-          </div>
+          <div key="confirm" className="flex justify-center">
+            <button
+              className={clsx(
+                "px-4 py-1.5 rounded-md",
+                sum === 0
+                  ? "bg-brand-disabled-dialog-button"
+                  : "bg-brand-dialog-button"
+              )}
+              disabled={sum === 0 ? true : false}
+              onClick={onHandleConfirm}
+            >
+              Confirm
+            </button>
+          </div>,
         ]}
       >
         <section className="flex flex-col bg-brand-dialog items-center">
@@ -46,9 +66,7 @@ function TransferModal({ id, name, balance }) {
             <p className="w-full text-right m-auto">Type of Transaction:</p>
             <div className="w-full m-auto">
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-36 focus:ring-0 focus:border-gray-300">
-                <option value="Deposit" selected>
-                  Deposit
-                </option>
+                <option value="Deposit">Deposit</option>
                 <option value="Charge">Charge</option>
               </select>
             </div>
@@ -65,7 +83,7 @@ function TransferModal({ id, name, balance }) {
                 onChange={(e) => {
                   const regex = /^[0-9\b]+$/;
                   if (e.target.value === "" || regex.test(e.target.value))
-                    setSum(Number(e.target.value))
+                    setSum(Number(e.target.value));
                 }}
               />
             </div>

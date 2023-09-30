@@ -4,10 +4,13 @@ import clsx from "clsx";
 
 import { getUsersCreatedBy } from "@/api/userManagement";
 import UserTable from "@/app/components/table/UserTable";
-import { ModalProvider } from "@/contexts/ModalContext";
+import { useModalContext } from "@/contexts/ModalContext";
 import ModalTransfer from "./ModalTransfer";
+import ModalNewUser from "./ModalNewUser";
 
 const Users = () => {
+  const { openNewUserModal } = useModalContext();
+
   const [userList, setUserList] = useState(null);
   const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(0);
@@ -27,7 +30,7 @@ const Users = () => {
   const getChildren = async (username: string, id: number) => {
     const _childrenInfo = await getUsersCreatedBy(id);
     const _newUserList = addUserList(userList, username, _childrenInfo);
-    console.log(_newUserList)
+    console.log(_newUserList);
     setUserList([..._newUserList]);
   };
 
@@ -62,7 +65,6 @@ const Users = () => {
         break;
       }
     }
-    // console.log(userInfo_)
     return userInfo_;
   };
 
@@ -99,6 +101,7 @@ const Users = () => {
             <button
               type="button"
               className="bg-brand-button text-brand-button-text hover:text-white px-4 h-9 border border-black"
+              onClick={() => openNewUserModal()}
             >
               New user
             </button>
@@ -111,120 +114,16 @@ const Users = () => {
           </div>
         </div>
         <div className="relative overflow-x-auto">
-          <ModalProvider>
-            <UserTable
-              parentId_={parentId}
-              child={userList}
-              createTable={createTable}
-              getChildren={getChildren}
-              removeChildren={removeChildren}
-              onHandleTransfer={(item: any) => setSelectedItem(item)}
-            />
-            <ModalTransfer item_={selectedItem}/>
-            {/* <table className="w-full text-sm text-gray-400 text-center">
-              <thead className="text-sm bg-brand-yellow text-black">
-                <tr>
-                  <th scope="col" className="py-1.5 border border-gray-600">
-                    User
-                  </th>
-                  <th
-                    scope="col"
-                    className="max-sm:hidden py-1.5 border border-gray-600"
-                  >
-                    Type
-                  </th>
-                  <th scope="col" className="py-1.5 border border-gray-600">
-                    Sum
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 border border-gray-600"
-                  ></th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.isArray(userList) === true &&
-                  (userList as unknown as any[])?.map(
-                    (item: any, index: number) => {
-                      return (
-                        <tr key={index} className="bg-brand-table text-white">
-                          {Array.isArray(item) === true &&
-                            createTable(item, open, parentId + 1)}
-                          {Array.isArray(item) === false && (
-                            <>
-                              <td className="py-1.5 border border-gray-600">
-                                {item.username}
-                              </td>
-                              <td className="py-1.5 border border-gray-600">
-                                {item.role}
-                              </td>
-                              <td className="max-sm:hidden py-1.5 border border-gray-600">
-                                {item.balance.sports_betting +
-                                  item.balance.casino +
-                                  item.balance.sports_betting_bonus +
-                                  item.balance.casino_bonus}
-                              </td>
-                              <td className="py-1.5 border border-gray-600">
-                                <div className="flex gap-2 w-full justify-center">
-                                  <button
-                                    type="button"
-                                    className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
-                                    onClick={() => {
-                                      setId(item._id);
-                                      setName(item.username);
-                                      setBalance(
-                                        item.balance.sports_betting +
-                                          item.balance.casino +
-                                          item.balance.sports_betting_bonus +
-                                          item.balance.casino_bonus
-                                      );
-                                      openTransferModal();
-                                    }}
-                                  >
-                                    Transfer
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className={clsx(
-                                      "text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black",
-                                      open && parentId === item._id - 1
-                                        ? "bg-brand-clicked-button"
-                                        : "bg-brand-button"
-                                    )}
-                                    onClick={() => {
-                                      if (parentId === item._id - 1 && !open)
-                                        getChildren(item.username, item._id);
-                                      else
-                                        removeChildren(item.username, item._id);
-                                      setOpen(!open);
-                                    }}
-                                  >
-                                    Users
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
-                                  >
-                                    Block
-                                  </button>
-                                </div>
-                              </td>
-                              <td>
-                                <ModalTransfer
-                                  id={id}
-                                  name={name}
-                                  balance={balance}
-                                />
-                              </td>
-                            </>
-                          )}
-                        </tr>
-                      );
-                    }
-                  )}
-              </tbody>
-            </table> */}
-          </ModalProvider>
+          <UserTable
+            parentId_={parentId}
+            child={userList}
+            createTable={createTable}
+            getChildren={getChildren}
+            removeChildren={removeChildren}
+            onHandleTransfer={(item: any) => setSelectedItem(item)}
+          />
+          <ModalTransfer item_={selectedItem} />
+          <ModalNewUser />
         </div>
       </section>
     </section>

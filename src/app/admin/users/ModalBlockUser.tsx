@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Modal } from "antd";
 import { useModalContext } from "@/contexts/ModalContext";
 
-function NewUserModal() {
+function BlockUserModal() {
   const { isNewUserModalOpen, closeNewUserModal } = useModalContext();
   const [userType, setUserType] = useState("");
   const [username, setUsername] = useState("");
@@ -98,4 +98,4 @@ function NewUserModal() {
   );
 }
 
-export default NewUserModal;
+export default BlockUserModal;

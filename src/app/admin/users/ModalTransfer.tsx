@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Modal } from "antd";
 import { useModalContext } from "@/contexts/ModalContext";
 
-function TransferModal(props) {
+function TransferModal(props: any) {
   const { isTransferModalOpen, closeTransferModal } = useModalContext();
   const [id, setId] = useState(0);
   const [name, setName] = useState("");
@@ -26,12 +26,17 @@ function TransferModal(props) {
     closeTransferModal();
   };
 
+  const onHandleClose = () => {
+    setSum(0);
+    closeTransferModal();
+  }
+
   return (
     <div>
       <Modal
         title="Transfers"
         open={isTransferModalOpen}
-        onCancel={closeTransferModal}
+        onCancel={onHandleClose}
         footer={[
           <div key="confirm" className="flex justify-center">
             <button
@@ -65,7 +70,7 @@ function TransferModal(props) {
           <div className="flex gap-6 items-center justify-center h-10 w-full text-white">
             <p className="w-full text-right m-auto">Type of Transaction:</p>
             <div className="w-full m-auto">
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-36 focus:ring-0 focus:border-gray-300">
+              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-36 focus:ring-0 focus:border-gray-300" onChange={(e) => setTransactionType(e.target.value)}>
                 <option value="Deposit">Deposit</option>
                 <option value="Charge">Charge</option>
               </select>

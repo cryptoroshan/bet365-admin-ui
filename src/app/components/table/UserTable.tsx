@@ -3,6 +3,7 @@ import clsx from "clsx";
 
 import { useModalContext } from "@/contexts/ModalContext";
 import ModalTransfer from "@/app/admin/users/ModalTransfer";
+import UserTableItem from "./UserTableItem";
 
 const UserTable = ({
   parentId_,
@@ -11,9 +12,8 @@ const UserTable = ({
   getChildren,
   removeChildren,
   onHandleTransfer,
-  onHandleBlock
+  onHandleBlock,
 }) => {
-  const { openTransferModal, openBlockUserModal } = useModalContext();
 
   const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(parentId_);
@@ -22,7 +22,12 @@ const UserTable = ({
   return (
     <>
       <table className="w-full text-sm text-gray-400 text-center">
-        <thead className={clsx("text-sm", parentId === 0 ? "bg-brand-yellow text-black" : "bg-[#444]")}>
+        <thead
+          className={clsx(
+            "text-sm",
+            parentId === 0 ? "bg-brand-yellow text-black" : "bg-[#444]"
+          )}
+        >
           <tr>
             <th scope="col" className="py-1.5 border border-gray-600 w-[20%]">
               User
@@ -47,63 +52,9 @@ const UserTable = ({
                   {Array.isArray(item) === true &&
                     createTable(item, open, parentId + 1)}
                   {Array.isArray(item) === false && (
-                    <>
-                      <td className="py-1.5 border border-gray-600">
-                        {item.username}
-                      </td>
-                      <td className="py-1.5 border border-gray-600">
-                        {item.role}
-                      </td>
-                      <td className="max-sm:hidden py-1.5 border border-gray-600">
-                        {item.balance.sports_betting +
-                          item.balance.casino +
-                          item.balance.sports_betting_bonus +
-                          item.balance.casino_bonus}
-                      </td>
-                      <td className="py-1.5 border border-gray-600">
-                        <div className="flex gap-2 w-full justify-center">
-                          <button
-                            type="button"
-                            className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
-                            onClick={() => {
-                              openTransferModal();
-                              onHandleTransfer(item);
-                            }}
-                          >
-                            Transfer
-                          </button>
-                          <button
-                            type="button"
-                            className={clsx(
-                              "text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black",
-                              open && selectedItem._id === item._id
-                                ? "bg-brand-clicked-button"
-                                : "bg-brand-button"
-                            )}
-                            onClick={() => {
-                              console.log(parentId, item, open)
-                              setSelectedItem(item);
-                              if (!open)
-                                getChildren(item.username, item._id);
-                              else removeChildren(item.username, item._id);
-                              setOpen(!open);
-                            }}
-                          >
-                            Users
-                          </button>
-                          <button
-                            type="button"
-                            className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
-                            onClick={() => {
-                              openBlockUserModal();
-                              onHandleBlock(item);
-                            }}
-                          >
-                            Block
-                          </button>
-                        </div>
-                      </td>
-                    </>
+                    <UserTableItem item_={item} onHandleTransfer={onHandleTransfer} onHandleBlock={onHandleBlock} getChildren={(username: string, id: number) => {
+                      getChildren(username, id);
+                    }} removeChildren={removeChildren} />
                   )}
                 </tr>
               );

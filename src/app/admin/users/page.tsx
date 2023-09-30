@@ -30,26 +30,29 @@ const Users = () => {
 
   const getChildren = async (username: string, id: number) => {
     const _childrenInfo = await getUsersCreatedBy(id);
-    console.log(_childrenInfo)
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
-      console.log(_newUserList);
       setUserList([..._newUserList]);
     }
   };
 
   const removeChildren = (username: string, id: number) => {
     const _newUserList = removeUserList(userList, username, id);
-    console.log(_newUserList);
     setUserList([..._newUserList]);
   };
 
   const removeUserList = (userInfo_: any[], username: string, id: number) => {
     for (let i = 0; i < userInfo_.length; i++) {
       if (Array.isArray(userInfo_[i]) === true) {
-        if (userInfo_[i][0].createdBy === String(id)) userInfo_.splice(i, 1);
-        else removeUserList(userInfo_[i], username, id);
-        break;
+        if (userInfo_[i][0].createdBy === String(id)) {
+          userInfo_.splice(i, 1);
+          break;
+        }
+        else {
+          removeUserList(userInfo_[i], username, id);
+          if (i === userInfo_.length-1)
+            break;
+        }
       }
     }
     return userInfo_;
@@ -63,7 +66,8 @@ const Users = () => {
     for (let i = 0; i < userInfo_.length; i++) {
       if (Array.isArray(userInfo_[i]) === true) {
         addUserList(userInfo_[i], username, _childrenInfo);
-        break;
+        if (i === userInfo_.length-1)
+          break;
       }
       if (userInfo_[i].username === username) {
         userInfo_.splice(i + 1, 0, _childrenInfo);
@@ -76,19 +80,17 @@ const Users = () => {
   const createTable = (child: any, open: boolean, parentId: number) => {
     return (
       <>
-        {open === true && (
-          <td colSpan={7} className="p-2 border border-gray-600">
-            <UserTable
-              parentId_={parentId}
-              child={child}
-              createTable={createTable}
-              getChildren={getChildren}
-              removeChildren={removeChildren}
-              onHandleTransfer={(item: any) => setSelectedItem(item)}
-              onHandleBlock={(item: any) => setSelectedItem(item)}
-            />
-          </td>
-        )}
+        <td colSpan={7} className="p-2 border border-gray-600">
+          <UserTable
+            parentId_={parentId}
+            child={child}
+            createTable={createTable}
+            getChildren={getChildren}
+            removeChildren={removeChildren}
+            onHandleTransfer={(item: any) => setSelectedItem(item)}
+            onHandleBlock={(item: any) => setSelectedItem(item)}
+          />
+        </td>
       </>
     );
   };

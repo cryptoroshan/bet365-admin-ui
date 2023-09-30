@@ -29,16 +29,16 @@ const UserTable = ({
           )}
         >
           <tr>
-            <th scope="col" className="py-1.5 border border-gray-600 w-[20%]">
+            <th scope="col" className="py-1.5 border border-gray-600 w-[25%]">
               User
             </th>
             <th
               scope="col"
-              className="max-sm:hidden py-1.5 border border-gray-600"
+              className="max-sm:hidden py-1.5 border border-gray-600 w-[25%]"
             >
               Type
             </th>
-            <th scope="col" className="py-1.5 border border-gray-600">
+            <th scope="col" className="py-1.5 border border-gray-600 w-[10%]">
               Sum
             </th>
             <th scope="col" className="py-1.5 border border-gray-600"></th>

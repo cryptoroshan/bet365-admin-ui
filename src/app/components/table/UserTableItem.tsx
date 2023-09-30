@@ -41,9 +41,10 @@ const UserTableItem = ({
             type="button"
             className={clsx(
               "text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black",
-              open ? "bg-brand-clicked-button" : "bg-brand-button"
+              open ? "bg-brand-clicked-button" : "bg-brand-button", item.role === 'User' ? "hidden" : "block"
             )}
             onClick={() => {
+              console.log(item)
               if (!open) getChildren(item.username, item._id);
               else removeChildren(item.username, item._id);
               setOpen(!open);

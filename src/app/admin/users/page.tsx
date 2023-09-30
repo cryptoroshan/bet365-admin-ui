@@ -30,13 +30,17 @@ const Users = () => {
 
   const getChildren = async (username: string, id: number) => {
     const _childrenInfo = await getUsersCreatedBy(id);
-    const _newUserList = addUserList(userList, username, _childrenInfo);
-    console.log(_newUserList);
-    setUserList([..._newUserList]);
+    console.log(_childrenInfo)
+    if (_childrenInfo.length !== 0) {
+      const _newUserList = addUserList(userList, username, _childrenInfo);
+      console.log(_newUserList);
+      setUserList([..._newUserList]);
+    }
   };
 
   const removeChildren = (username: string, id: number) => {
     const _newUserList = removeUserList(userList, username, id);
+    console.log(_newUserList);
     setUserList([..._newUserList]);
   };
 
@@ -90,7 +94,7 @@ const Users = () => {
   };
 
   return (
-    <section className="flex flex-col w-full">
+    <section className="flex flex-col w-full overflow-y-auto h-[calc(100vh-60px)]">
       <p className="text-lg text-white bg-brand-title p-4">Users</p>
       <section className="flex flex-col gap-4 p-3">
         <div className="flex justify-between items-center">

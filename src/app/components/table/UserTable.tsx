@@ -17,6 +17,7 @@ const UserTable = ({
 
   const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(parentId_);
+  const [selectedItem, setSelectedItem] = useState(false);
 
   return (
     <>
@@ -75,12 +76,14 @@ const UserTable = ({
                             type="button"
                             className={clsx(
                               "text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black",
-                              open && parentId === item._id - 1
+                              open && selectedItem._id === item._id
                                 ? "bg-brand-clicked-button"
                                 : "bg-brand-button"
                             )}
                             onClick={() => {
-                              if (parentId === item._id - 1 && !open)
+                              console.log(parentId, item, open)
+                              setSelectedItem(item);
+                              if (!open)
                                 getChildren(item.username, item._id);
                               else removeChildren(item.username, item._id);
                               setOpen(!open);

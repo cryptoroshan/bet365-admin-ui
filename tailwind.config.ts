@@ -57,6 +57,7 @@ module.exports = {
           green: "#126e51",
           "title": '#222',
           "table": "#777",
+          "hover-table": "#959595",
           "navbar": '#333',
           "green-light": "#26ffbe",
           "button": "#474747",

@@ -5,96 +5,282 @@ import clsx from "clsx";
 import { Modal } from "antd";
 import { useModalContext } from "@/contexts/ModalContext";
 
-function BlockUserModal() {
-  const { isNewUserModalOpen, closeNewUserModal } = useModalContext();
-  const [userType, setUserType] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
+function BlockUserModal(props) {
+  const { isBlockUserModalOpen, closeBlockUserModal } = useModalContext();
+  const [name, setName] = useState("");
+  const [currentTab, setCurrentTab] = useState("General");
+  const [fullBlock, setFullBlock] = useState(false);
+  const [blockCashout, setBlockCashout] = useState(false);
+  const [blockPre, setBlockPre] = useState(false);
+  const [blockLive, setBlockLive] = useState(false);
+  const [blockSlots, setBlockSlots] = useState(false);
+  const [blockCasino, setBlockCasino] = useState(false);
+  const [blockInstakasa, setBlockInstakasa] = useState(false);
 
-  const onHandleRegister = () => {
-    setUsername("");
-    setPassword("");
-    setConfirm("");
-    closeNewUserModal();
-  };
+  useEffect(() => {
+    if (props.item_ !== null) {
+      setName(props.item_.username);
+    }
+  }, [props]);
 
   const onHandleClose = () => {
-    setUsername("");
-    setPassword("");
-    setConfirm("");
-    closeNewUserModal();
-  }
+    setCurrentTab("General");
+    closeBlockUserModal();
+  };
 
   return (
-    <div>
-      <Modal
-        title="New User"
-        open={isNewUserModalOpen}
-        onCancel={onHandleClose}
-        footer={[
-          <div key="confirm" className="flex justify-center">
-            <button
+    <Modal
+      title={"Block " + name}
+      open={isBlockUserModalOpen}
+      onCancel={onHandleClose}
+      footer={[
+        <div key="close" className="flex justify-center">
+          <button
+            className="px-4 py-1.5 rounded-md bg-brand-dialog-button"
+            onClick={onHandleClose}
+          >
+            Close
+          </button>
+        </div>,
+      ]}
+    >
+      <section className="flex flex-col">
+        <ul className="flex text-sm font-medium text-center text-gray-500">
+          <li className="w-full">
+            <a
               className={clsx(
-                "px-4 py-1.5 rounded-md",
-                userType === "" || username === "" || password === "" || confirm === ""
-                  ? "bg-brand-disabled-dialog-button"
-                  : "bg-brand-dialog-button"
+                "inline-block w-full p-2.5 text-white",
+                currentTab === "General" ? "bg-brand-dialog" : "bg-brand-button"
               )}
-              disabled={(userType === "" || username === "" || password === "" || confirm === "") ? true : false}
-              onClick={onHandleRegister}
+              onClick={() => setCurrentTab("General")}
             >
-              Register
-            </button>
-          </div>,
-        ]}
-      >
-        <section className="flex flex-col bg-brand-dialog items-center mt-6">
-          <div className="flex gap-6 justify-center h-10 w-full text-white">
-            <p className="w-full text-right m-auto">User Type:</p>
-            <div className="w-full m-auto">
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-48 focus:ring-0 focus:border-gray-300" onChange={(e) => setUserType(e.target.value)}>
-                {/* <option value="Deposit"></option>
-                <option value="Charge"></option> */}
-              </select>
+              Ganeral
+            </a>
+          </li>
+          <li className="w-full">
+            <a
+              className={clsx(
+                "inline-block w-full p-2.5 text-white",
+                currentTab === "Slots" ? "bg-brand-dialog" : "bg-brand-button"
+              )}
+              onClick={() => setCurrentTab("Slots")}
+            >
+              Slots
+            </a>
+          </li>
+          <li className="w-full">
+            <a
+              className={clsx(
+                "inline-block w-full p-2.5 text-white",
+                currentTab === "Casino" ? "bg-brand-dialog" : "bg-brand-button"
+              )}
+              onClick={() => setCurrentTab("Casino")}
+            >
+              Casino
+            </a>
+          </li>
+          <li className="w-full">
+            <a
+              className={clsx(
+                "inline-block w-full p-2.5 text-white",
+                currentTab === "Deposit" ? "bg-brand-dialog" : "bg-brand-button"
+              )}
+              onClick={() => setCurrentTab("Deposit")}
+            >
+              Deposit
+            </a>
+          </li>
+        </ul>
+        <section>
+          <section
+            className={clsx(
+              "px-8 py-4",
+              currentTab === "General" ? "flex" : "hidden"
+            )}
+          >
+            <div className="flex flex-col gap-6 w-1/2">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                  onChange={() => setFullBlock(!fullBlock)}
+                />
+                <label
+                  htmlFor="checked-checkbox"
+                  className="ml-2 text-sm font-medium text-white"
+                >
+                  Full Block
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                  onChange={() => setBlockCashout(!blockCashout)}
+                />
+                <label
+                  htmlFor="checked-checkbox"
+                  className="ml-2 text-sm font-medium text-white"
+                >
+                  Block Cashout
+                </label>
+              </div>
             </div>
-          </div>
-          <div className="flex gap-6 justify-center h-10 w-full">
-            <p className="w-full text-right m-auto text-white">Username:</p>
-            <div className="w-full m-auto">
+            <div className="flex flex-col gap-6 px-4 w-1/2">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                  onChange={() => setBlockPre(!blockPre)}
+                />
+                <label
+                  htmlFor="checked-checkbox"
+                  className="ml-2 text-sm font-medium text-white"
+                >
+                  Block Pre
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                  onChange={() => setBlockLive(!blockLive)}
+                />
+                <label
+                  htmlFor="checked-checkbox"
+                  className="ml-2 text-sm font-medium text-white"
+                >
+                  Block Live
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                  onChange={() => setBlockSlots(!blockSlots)}
+                />
+                <label
+                  htmlFor="checked-checkbox"
+                  className="ml-2 text-sm font-medium text-white"
+                >
+                  Block Slots
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                  onChange={() => setBlockCasino(!blockCasino)}
+                />
+                <label
+                  htmlFor="checked-checkbox"
+                  className="ml-2 text-sm font-medium text-white"
+                >
+                  Block Casino
+                </label>
+              </div>
+            </div>
+          </section>
+          <section
+            className={clsx(
+              "px-4 py-4",
+              currentTab === "Slots" ? "flex" : "hidden"
+            )}
+          >
+            <table className="w-full text-sm text-gray-400 text-center">
+              <thead className="text-sm, bg-brand-yellow text-black">
+                <tr>
+                  <th
+                    scope="col"
+                    className="py-1.5 border border-gray-600 w-[10%]"
+                  ></th>
+                  <th
+                    scope="col"
+                    className="max-sm:hidden py-1.5 border border-gray-600 w-[60%]"
+                  >
+                    Name
+                  </th>
+                  <th scope="col" className="py-1.5 border border-gray-600">
+                    Provider
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-[#666] text-white hover:cursor-pointer hover:bg-brand-hover-table">
+                  <td className="py-1 border border-gray-600">1</td>
+                  <td className="py-1 border border-gray-600">egt</td>
+                  <td className="max-sm:hidden py-1 border border-gray-600">
+                    ekko
+                  </td>
+                </tr>
+                <tr className="bg-[#666] text-white hover:cursor-pointer hover:bg-brand-hover-table">
+                  <td className="py-1 border border-gray-600">2</td>
+                  <td className="py-1 border border-gray-600">novomatic</td>
+                  <td className="max-sm:hidden py-1 border border-gray-600">
+                    ekko
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section
+            className={clsx(
+              "px-4 py-4",
+              currentTab === "Casino" ? "flex" : "hidden"
+            )}
+          >
+            <table className="w-full text-sm text-gray-400 text-center">
+              <thead className="text-sm, bg-brand-yellow text-black">
+                <tr>
+                  <th
+                    scope="col"
+                    className="py-1.5 border border-gray-600 w-[10%]"
+                  >
+                    ID
+                  </th>
+                  <th
+                    scope="col"
+                    className="max-sm:hidden py-1.5 border border-gray-600 w-[60%]"
+                  >
+                    Provider
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-[#666] text-white hover:cursor-pointer hover:bg-brand-hover-table">
+                  <td className="py-1 border border-gray-600">1</td>
+                  <td className="py-1 border border-gray-600">Live Casino</td>
+                </tr>
+                <tr className="bg-[#666] text-white hover:cursor-pointer hover:bg-brand-hover-table">
+                  <td className="py-1 border border-gray-600">17</td>
+                  <td className="py-1 border border-gray-600">Evolution</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section
+            className={clsx(
+              "px-8 py-4",
+              currentTab === "Deposit" ? "flex" : "hidden"
+            )}
+          >
+            <div className="flex items-center">
               <input
-                type="text"
-                className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                type="checkbox"
+                className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                onChange={() => setBlockInstakasa(!blockInstakasa)}
               />
+              <label
+                htmlFor="checked-checkbox"
+                className="ml-2 text-sm font-medium text-white"
+              >
+                Block Instakasa
+              </label>
             </div>
-          </div>
-          <div className="flex gap-6 justify-center h-10 w-full">
-            <p className="w-full text-right m-auto text-white">Password:</p>
-            <div className="w-full m-auto">
-              <input
-                type="password"
-                className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="flex gap-6 items-center justify-center h-10 w-full">
-            <p className="w-full text-right m-auto text-white">Confirm Password:</p>
-            <div className="w-full m-auto">
-              <input
-                type="password"
-                className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
-                value={confirm}
-                onChange={(e) => setConfirm(e.target.value)}
-              />
-            </div>
-          </div>
+          </section>
         </section>
-      </Modal>
-    </div>
+      </section>
+    </Modal>
   );
 }
 

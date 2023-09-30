@@ -10,9 +10,10 @@ const UserTable = ({
   createTable,
   getChildren,
   removeChildren,
-  onHandleTransfer
+  onHandleTransfer,
+  onHandleBlock
 }) => {
-  const { openTransferModal } = useModalContext();
+  const { openTransferModal, openBlockUserModal } = useModalContext();
 
   const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(parentId_);
@@ -20,7 +21,7 @@ const UserTable = ({
   return (
     <>
       <table className="w-full text-sm text-gray-400 text-center">
-        <thead className="text-sm bg-[#444]">
+        <thead className={clsx("text-sm", parentId === 0 ? "bg-brand-yellow text-black" : "bg-[#444]")}>
           <tr>
             <th scope="col" className="py-1.5 border border-gray-600 w-[20%]">
               User
@@ -90,6 +91,10 @@ const UserTable = ({
                           <button
                             type="button"
                             className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
+                            onClick={() => {
+                              openBlockUserModal();
+                              onHandleBlock(item);
+                            }}
                           >
                             Block
                           </button>

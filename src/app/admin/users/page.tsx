@@ -7,6 +7,7 @@ import UserTable from "@/app/components/table/UserTable";
 import { useModalContext } from "@/contexts/ModalContext";
 import ModalTransfer from "./ModalTransfer";
 import ModalNewUser from "./ModalNewUser";
+import ModalBlockUser from "./ModalBlockUser";
 
 const Users = () => {
   const { openNewUserModal } = useModalContext();
@@ -80,6 +81,7 @@ const Users = () => {
               getChildren={getChildren}
               removeChildren={removeChildren}
               onHandleTransfer={(item: any) => setSelectedItem(item)}
+              onHandleBlock={(item: any) => setSelectedItem(item)}
             />
           </td>
         )}
@@ -121,9 +123,11 @@ const Users = () => {
             getChildren={getChildren}
             removeChildren={removeChildren}
             onHandleTransfer={(item: any) => setSelectedItem(item)}
+            onHandleBlock={(item: any) => setSelectedItem(item)}
           />
           <ModalTransfer item_={selectedItem} />
           <ModalNewUser />
+          <ModalBlockUser item_={selectedItem} />
         </div>
       </section>
     </section>

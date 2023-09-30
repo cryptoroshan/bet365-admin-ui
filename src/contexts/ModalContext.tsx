@@ -15,6 +15,10 @@ interface ModalContextType {
   openNewUserModal: () => void;
   closeNewUserModal: () => void;
 
+  isBlockUserModalOpen: boolean;
+  openBlockUserModal: () => void;
+  closeBlockUserModal: () => void;
+
   isLimitUserModalOpen: boolean;
   openLimitUserModal: () => void;
   closeLimitUserModal: () => void;
@@ -26,6 +30,7 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isEditUserModalOpen, setIsEditUserModalOpen] = useState(false);
   const [isTransferModalOpen, setIsTransferModalOpen] = useState(false);
   const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false);
+  const [isBlockUserModalOpen, setIsBlockUserModalOpen] = useState(false);
   const [isLimitUserModalOpen, setIsLimitUserModalOpen] = useState(false);
 
   const openEditUserModal = () => {
@@ -52,6 +57,14 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsNewUserModalOpen(false);
   }
 
+  const openBlockUserModal = () =>{
+    setIsBlockUserModalOpen(true);
+  }
+  
+  const closeBlockUserModal = () =>{
+    setIsBlockUserModalOpen(false);
+  }
+
   const openLimitUserModal = () => {
     setIsLimitUserModalOpen(true);
   }
@@ -61,7 +74,7 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <ModalContext.Provider value={{ isEditUserModalOpen, openEditUserModal, closeEditUserModal, isTransferModalOpen, openTransferModal, closeTransferModal, isNewUserModalOpen, openNewUserModal, closeNewUserModal, isLimitUserModalOpen, openLimitUserModal, closeLimitUserModal }}>
+    <ModalContext.Provider value={{ isEditUserModalOpen, openEditUserModal, closeEditUserModal, isTransferModalOpen, openTransferModal, closeTransferModal, isNewUserModalOpen, openNewUserModal, closeNewUserModal, isBlockUserModalOpen, openBlockUserModal, closeBlockUserModal, isLimitUserModalOpen, openLimitUserModal, closeLimitUserModal }}>
       {children}
     </ModalContext.Provider>
   );

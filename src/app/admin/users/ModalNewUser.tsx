@@ -33,7 +33,7 @@ function NewUserModal() {
         open={isNewUserModalOpen}
         onCancel={onHandleClose}
         footer={[
-          <div key="confirm" className="flex justify-center">
+          <div key="register" className="flex justify-center">
             <button
               className={clsx(
                 "px-4 py-1.5 rounded-md",

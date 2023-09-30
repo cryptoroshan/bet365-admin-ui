@@ -2,6 +2,7 @@
 module.exports = {
   darkMode: ["class"],
   content: [
+    "./node_modules/flowbite-react/**/*.js",
     "./src/pages/**/*.{ts,tsx}",
     "./src/components/**/*.{ts,tsx}",
     "./src/app/**/*.{ts,tsx}",
@@ -63,7 +64,10 @@ module.exports = {
           "button-text": "#bbb",
           yellow: "#ffdf1b",
           "light-grey":"#e4e4e4",
-          "dark-grey":'#333'
+          "dark-grey":'#333',
+          "dialog": "#575757",
+          "dialog-button": "#c9cad4",
+          "disabled-dialog-button": "#aaa"
         },
       },
       borderRadius: {
@@ -91,5 +95,8 @@ module.exports = {
       
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("flowbite/plugin")
+  ],
 };

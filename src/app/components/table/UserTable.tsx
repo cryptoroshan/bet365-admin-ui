@@ -64,7 +64,6 @@ const UserTable = ({
                               type="button"
                               className={clsx("text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black", open && parentId === item._id-1 ? "bg-brand-clicked-button" : "bg-brand-button")}
                               onClick={() => {
-                                console.log(parentId, item._id - 1, open);
                                 if (parentId === item._id - 1 && !open)
                                   getChildren(item.username, item._id);
                                 else removeChildren(item.username, item._id);

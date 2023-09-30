@@ -4,12 +4,20 @@ import clsx from "clsx";
 
 import { getUsersCreatedBy } from "@/api/userManagement";
 import UserTable from "@/app/components/table/UserTable";
-import { ApartmentOutlined } from "@ant-design/icons";
+import { useModalContext } from "@/contexts/ModalContext";
+import ModalTransfer from "./ModalTransfer";
 
 const Users = () => {
+  const { openTransferModal } = useModalContext();
+
   const [userList, setUserList] = useState(null);
   const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(0);
+
+  //transfer
+  const [id, setId] = useState(0);
+  const [name, setName] = useState("");
+  const [balance, setBalance] = useState(0);
 
   useEffect(() => {
     getUserInfo();
@@ -23,30 +31,26 @@ const Users = () => {
   const getChildren = async (username: string, id: number) => {
     const _childrenInfo = await getUsersCreatedBy(id);
     const _newUserList = addUserList(userList, username, _childrenInfo);
-    console.log(_newUserList);
     const _nextUserInfo = [..._newUserList];
     setUserList(_nextUserInfo);
   };
 
   const removeChildren = (username: string, id: number) => {
     const _newUserList = removeUserList(userList, username, id);
-    console.log(_newUserList);
     const _nextUserInfo = [..._newUserList];
     setUserList(_nextUserInfo);
-  }
+  };
 
   const removeUserList = (userInfo_: any[], username: string, id: number) => {
-    for (let i = 0;i < userInfo_.length;i++) {
+    for (let i = 0; i < userInfo_.length; i++) {
       if (Array.isArray(userInfo_[i]) === true) {
-        if (userInfo_[i][0].createdBy === String(id))
-          userInfo_.splice(i, 1);
-        else
-          removeUserList(userInfo_[i], username, id);
+        if (userInfo_[i][0].createdBy === String(id)) userInfo_.splice(i, 1);
+        else removeUserList(userInfo_[i], username, id);
         break;
       }
     }
     return userInfo_;
-  }
+  };
 
   const addUserList = (
     userInfo_: any[],
@@ -134,7 +138,8 @@ const Users = () => {
                   (item: any, index: number) => {
                     return (
                       <tr key={index} className="bg-brand-table text-white">
-                        {Array.isArray(item) === true && createTable(item, open, parentId+1)}
+                        {Array.isArray(item) === true &&
+                          createTable(item, open, parentId + 1)}
                         {Array.isArray(item) === false && (
                           <>
                             <td className="py-1.5 border border-gray-600">
@@ -154,15 +159,30 @@ const Users = () => {
                                 <button
                                   type="button"
                                   className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
+                                  onClick={() => {
+                                    setId(item._id);
+                                    setName(item.username);
+                                    setBalance(
+                                      item.balance.sports_betting +
+                                        item.balance.casino +
+                                        item.balance.sports_betting_bonus +
+                                        item.balance.casino_bonus
+                                    );
+                                    openTransferModal();
+                                  }}
                                 >
                                   Transfer
                                 </button>
                                 <button
                                   type="button"
-                                  className={clsx("text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black", open && parentId === item._id-1 ? "bg-brand-clicked-button" : "bg-brand-button")}
+                                  className={clsx(
+                                    "text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black",
+                                    open && parentId === item._id - 1
+                                      ? "bg-brand-clicked-button"
+                                      : "bg-brand-button"
+                                  )}
                                   onClick={() => {
-                                    console.log(parentId, item._id-1, open);
-                                    if (parentId === item._id-1 && !open)
+                                    if (parentId === item._id - 1 && !open)
                                       getChildren(item.username, item._id);
                                     else
                                       removeChildren(item.username, item._id);
@@ -189,6 +209,7 @@ const Users = () => {
           </table>
         </div>
       </section>
+      <ModalTransfer id={id} name={name} balance={balance} />
     </section>
   );
 };

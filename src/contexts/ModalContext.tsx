@@ -1,3 +1,4 @@
+"use client";
 // ModalContext.tsx
 import React, { createContext, useContext, useState } from 'react';
 

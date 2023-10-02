@@ -22,6 +22,10 @@ interface ModalContextType {
   isLimitUserModalOpen: boolean;
   openLimitUserModal: () => void;
   closeLimitUserModal: () => void;
+
+  isCouponModalOpen: boolean;
+  openCouponModal: () => void;
+  closeCouponModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -32,6 +36,8 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isNewUserModalOpen, setIsNewUserModalOpen] = useState(false);
   const [isBlockUserModalOpen, setIsBlockUserModalOpen] = useState(false);
   const [isLimitUserModalOpen, setIsLimitUserModalOpen] = useState(false);
+
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -73,8 +79,17 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsLimitUserModalOpen(false);
   }
 
+  const openCouponModal = () => {
+    setIsCouponModalOpen(true);
+  };
+
+  const closeCouponModal = () => {
+    setIsCouponModalOpen(false);
+  };
+
+
   return (
-    <ModalContext.Provider value={{ isEditUserModalOpen, openEditUserModal, closeEditUserModal, isTransferModalOpen, openTransferModal, closeTransferModal, isNewUserModalOpen, openNewUserModal, closeNewUserModal, isBlockUserModalOpen, openBlockUserModal, closeBlockUserModal, isLimitUserModalOpen, openLimitUserModal, closeLimitUserModal }}>
+    <ModalContext.Provider value={{ isEditUserModalOpen, openEditUserModal, closeEditUserModal, isTransferModalOpen, openTransferModal, closeTransferModal, isNewUserModalOpen, openNewUserModal, closeNewUserModal, isBlockUserModalOpen, openBlockUserModal, closeBlockUserModal, isLimitUserModalOpen, openLimitUserModal, closeLimitUserModal, isCouponModalOpen, openCouponModal, closeCouponModal }}>
       {children}
     </ModalContext.Provider>
   );

@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 
+import { useModalContext } from "@/contexts/ModalContext";
 import { getUsersCreatedBy } from "@/api/userManagement";
+import ModalCoupon from "./ModalCoupon";
 
 const BetsList = ({ currentTab }: any) => {
+  const { openCouponModal } = useModalContext();
+
   const [startingOn, setStartingOn] = useState("");
   const [endingOn, setEndingOn] = useState("");
   const [betSymbol, setBetSymbol] = useState("All");
@@ -36,6 +40,7 @@ const BetsList = ({ currentTab }: any) => {
   const [userList, setUserList] = useState([]);
 
   const [betsList, setBetsList] = useState(bets_list);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     getUserInfo();
@@ -442,6 +447,10 @@ const BetsList = ({ currentTab }: any) => {
                   <tr
                     key={index}
                     className="bg-brand-red text-white hover:cursor-pointer"
+                    onClick={() => {
+                      setSelectedItem(item);
+                      openCouponModal();
+                    }}
                   >
                     <td className="py-1 border border-gray-600">{item.user}</td>
                     <td className="py-1 border border-gray-600">{item.date}</td>
@@ -471,6 +480,7 @@ const BetsList = ({ currentTab }: any) => {
           </table>
         )}
       </section>
+      <ModalCoupon item={selectedItem} />
     </section>
   );
 };

@@ -21,7 +21,7 @@ export const getUsersCreatedBy = async (id: number) => {
 };
 
 export const transferBalance = async (
-  type: number,
+  type: any,
   id: number,
   transfer_type: string,
   balance_type: string,
@@ -31,7 +31,9 @@ export const transferBalance = async (
     env.SERVER_URL +
     `/admin/${type}/users/${id}/balance/${transfer_type}/${balance_type}`;
   const myHeaders = new Headers();
-  if (type === 9) myHeaders.append("X-ACCESS-TOKEN", env.SUPER_AGENT_TOKEN);
+  myHeaders.append("Content-Type", "application/json");
+  if (type === "superagent")
+    myHeaders.append("X-ACCESS-TOKEN", env.SUPER_AGENT_TOKEN);
   else if (type === 7)
     myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_7_TOKEN);
   else if (type === 5)
@@ -57,11 +59,64 @@ export const transferBalance = async (
   const requestOptions = {
     method: "POST",
     headers: myHeaders,
-    body: raw
+    body: raw,
   };
 
   try {
     const response = await fetch(API_ENDPOINT, requestOptions);
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const newUser = async (
+    username: string,
+    role: string,
+    password: string
+) => {
+    let role_url;
+    if (role === "SuperAgent")
+        role_url = "superagent";
+    else if (role === "Type7Admin")
+        role_url = "superagent";
+    else if (role === "Type5Admin")
+        role_url = 7;
+    else if (role === "Type3Admin")
+        role_url = 5;
+
+  const API_ENDPOINT =
+    env.SERVER_URL +
+    `/admin/${role_url}/users`;
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  if (role_url === "superagent")
+    myHeaders.append("X-ACCESS-TOKEN", env.SUPER_AGENT_TOKEN);
+  else if (role_url === 7)
+    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_7_TOKEN);
+  else if (role_url === 5)
+    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_5_TOKEN);
+  else if (role_url === 3)
+    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_3_TOKEN);
+
+  let raw;
+
+  raw = JSON.stringify({
+    username: username,
+    role: role,
+    password: password
+  });
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+  };
+
+  try {
+    const response = await fetch(API_ENDPOINT, requestOptions);
+    console.log(API_ENDPOINT);
     const data = await response.json();
     console.log(data);
     return data;

@@ -31,10 +31,12 @@ function TransferModal(props: any) {
   const onHandleConfirm = async () => {
     let _type;
     if (props.item_.role === "SuperAgent")
-      _type = 7;
+      _type = "superagent";
     else if (props.item_.role === "Type7Admin")
-      _type = 7;
+      _type = "superagent";
     else if (props.item_.role === "Type5Admin")
+      _type = 7;
+    else if (props.item_.role === "Type3Admin")
       _type = 5;
     else
       _type = 3;
@@ -48,12 +50,14 @@ function TransferModal(props: any) {
     await transferBalance(_type, id, _transferType, balanceType, amount);
     setTransactionType("Deposit");
     setBalanceType("casino");
+    setAmount(0);
     closeTransferModal();
   };
 
   const onHandleClose = () => {
     setTransactionType("Deposit");
     setBalanceType("casino");
+    setAmount(0);
     closeTransferModal();
   };
 

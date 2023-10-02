@@ -3,16 +3,19 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Modal } from "antd";
+
 import { useModalContext } from "@/contexts/ModalContext";
+import { newUser } from "@/api/userManagement";
 
 function NewUserModal() {
   const { isNewUserModalOpen, closeNewUserModal } = useModalContext();
-  const [userType, setUserType] = useState("");
+  const [userType, setUserType] = useState("Type7Admin");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
 
-  const onHandleRegister = () => {
+  const onHandleRegister = async () => {
+    await newUser(username, userType, password);
     setUsername("");
     setPassword("");
     setConfirm("");
@@ -53,9 +56,8 @@ function NewUserModal() {
           <div className="flex gap-6 justify-center h-10 w-full text-white">
             <p className="w-full text-right m-auto">User Type:</p>
             <div className="w-full m-auto">
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-48 focus:ring-0 focus:border-gray-300" onChange={(e) => setUserType(e.target.value)}>
-                {/* <option value="Deposit"></option>
-                <option value="Charge"></option> */}
+              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-48 focus:ring-0 focus:border-gray-300" onChange={(e) => setUserType(e.target.value)} disabled>
+                <option value="Type7Admin">Type7Admin</option>
               </select>
             </div>
           </div>

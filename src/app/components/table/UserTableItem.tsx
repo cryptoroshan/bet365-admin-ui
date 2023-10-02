@@ -13,7 +13,6 @@ const UserTableItem = ({
   const { openTransferModal, openBlockUserModal } = useModalContext();
   const [item, setItem] = useState(item_);
   const [open, setOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(false);
 
   return (
     <>
@@ -44,11 +43,9 @@ const UserTableItem = ({
               open ? "bg-brand-clicked-button" : "bg-brand-button", item.role === 'User' ? "hidden" : "block"
             )}
             onClick={() => {
-              console.log(item)
               if (!open) getChildren(item.username, item._id);
               else removeChildren(item.username, item._id);
               setOpen(!open);
-              setSelectedItem(item);
             }}
           >
             Users

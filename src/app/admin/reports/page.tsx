@@ -4,6 +4,7 @@ import { Flowbite, CustomFlowbiteTheme, Datepicker, Button } from "flowbite-reac
 import clsx from "clsx";
 
 import BetsList from "./BetsList";
+import FinancialReport from "./FinancialReport";
 
 // const customTheme: CustomFlowbiteTheme = {
 //     root: {
@@ -90,6 +91,7 @@ const Reports = () => {
         </ul>
       </section>
       <BetsList currentTab={currentTab} />
+      <FinancialReport currentTab={currentTab} />
     </section>
   );
 };

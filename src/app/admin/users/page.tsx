@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+
 import { getUsersCreatedBy } from "@/api/userManagement";
 import UserTable from "@/app/components/table/UserTable";
 import { useModalContext } from "@/contexts/ModalContext";
@@ -11,7 +12,6 @@ const Users = () => {
   const { openNewUserModal } = useModalContext();
 
   const [userList, setUserList] = useState(null);
-  const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(0);
 
   //transfer

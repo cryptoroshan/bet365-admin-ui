@@ -1,7 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import clsx from "clsx";
-
 import { getUsersCreatedBy } from "@/api/userManagement";
 import UserTable from "@/app/components/table/UserTable";
 import { useModalContext } from "@/contexts/ModalContext";
@@ -30,6 +28,7 @@ const Users = () => {
 
   const getChildren = async (username: string, id: number) => {
     const _childrenInfo = await getUsersCreatedBy(id);
+    console.log(_childrenInfo)
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
       setUserList([..._newUserList]);

@@ -141,18 +141,9 @@ export const getBlockStatus = async (
   else if (role_url === 3)
     myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_3_TOKEN);
 
-  let raw;
-
-  raw = JSON.stringify({
-    username: username,
-    role: role,
-    password: password,
-  });
-
   const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
+    method: "GET",
+    headers: myHeaders
   };
 
   try {

@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Modal } from "antd";
 import { useModalContext } from "@/contexts/ModalContext";
 
-function BlockUserModal(props) {
+function BlockUserModal(props: any) {
   const { isBlockUserModalOpen, closeBlockUserModal } = useModalContext();
   const [name, setName] = useState("");
   const [currentTab, setCurrentTab] = useState("General");
@@ -20,6 +20,9 @@ function BlockUserModal(props) {
   useEffect(() => {
     if (props.item_ !== null) {
       setName(props.item_.username);
+    }
+    if (props.blockStatus !== null) {
+      console.log(props.blockStatus)
     }
   }, [props]);
 

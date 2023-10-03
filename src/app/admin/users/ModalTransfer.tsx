@@ -106,10 +106,11 @@ function TransferModal(props: any) {
             <div className="w-full m-auto">
               <select
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-36 focus:ring-0 focus:border-gray-300"
+                defaultValue={transactionType}
                 onChange={(e) => setTransactionType(e.target.value)}
               >
-                <option value="Deposit" selected={ transactionType === "Deposit" ? true : false }>Deposit</option>
-                <option value="Charge" selected={ transactionType === "Charge" ? true : false }>Charge</option>
+                <option value="Deposit">Deposit</option>
+                <option value="Charge">Charge</option>
               </select>
             </div>
           </div>
@@ -118,11 +119,12 @@ function TransferModal(props: any) {
             <div className="w-full m-auto">
               <select
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-36 focus:ring-0 focus:border-gray-300"
+                defaultValue="casino"
                 onChange={(e) => setBalanceType(e.target.value)}
               >
-                <option value="casino" selected={ balanceType === "casino" ? true : false }>casino</option>
-                <option value="sports betting" selected={ balanceType === "sports betting" ? true : false }>sports betting</option>
-                <option value="agent" selected={ balanceType === "agent" ? true : false }>agent</option>
+                <option defaultValue="casino" value="casino">casino</option>
+                <option value="sports betting">sports betting</option>
+                <option value="agent">agent</option>
               </select>
             </div>
           </div>

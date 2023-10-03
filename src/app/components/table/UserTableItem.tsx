@@ -1,6 +1,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 
+import { getBlockStatus } from "@/api/userManagement";
 import { useModalContext } from "@/contexts/ModalContext";
 
 const UserTableItem = ({
@@ -53,9 +54,10 @@ const UserTableItem = ({
           <button
             type="button"
             className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
-            onClick={() => {
+            onClick={async () => {
+              const _blockStatus = await getBlockStatus(item._id, item.role);
               openBlockUserModal();
-              onHandleBlock(item);
+              onHandleBlock(item, _blockStatus);
             }}
           >
             Block

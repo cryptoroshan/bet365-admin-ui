@@ -16,6 +16,7 @@ const Users = () => {
 
   //transfer
   const [selectedItem, setSelectedItem] = useState(null);
+  const [blockStatus, setBlockStatus] = useState(null);
 
   useEffect(() => {
     getUserInfo();
@@ -87,7 +88,10 @@ const Users = () => {
             getChildren={getChildren}
             removeChildren={removeChildren}
             onHandleTransfer={(item: any) => setSelectedItem(item)}
-            onHandleBlock={(item: any) => setSelectedItem(item)}
+            onHandleBlock={(item: any, blockStatus: any) => {
+              setSelectedItem(item);
+              setBlockStatus(blockStatus);
+            }}
           />
         </td>
       </>
@@ -128,11 +132,14 @@ const Users = () => {
             getChildren={getChildren}
             removeChildren={removeChildren}
             onHandleTransfer={(item: any) => setSelectedItem(item)}
-            onHandleBlock={(item: any) => setSelectedItem(item)}
+            onHandleBlock={(item: any, blockStatus: any) => {
+              setSelectedItem(item);
+              setBlockStatus(blockStatus);
+            }}
           />
           <ModalTransfer item_={selectedItem} />
           <ModalNewUser />
-          <ModalBlockUser item_={selectedItem} />
+          <ModalBlockUser item_={selectedItem} blockStatus={blockStatus} />
         </div>
       </section>
     </section>

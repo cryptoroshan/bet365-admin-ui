@@ -10,7 +10,7 @@ const Deposit = ({ currentTab }: any) => {
   const [methods, setMethods] = useState("All");
   const [status, setStatus] = useState("All");
 
-  const [pageTotalCount, setPageTotalCount] = useState(3);
+  const [pageTotalCount, setPageTotalCount] = useState(2);
   const [currentPage, setCurrentPage] = useState(0);
 
   const onHandleSearch = async () => {};

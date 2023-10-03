@@ -5,7 +5,8 @@ const UserTableItem = ({
   item_,
   getChildren,
   removeChildren,
-  onHandlePrSelected
+  addGeneralTable,
+  removeGeneralTable
 }) => {
   const [prSelected, setPrSelected] = useState(false);
   const [item, setItem] = useState(item_);
@@ -19,7 +20,8 @@ const UserTableItem = ({
           prSelected === true ? "bg-brand-yellow" : "bg-white"
         )}
         onClick={() => {
-          onHandlePrSelected(!prSelected);
+          if (!prSelected) addGeneralTable(item.username);
+          else removeGeneralTable(item.username, item._id);
           setPrSelected(!prSelected);
         }}
       >

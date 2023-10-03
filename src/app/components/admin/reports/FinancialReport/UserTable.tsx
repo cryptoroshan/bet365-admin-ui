@@ -11,9 +11,9 @@ const UserTable = ({
   createTable,
   getChildren,
   removeChildren,
+  addGeneralTable,
+  removeGeneralTable,
 }) => {
-  const [prSelected, setPrSelected] = useState(false);
-  const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(parentId_);
 
   return (
@@ -61,22 +61,34 @@ const UserTable = ({
                 <tr key={index} className="bg-brand-dark-grey">
                   {Array.isArray(item) === true &&
                     createTable(item, parentId + 1)}
-                  {Array.isArray(item) === false && (
-                    <UserTableItem item_={item} getChildren={(username: string, id: number) => {
-                      getChildren(username, id);
-                    }} removeChildren={removeChildren} onHandlePrSelected={(status : boolean) => setPrSelected(status)} />
-
-                  )}
+                  {Array.isArray(item) === false &&
+                    item.prSelected === undefined && (
+                      <UserTableItem
+                        item_={item}
+                        getChildren={(username: string, id: number) => {
+                          getChildren(username, id);
+                        }}
+                        removeChildren={removeChildren}
+                        addGeneralTable={addGeneralTable}
+                        removeGeneralTable={removeGeneralTable}
+                      />
+                    )}
+                  {Array.isArray(item) === false &&
+                    item.prSelected !== undefined && (
+                      <td colSpan={11} className="p-4 border border-black">
+                        <GeneralTable />
+                      </td>
+                    )}
                 </tr>
               );
             })}
-          {prSelected === true && (
+          {/* {prSelected === true && (
             <tr className="bg-brand-dark-grey border border-black">
               <td colSpan={11} className="p-4">
                 <GeneralTable />
               </td>
             </tr>
-          )}
+          )} */}
         </tbody>
       </table>
     </>

@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Modal } from "antd";
+import { toast } from "react-toastify";
+
 import { useModalContext } from "@/contexts/ModalContext";
 import { transferBalance } from "@/api/userManagement";
 
@@ -47,7 +49,9 @@ function TransferModal(props: any) {
     else
       _transferType = "decrease";
 
-    await transferBalance(_type, id, _transferType, balanceType, amount);
+    const _result = await transferBalance(_type, id, _transferType, balanceType, amount);
+    toast.success(_result.message);
+
     setTransactionType("Deposit");
     setBalanceType("casino");
     setAmount(0);
@@ -104,8 +108,8 @@ function TransferModal(props: any) {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-36 focus:ring-0 focus:border-gray-300"
                 onChange={(e) => setTransactionType(e.target.value)}
               >
-                <option value="Deposit">Deposit</option>
-                <option value="Charge">Charge</option>
+                <option value="Deposit" selected={ transactionType === "Deposit" ? true : false }>Deposit</option>
+                <option value="Charge" selected={ transactionType === "Charge" ? true : false }>Charge</option>
               </select>
             </div>
           </div>
@@ -116,9 +120,9 @@ function TransferModal(props: any) {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-36 focus:ring-0 focus:border-gray-300"
                 onChange={(e) => setBalanceType(e.target.value)}
               >
-                <option value="casino">casino</option>
-                <option value="sports betting">sports betting</option>
-                <option value="agent">agent</option>
+                <option value="casino" selected={ balanceType === "casino" ? true : false }>casino</option>
+                <option value="sports betting" selected={ balanceType === "sports betting" ? true : false }>sports betting</option>
+                <option value="agent" selected={ balanceType === "agent" ? true : false }>agent</option>
               </select>
             </div>
           </div>

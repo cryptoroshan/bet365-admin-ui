@@ -23,7 +23,7 @@ const FinancialReport = ({ currentTab }: any) => {
 
   const getChildren = async (username: string, id: number) => {
     const _childrenInfo = await getUsersCreatedBy(id);
-    console.log(_childrenInfo)
+    console.log(_childrenInfo);
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
       setUserList([..._newUserList]);
@@ -41,11 +41,9 @@ const FinancialReport = ({ currentTab }: any) => {
         if (userInfo_[i][0].createdBy === String(id)) {
           userInfo_.splice(i, 1);
           break;
-        }
-        else {
+        } else {
           removeUserList(userInfo_[i], username, id);
-          if (i === userInfo_.length-1)
-            break;
+          if (i === userInfo_.length - 1) break;
         }
       }
     }
@@ -60,8 +58,7 @@ const FinancialReport = ({ currentTab }: any) => {
     for (let i = 0; i < userInfo_.length; i++) {
       if (Array.isArray(userInfo_[i]) === true) {
         addUserList(userInfo_[i], username, _childrenInfo);
-        if (i === userInfo_.length-1)
-          break;
+        if (i === userInfo_.length - 1) break;
       }
       if (userInfo_[i].username === username) {
         userInfo_.splice(i + 1, 0, _childrenInfo);
@@ -71,16 +68,66 @@ const FinancialReport = ({ currentTab }: any) => {
     return userInfo_;
   };
 
+  const addGeneralTable = (username: string) => {
+    const _newUserList = _addGeneralTable(userList, username);
+    setUserList([..._newUserList]);
+  };
+
+  const _addGeneralTable = (userInfo_: any[], username: string) => {
+    for (let i = 0; i < userInfo_.length; i++) {
+      if (Array.isArray(userInfo_[i]) === true) {
+        _addGeneralTable(userInfo_[i], username, { prSelected: false });
+        if (i === userInfo_.length - 1) break;
+      }
+      if (userInfo_[i].username === username) {
+        userInfo_.splice(i + 1, 0, { prSelected: false });
+        break;
+      }
+    }
+    return userInfo_;
+  };
+
+  const removeGeneralTable = (username: string, id: number) => {
+    const _newUserList = _removeGeneralTable(userList, username, id);
+    setUserList([..._newUserList]);
+  };
+
+  const _removeGeneralTable = (
+    userInfo_: any[],
+    username: string,
+    id: number
+  ) => {
+    console.log(username, id);
+    for (let i = 0; i < userInfo_.length; i++) {
+      if (Array.isArray(userInfo_[i]) === true) {
+        if (userInfo_[i][0].createdBy !== String(id)) {
+          _removeGeneralTable(userInfo_[i], username, id);
+          if (i === userInfo_.length - 1) break;
+        }
+      } else {
+        if (userInfo_[i]._id === id) {
+          if (userInfo_[i+1].prSelected === undefined)
+            userInfo_.splice(i+2, 1);
+          else
+          userInfo_.splice(i+1, 1);
+        }
+      }
+    }
+    return userInfo_;
+  };
+
   const createTable = (child: any, parentId: number) => {
     return (
       <>
-        <td colSpan={11} className="p-2 border border-gray-600">
+        <td colSpan={11} className="p-4 border border-black">
           <UserTable
             parentId_={parentId}
             child={child}
             createTable={createTable}
             getChildren={getChildren}
             removeChildren={removeChildren}
+            addGeneralTable={addGeneralTable}
+            removeGeneralTable={removeGeneralTable}
           />
         </td>
       </>
@@ -196,6 +243,8 @@ const FinancialReport = ({ currentTab }: any) => {
           createTable={createTable}
           getChildren={getChildren}
           removeChildren={removeChildren}
+          addGeneralTable={addGeneralTable}
+          removeGeneralTable={removeGeneralTable}
         />
       </section>
     </section>

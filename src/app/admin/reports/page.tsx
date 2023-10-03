@@ -5,6 +5,10 @@ import clsx from "clsx";
 
 import BetsList from "./BetsList";
 import FinancialReport from "./FinancialReport";
+import Slots from "./Slots";
+import Casino from "./Casino";
+import Transactions from "./Transactions";
+import Deposit from "./Deposit";
 
 // const customTheme: CustomFlowbiteTheme = {
 //     root: {
@@ -92,6 +96,10 @@ const Reports = () => {
       </section>
       <BetsList currentTab={currentTab} />
       <FinancialReport currentTab={currentTab} />
+      <Slots currentTab={currentTab} />
+      <Casino currentTab={currentTab} />
+      <Transactions currentTab={currentTab} />
+      <Deposit currentTab={currentTab} />
     </section>
   );
 };

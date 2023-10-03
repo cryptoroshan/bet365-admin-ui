@@ -1,8 +1,6 @@
 import { useState } from "react";
-import clsx from "clsx";
 
-// import UserTableItem from "./UserTableItem";
-import GeneralTable from "./GeneralTable";
+import VendorTable from "./VendorTable";
 import UserTableItem from "./UserTableItem";
 
 const UserTable = ({
@@ -19,38 +17,23 @@ const UserTable = ({
   return (
     <>
       <table className="w-full text-sm text-white text-center">
-        <thead className="text-sm bg-[#222] uppercase">
+        <thead className="text-sm bg-brand-yellow text-black uppercase">
           <tr>
             <th scope="col" className="py-1.5 border border-black"></th>
             <th scope="col" className="py-1.5 border border-black">
-              {child !== null && child[0].role === "User" ? "player" : "agent"}
+              user
             </th>
             <th scope="col" className="py-1.5 border border-black">
               type
             </th>
             <th scope="col" className="py-1.5 border border-black">
-              tax
+              in
+            </th>
+            <th scope="col" className="py-1.5 border border-black">
+              out
             </th>
             <th scope="col" className="py-1.5 border border-black">
               ggr
-            </th>
-            <th scope="col" className="py-1.5 border border-black">
-              t.o.
-            </th>
-            <th scope="col" className="py-1.5 border border-black">
-              bonus
-            </th>
-            <th scope="col" className="py-1.5 border border-black">
-              converted
-            </th>
-            <th scope="col" className="py-1.5 border border-black">
-              ngr
-            </th>
-            <th scope="col" className="py-1.5 border border-black">
-              hands
-            </th>
-            <th scope="col" className="py-1.5 border border-black">
-              partner
             </th>
           </tr>
         </thead>
@@ -62,7 +45,7 @@ const UserTable = ({
                   {Array.isArray(item) === true &&
                     createTable(item, parentId + 1)}
                   {Array.isArray(item) === false &&
-                    item.prSelected === undefined && (
+                    item.vendorsSelected === undefined && (
                       <UserTableItem
                         item_={item}
                         getChildren={(username: string, id: number) => {
@@ -74,9 +57,9 @@ const UserTable = ({
                       />
                     )}
                   {Array.isArray(item) === false &&
-                    item.prSelected !== undefined && (
-                      <td colSpan={11} className="p-4 border border-black">
-                        <GeneralTable />
+                    item.vendorsSelected !== undefined && (
+                      <td colSpan={6} className="p-4 border border-black">
+                        <VendorTable />
                       </td>
                     )}
                 </tr>

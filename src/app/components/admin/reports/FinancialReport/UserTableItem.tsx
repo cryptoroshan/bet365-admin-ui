@@ -6,7 +6,7 @@ const UserTableItem = ({
   getChildren,
   removeChildren,
   addGeneralTable,
-  removeGeneralTable
+  removeGeneralTable,
 }) => {
   const [prSelected, setPrSelected] = useState(false);
   const [item, setItem] = useState(item_);
@@ -29,13 +29,21 @@ const UserTableItem = ({
       </td>
       <td
         className={clsx(
-          "py-1 border border-black cursor-pointer hover:bg-brand-yellow text-black",
-          open === true ? "bg-brand-yellow" : "bg-white"
+          "py-1 border border-black",
+          item.role === "User" && "bg-brand-dark-grey",
+          item.role !== "User" &&
+            open === true &&
+            "bg-brand-yellow hover:bg-brand-yellow cursor-pointer text-black",
+          item.role !== "User" &&
+            open === false &&
+            "bg-white hover:bg-brand-yellow cursor-pointer text-black"
         )}
         onClick={() => {
-          if (!open) getChildren(item.username, item._id);
-          else removeChildren(item.username, item._id);
-          setOpen(!open);
+          if (item.role !== "User") {
+            if (!open) getChildren(item.username, item._id);
+            else removeChildren(item.username, item._id);
+            setOpen(!open);
+          }
         }}
       >
         {item.username}

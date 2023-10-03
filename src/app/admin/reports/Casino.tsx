@@ -2,14 +2,16 @@ import { useState, useEffect } from "react";
 import clsx from "clsx";
 
 import { getUsersCreatedBy } from "@/api/userManagement";
-import GeneralTable from "@/app/components/admin/reports/FinancialReport/GeneralTable";
-import UserTable from "@/app/components/admin/reports/FinancialReport/UserTable";
+import VendorTable from "@/app/components/admin/reports/Slots/VendorTable";
+import UserTable from "@/app/components/admin/reports/Slots/UserTable";
 
-const FinancialReport = ({ currentTab }: any) => {
+const Casino = ({ currentTab }: any) => {
   const [startingOn, setStartingOn] = useState("");
   const [endingOn, setEndingOn] = useState("");
+  const [bonus, setBonus] = useState("Without Bonus");
+  const [user, setUser] = useState("");
 
-  const [prSelected, setPrSelected] = useState(false);
+  const [vendorsSelected, setVendorsSelected] = useState(false);
   const [userList, setUserList] = useState(null);
 
   useEffect(() => {
@@ -23,7 +25,6 @@ const FinancialReport = ({ currentTab }: any) => {
 
   const getChildren = async (username: string, id: number) => {
     const _childrenInfo = await getUsersCreatedBy(id);
-    console.log(_childrenInfo);
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
       setUserList([..._newUserList]);
@@ -70,17 +71,18 @@ const FinancialReport = ({ currentTab }: any) => {
 
   const addGeneralTable = (username: string) => {
     const _newUserList = _addGeneralTable(userList, username);
+    console.log(_newUserList);
     setUserList([..._newUserList]);
   };
 
   const _addGeneralTable = (userInfo_: any[], username: string) => {
     for (let i = 0; i < userInfo_.length; i++) {
       if (Array.isArray(userInfo_[i]) === true) {
-        _addGeneralTable(userInfo_[i], username, { prSelected: false });
+        _addGeneralTable(userInfo_[i], username, { vendorsSelected: false });
         if (i === userInfo_.length - 1) break;
       }
       if (userInfo_[i].username === username) {
-        userInfo_.splice(i + 1, 0, { prSelected: false });
+        userInfo_.splice(i + 1, 0, { vendorsSelected: false });
         break;
       }
     }
@@ -105,10 +107,9 @@ const FinancialReport = ({ currentTab }: any) => {
         }
       } else {
         if (userInfo_[i]._id === id) {
-          if (userInfo_[i+1].prSelected === undefined)
-            userInfo_.splice(i+2, 1);
-          else
-          userInfo_.splice(i+1, 1);
+          if (userInfo_[i + 1].vendorsSelected === undefined)
+            userInfo_.splice(i + 2, 1);
+          else userInfo_.splice(i + 1, 1);
         }
       }
     }
@@ -139,7 +140,7 @@ const FinancialReport = ({ currentTab }: any) => {
     <section
       className={clsx(
         "flex-col gap-4 pt-4 px-4",
-        currentTab === "Financial Report" ? "flex" : "hidden"
+        currentTab === "Casino" ? "flex" : "hidden"
       )}
     >
       <section className="flex flex-col gap-4">
@@ -162,8 +163,29 @@ const FinancialReport = ({ currentTab }: any) => {
               onChange={(e) => setEndingOn(e.target.value)}
             />
           </div>
+          <div className="flex flex-col">
+            <p className="text-sm text-white">Bonus:</p>
+            <select
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
+              onChange={(e) => setBonus(e.target.value)}
+            >
+              <option value="Without Bonus">Without Bonus</option>
+              <option value="Only Bonus">Only Bonus</option>
+            </select>
+          </div>
         </div>
-        <div className="flex justify-center ">
+        <div className="flex justify-center">
+          <div className="flex flex-col">
+            <p className="text-sm text-white">User:</p>
+            <input
+              type="text"
+              className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="flex justify-center">
           <button
             className="w-16 h-8 text-sm rounded-md bg-brand-dialog-button hover:bg-white"
             onClick={onHandleSearch}
@@ -173,81 +195,75 @@ const FinancialReport = ({ currentTab }: any) => {
         </div>
       </section>
       <section className="flex flex-col gap-4 pt-4">
-        <table className="w-full text-sm text-white text-center">
-          <thead className="text-sm bg-[#222] uppercase">
-            <tr>
-              <th scope="col" className="py-1.5 border border-black"></th>
-              <th scope="col" className="py-1.5 border border-black">
-                tax
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                ggr
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                t.o.
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                bonus
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                converted
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                ngr
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                hands
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                to partners
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="bg-brand-dark-grey border border-black">
-              <td
-                className={clsx(
-                  "py-1 border border-black cursor-pointer hover:bg-brand-yellow text-black w-14",
-                  prSelected === true ? "bg-brand-yellow" : "bg-white"
-                )}
-                onClick={() => setPrSelected(!prSelected)}
-              >
-                Pr
-              </td>
-              <td className="py-1 border border-black">0.00</td>
-              <td className="py-1 border border-black bg-brand-plus-cell">
-                28,126.59
-              </td>
-              <td className="py-1 border border-black">0.00</td>
-              <td className="py-1 border border-black">1,940.36</td>
-              <td className="py-1 border border-black">1,311.81</td>
-              <td className="py-1 border border-black bg-brand-plus-cell">
-                26,814.78
-              </td>
-              <td className="py-1 border border-black">26,814.63</td>
-              <td className="py-1 border border-black">0.15</td>
-            </tr>
-            {prSelected === true && (
-              <tr className="bg-brand-dark-grey border border-black">
-                <td colSpan={9} className="p-4">
-                  <GeneralTable />
-                </td>
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-xl font-semibold text-white">Vendors Summary</p>
+          <table className="w-full text-sm text-white text-center">
+            <thead className="text-sm text-black bg-brand-yellow uppercase">
+              <tr>
+                <th scope="col" className="py-1.5 border border-gray-600"></th>
+                <th scope="col" className="py-1.5 border border-gray-600">
+                  vendors
+                </th>
+                <th scope="col" className="py-1.5 border border-gray-600">
+                  players
+                </th>
+                <th scope="col" className="py-1.5 border border-gray-600">
+                  games
+                </th>
+                <th scope="col" className="py-1.5 border border-gray-600">
+                  in
+                </th>
+                <th scope="col" className="py-1.5 border border-gray-600">
+                  out
+                </th>
+                <th scope="col" className="py-1.5 border border-gray-600">
+                  ggr
+                </th>
               </tr>
-            )}
-          </tbody>
-        </table>
-        <UserTable
-          parentId_={0}
-          child={userList}
-          createTable={createTable}
-          getChildren={getChildren}
-          removeChildren={removeChildren}
-          addGeneralTable={addGeneralTable}
-          removeGeneralTable={removeGeneralTable}
-        />
+            </thead>
+            <tbody>
+              <tr className="bg-brand-dark-grey border border-gray-600">
+                <td
+                  className={clsx(
+                    "py-1 border border-gray-600 cursor-pointer hover:bg-orange-400 text-black w-14",
+                    vendorsSelected === true ? "bg-orange-400" : "bg-white"
+                  )}
+                  onClick={() => setVendorsSelected(!vendorsSelected)}
+                >
+                  Pr
+                </td>
+                <td className="py-1 border border-gray-600">16</td>
+                <td className="py-1 border border-gray-600">94</td>
+                <td className="py-1 border border-gray-600">378</td>
+                <td className="py-1 border border-gray-600">261,169.52</td>
+                <td className="py-1 border border-gray-600">247,634.09</td>
+                <td className="py-1 border border-gray-600">13,535.43</td>
+              </tr>
+              {vendorsSelected === true && (
+                <tr className="bg-brand-dark-grey border border-gray-600">
+                  <td colSpan={7} className="p-4">
+                    <VendorTable />
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-xl font-semibold text-white">By Agents</p>
+          <UserTable
+            parentId_={0}
+            child={userList}
+            createTable={createTable}
+            getChildren={getChildren}
+            removeChildren={removeChildren}
+            addGeneralTable={addGeneralTable}
+            removeGeneralTable={removeGeneralTable}
+          />
+        </div>
       </section>
     </section>
   );
 };
 
-export default FinancialReport;
+export default Casino;

@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
+
 import Container from "@/components/ui/Container";
 import Logo, { SmallLogo, BurgerSearch } from "@/components/ui/icons/logo";
 import CustomLink from "@/components/ui/Link";
@@ -12,6 +14,7 @@ import { NavClose } from "@/components/ui/icons/dialogclose";
 import { navItems } from "./list";
 
 const PrimaryHeader = () => {
+  const { status } = useSession();
   const [openNav, setOpenNav] = useState(false);
   const menuLinks = [
     {
@@ -54,12 +57,21 @@ const PrimaryHeader = () => {
             <Button>Join</Button>
           </div>
           <div className="flex-1 flex-shrink-0 mr-[20px] text-xs">
-            <CustomLink
-              href="/log-in"
-              className="text-white w-10 flex-shrink-0 hover:text-brand-green-light"
-            >
-              Log In
-            </CustomLink>
+            {status === "authenticated" ? (
+              <div
+                className="text-white hover:text-brand-green-light cursor-pointer"
+                onClick={() => signOut()}
+              >
+                Log Out
+              </div>
+            ) : (
+              <CustomLink
+                href="/auth/signin"
+                className="text-white hover:text-brand-green-light cursor-pointer"
+              >
+                Log In
+              </CustomLink>
+            )}
           </div>
         </div>
       </Container>
@@ -73,26 +85,30 @@ const PrimaryHeader = () => {
         </div>
         <div className="flex text-white justify-between items-center h-full w-full">
           <div
-            className={cn(
-              "mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center",
-              location.includes("/sports")
-                ? "border-b-2 border-solid border-[#FFDF1B]"
-                : ""
-            )}
+            className="mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center"
             onClick={() => {
-              router.push("/sports");
+              // router.push("/sports");
             }}
           >
             <SmallLogo />
           </div>
           <div className="flex gap-4 mr-5">
             <div className="mx-4 cursor-pointer">Join</div>
-            <CustomLink
-              href="/log-in"
-              className="text-white hover:text-brand-green-light"
-            >
-              Log In
-            </CustomLink>
+            {status === "authenticated" ? (
+              <div
+                className="text-white hover:text-brand-green-light cursor-pointer"
+                onClick={() => signOut()}
+              >
+                Log Out
+              </div>
+            ) : (
+              <CustomLink
+                href="/auth/signin"
+                className="text-white hover:text-brand-green-light cursor-pointer"
+              >
+                Log In
+              </CustomLink>
+            )}
           </div>
         </div>
       </Container>

@@ -12,7 +12,6 @@ interface FormData {
 const SigninForm: React.FC = () => {
     const router = useRouter();
     const { data: session, status } = useSession();
-    console.log({ session, status });
 
     useEffect(() => {
         if (status === "authenticated") {

@@ -14,7 +14,6 @@ const UserTable = ({
   onHandleTransfer,
   onHandleBlock,
 }) => {
-
   const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(parentId_);
   const [selectedItem, setSelectedItem] = useState(false);
@@ -29,7 +28,10 @@ const UserTable = ({
           )}
         >
           <tr>
-            <th scope="col" className="px-2 py-1.5 border border-gray-600 w-[25%]">
+            <th
+              scope="col"
+              className="px-2 py-1.5 border border-gray-600 w-[25%]"
+            >
               User
             </th>
             <th
@@ -38,7 +40,10 @@ const UserTable = ({
             >
               Type
             </th>
-            <th scope="col" className="px-2 py-1.5 border border-gray-600 w-[10%]">
+            <th
+              scope="col"
+              className="px-2 py-1.5 border border-gray-600 w-[10%]"
+            >
               Sum
             </th>
             <th scope="col" className="px-2 py-1.5 border border-gray-600"></th>
@@ -52,13 +57,32 @@ const UserTable = ({
                   {Array.isArray(item) === true &&
                     createTable(item, open, parentId + 1)}
                   {Array.isArray(item) === false && (
-                    <UserTableItem item_={item} onHandleTransfer={onHandleTransfer} onHandleBlock={onHandleBlock} getChildren={(username: string, id: number) => {
-                      getChildren(username, id);
-                    }} removeChildren={removeChildren} />
+                    <UserTableItem
+                      item_={item}
+                      onHandleTransfer={onHandleTransfer}
+                      onHandleBlock={onHandleBlock}
+                      getChildren={(username: string, id: number) => {
+                        getChildren(username, id);
+                      }}
+                      removeChildren={removeChildren}
+                    />
                   )}
                 </tr>
               );
             })}
+          {Array.isArray(child) === false && (
+            <tr className="bg-[#666] text-white">
+              <UserTableItem
+                item_={child}
+                onHandleTransfer={onHandleTransfer}
+                onHandleBlock={onHandleBlock}
+                getChildren={(username: string, id: number) => {
+                  getChildren(username, id);
+                }}
+                removeChildren={removeChildren}
+              />
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
-import { getUsersCreatedBy } from "@/api/userManagement";
+import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
 import UserTable from "@/app/(app)/components/table/UserTable";
 import { useModalContext } from "@/contexts/ModalContext";
 import ModalTransfer from "./ModalTransfer";
@@ -9,9 +10,11 @@ import ModalNewUser from "./ModalNewUser";
 import ModalBlockUser from "./ModalBlockUser";
 
 const UserPage = () => {
+  const { data: session, status } = useSession();
+  console.log(session);
   const { openNewUserModal } = useModalContext();
 
-  const [userList, setUserList] = useState(null);
+  const [userList, setUserList] = useState([]);
   const [parentId, setParentId] = useState(0);
 
   //transfer
@@ -19,19 +22,27 @@ const UserPage = () => {
   const [blockStatus, setBlockStatus] = useState(null);
 
   useEffect(() => {
-    getUserInfo();
-  }, []);
+    if (session !== undefined) getUserInfo();
+  }, [session]);
 
   const getUserInfo = async () => {
-    const _userinfo = await getUsersCreatedBy(0);
-    setUserList(_userinfo);
+    const _userinfo = await getUserById(
+      session.user._id,
+      session.user.token,
+      session.user.role
+    );
+    console.log(_userinfo);
+    const _userList = [];
+    _userList.push(_userinfo);
+    setUserList([..._userList]);
   };
 
   const getChildren = async (username: string, id: number) => {
-    const _childrenInfo = await getUsersCreatedBy(id);
-    console.log(_childrenInfo)
+    const _childrenInfo = await getUsersCreatedBy(id, session.user.token, session.user.role);
+    console.log(_childrenInfo);
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
+      console.log(_newUserList);
       setUserList([..._newUserList]);
     }
   };
@@ -47,11 +58,9 @@ const UserPage = () => {
         if (userInfo_[i][0].createdBy === String(id)) {
           userInfo_.splice(i, 1);
           break;
-        }
-        else {
+        } else {
           removeUserList(userInfo_[i], username, id);
-          if (i === userInfo_.length-1)
-            break;
+          if (i === userInfo_.length - 1) break;
         }
       }
     }
@@ -66,8 +75,7 @@ const UserPage = () => {
     for (let i = 0; i < userInfo_.length; i++) {
       if (Array.isArray(userInfo_[i]) === true) {
         addUserList(userInfo_[i], username, _childrenInfo);
-        if (i === userInfo_.length-1)
-          break;
+        if (i === userInfo_.length - 1) break;
       }
       if (userInfo_[i].username === username) {
         userInfo_.splice(i + 1, 0, _childrenInfo);

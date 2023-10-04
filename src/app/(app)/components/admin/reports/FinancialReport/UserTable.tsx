@@ -17,7 +17,7 @@ const UserTable = ({
   const [parentId, setParentId] = useState(parentId_);
 
   return (
-    <div className="w-full overflow-x-scroll">
+    <div className="w-full overflow-x-scroll md:overflow-hidden">
       <table className="w-full text-sm text-white text-center">
         <thead className="text-sm bg-[#222] uppercase">
           <tr>

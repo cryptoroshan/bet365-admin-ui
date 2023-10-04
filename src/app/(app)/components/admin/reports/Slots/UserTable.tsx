@@ -15,24 +15,24 @@ const UserTable = ({
   const [parentId, setParentId] = useState(parentId_);
 
   return (
-    <>
+    <div className="w-full overflow-x-scroll md:overflow-hidden">
       <table className="w-full text-sm text-white text-center">
         <thead className="text-sm bg-brand-yellow text-black uppercase">
           <tr>
             <th scope="col" className="py-1.5 border border-black"></th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               user
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               type
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               in
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               out
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               ggr
             </th>
           </tr>
@@ -67,7 +67,7 @@ const UserTable = ({
             })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

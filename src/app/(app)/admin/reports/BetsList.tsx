@@ -56,7 +56,7 @@ const BetsList = ({ currentTab }: any) => {
   return (
     <section
       className={clsx(
-        "flex-col gap-4 py-4 px-4",
+        "flex-col gap-4 p-4",
         currentTab === "Bets List" ? "flex" : "hidden"
       )}
     >

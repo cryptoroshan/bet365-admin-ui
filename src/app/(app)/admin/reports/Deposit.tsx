@@ -18,12 +18,12 @@ const Deposit = ({ currentTab }: any) => {
   return (
     <section
       className={clsx(
-        "flex-col gap-4 pt-4 px-4",
+        "flex-col gap-4 p-4",
         currentTab === "Deposit" ? "flex" : "hidden"
       )}
     >
       <section className="flex flex-col gap-4">
-        <div className="flex gap-1 justify-center">
+        <div className="grid md:flex gap-1 justify-center items-center">
           <div className="flex flex-col">
             <p className="text-sm text-white">From:</p>
             <input

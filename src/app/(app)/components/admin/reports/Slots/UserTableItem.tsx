@@ -46,32 +46,11 @@ const UserTableItem = ({
           )}
         </div>
       </td>
-      {/* <td
-        className={clsx(
-          "py-1 border border-black",
-          item.role === "User" && "bg-brand-dark-grey",
-          item.role !== "User" &&
-            open === true &&
-            "bg-brand-yellow hover:bg-brand-yellow cursor-pointer text-black",
-          item.role !== "User" &&
-            open === false &&
-            "bg-white hover:bg-brand-yellow cursor-pointer text-black"
-        )}
-        onClick={() => {
-          if (item.role !== "User") {
-            if (!open) getChildren(item.username, item._id);
-            else removeChildren(item.username, item._id);
-            setOpen(!open);
-          }
-        }}
-      >
-        {item.username}
-      </td> */}
-      <td className="py-1 border border-black !p-0">{item.username}</td>
-      <td className="py-1 border border-black !p-0">{item.role}</td>
-      <td className="py-1 border border-black !p-0">15,154.94</td>
-      <td className="py-1 border border-black !p-0">18,353.67</td>
-      <td className="py-1 border border-black !p-0">-3,198.73</td>
+      <td className="px-2 py-1 border border-black">{item.username}</td>
+      <td className="px-2 py-1 border border-black">{item.role}</td>
+      <td className="px-2 py-1 border border-black">15,154.94</td>
+      <td className="px-2 py-1 border border-black">18,353.67</td>
+      <td className="px-2 py-1 border border-black">-3,198.73</td>
     </>
   );
 };

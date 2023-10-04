@@ -141,12 +141,12 @@ const Slots = ({ currentTab }: any) => {
   return (
     <section
       className={clsx(
-        "flex-col gap-4 pt-4 px-4",
+        "flex-col gap-4 p-4",
         currentTab === "Slots" ? "flex" : "hidden"
       )}
     >
       <section className="flex flex-col gap-4">
-        <div className="flex gap-1 justify-center">
+        <div className="grid md:flex gap-1 justify-center items-center">
           <div className="flex flex-col">
             <p className="text-sm text-white">From:</p>
             <input
@@ -225,57 +225,62 @@ const Slots = ({ currentTab }: any) => {
       <section className="flex flex-col gap-4 pt-4">
         <div className="flex flex-col items-center gap-2">
           <p className="text-xl font-semibold text-white">Vendors Summary</p>
-          <table className="w-full text-sm text-white text-center">
-            <thead className="text-sm text-black bg-brand-yellow uppercase">
-              <tr>
-                <th scope="col" className="py-1.5 border border-gray-600"></th>
-                <th scope="col" className="py-1.5 border border-gray-600">
-                  vendors
-                </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
-                  players
-                </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
-                  games
-                </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
-                  in
-                </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
-                  out
-                </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
-                  ggr
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-brand-dark-grey border border-gray-600">
-                <td
-                  className={clsx(
-                    "py-1 border border-gray-600 cursor-pointer hover:bg-orange-400 text-black w-14",
-                    vendorsSelected === true ? "bg-orange-400" : "bg-white"
-                  )}
-                  onClick={() => setVendorsSelected(!vendorsSelected)}
-                >
-                  Pr
-                </td>
-                <td className="py-1 border border-gray-600">16</td>
-                <td className="py-1 border border-gray-600">94</td>
-                <td className="py-1 border border-gray-600">378</td>
-                <td className="py-1 border border-gray-600">261,169.52</td>
-                <td className="py-1 border border-gray-600">247,634.09</td>
-                <td className="py-1 border border-gray-600">13,535.43</td>
-              </tr>
-              {vendorsSelected === true && (
-                <tr className="bg-brand-dark-grey border border-gray-600">
-                  <td colSpan={7} className="p-4">
-                    <VendorTable />
-                  </td>
+          <div className="w-full overflow-x-scroll md:overflow-hidden">
+            <table className="w-full text-sm text-white text-center">
+              <thead className="text-sm text-black bg-brand-yellow uppercase">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-2 py-1.5 border border-gray-600"
+                  ></th>
+                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                    vendors
+                  </th>
+                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                    players
+                  </th>
+                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                    games
+                  </th>
+                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                    in
+                  </th>
+                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                    out
+                  </th>
+                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                    ggr
+                  </th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <tr className="bg-brand-dark-grey border border-gray-600">
+                  <td
+                    className={clsx(
+                      "px-6 py-1 border border-gray-600 cursor-pointer hover:bg-orange-400 text-black w-14",
+                      vendorsSelected === true ? "bg-orange-400" : "bg-white"
+                    )}
+                    onClick={() => setVendorsSelected(!vendorsSelected)}
+                  >
+                    Pr
+                  </td>
+                  <td className="px-2 py-1 border border-gray-600">16</td>
+                  <td className="px-2 py-1 border border-gray-600">94</td>
+                  <td className="px-2 py-1 border border-gray-600">378</td>
+                  <td className="px-2 py-1 border border-gray-600">261,169.52</td>
+                  <td className="px-2 py-1 border border-gray-600">247,634.09</td>
+                  <td className="px-2 py-1 border border-gray-600">13,535.43</td>
+                </tr>
+                {vendorsSelected === true && (
+                  <tr className="bg-brand-dark-grey border border-gray-600">
+                    <td colSpan={7} className="p-4">
+                      <VendorTable />
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
         <div className="flex flex-col items-center gap-2">
           <p className="text-xl font-semibold text-white">By Agents</p>

@@ -3,16 +3,16 @@ const VendorTable = () => {
     <table className="w-full text-sm text-white text-center">
       <thead className="text-sm bg-[#222]">
         <tr>
-          <th scope="col" className="py-1.5 border border-black">
+          <th scope="col" className="px-2 py-1.5 border border-black">
             Vendor
           </th>
-          <th scope="col" className="py-1.5 border border-black">
+          <th scope="col" className="px-2 py-1.5 border border-black">
             Sum Bet
           </th>
-          <th scope="col" className="py-1.5 border border-black">
+          <th scope="col" className="px-2 py-1.5 border border-black">
             Sum Win
           </th>
-          <th scope="col" className="py-1.5 border border-black">
+          <th scope="col" className="px-2 py-1.5 border border-black">
             GGR
           </th>
         </tr>
@@ -21,10 +21,10 @@ const VendorTable = () => {
         {general_table?.map((item, index) => {
           return (
             <tr key={index} className="bg-brand-dark-grey">
-              <td className="py-1 border border-black">{item.vendor}</td>
-              <td className="py-1 border border-black">{item.sum_bet}</td>
-              <td className="py-1 border border-black">{item.sum_win}</td>
-              <td className="py-1 border border-black">{item.ggr}</td>
+              <td className="px-2 py-1 border border-black">{item.vendor}</td>
+              <td className="px-2 py-1 border border-black">{item.sum_bet}</td>
+              <td className="px-2 py-1 border border-black">{item.sum_win}</td>
+              <td className="px-2 py-1 border border-black">{item.ggr}</td>
             </tr>
           );
         })}

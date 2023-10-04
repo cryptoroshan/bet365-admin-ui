@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import clsx from "clsx";
 
 import { getUsersCreatedBy } from "@/api/userManagement";
-import GeneralTable from "@/app/components/admin/reports/FinancialReport/GeneralTable";
-import UserTable from "@/app/components/admin/reports/FinancialReport/UserTable";
+import GeneralTable from "@/app/(app)/components/admin/reports/FinancialReport/GeneralTable";
+import UserTable from "@/app/(app)/components/admin/reports/FinancialReport/UserTable";
 
 const FinancialReport = ({ currentTab }: any) => {
   const [startingOn, setStartingOn] = useState("");

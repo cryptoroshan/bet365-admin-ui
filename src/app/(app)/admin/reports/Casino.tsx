@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import clsx from "clsx";
 
 import { getUsersCreatedBy } from "@/api/userManagement";
-import VendorTable from "@/app/components/admin/reports/Slots/VendorTable";
-import UserTable from "@/app/components/admin/reports/Slots/UserTable";
+import VendorTable from "@/app/(app)/components/admin/reports/Slots/VendorTable";
+import UserTable from "@/app/(app)/components/admin/reports/Slots/UserTable";
 
 const Casino = ({ currentTab }: any) => {
   const [startingOn, setStartingOn] = useState("");

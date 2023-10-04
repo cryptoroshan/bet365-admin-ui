@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 
-import DepositTable from "@/app/components/admin/reports/Deposit/DepositTable";
+import DepositTable from "@/app/(app)/components/admin/reports/Deposit/DepositTable";
 import Pagination from "@/components/ui/Pagination";
 
 const Deposit = ({ currentTab }: any) => {

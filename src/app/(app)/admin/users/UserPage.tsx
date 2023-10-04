@@ -2,13 +2,13 @@
 import { useState, useEffect } from "react";
 
 import { getUsersCreatedBy } from "@/api/userManagement";
-import UserTable from "@/app/components/table/UserTable";
+import UserTable from "@/app/(app)/components/table/UserTable";
 import { useModalContext } from "@/contexts/ModalContext";
 import ModalTransfer from "./ModalTransfer";
 import ModalNewUser from "./ModalNewUser";
 import ModalBlockUser from "./ModalBlockUser";
 
-const Users = () => {
+const UserPage = () => {
   const { openNewUserModal } = useModalContext();
 
   const [userList, setUserList] = useState(null);
@@ -146,4 +146,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UserPage;

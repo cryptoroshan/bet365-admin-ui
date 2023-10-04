@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 
-import TransactionTable from "@/app/components/admin/reports/Transactions/TransactionTable";
+import TransactionTable from "@/app/(app)/components/admin/reports/Transactions/TransactionTable";
 import Pagination from "@/components/ui/Pagination";
 
 const Transactions = ({ currentTab }: any) => {

@@ -1,15 +1,11 @@
-"use client";
-import { useEffect, useState } from "react";
-import clsx from "clsx";
 import { Modal } from "antd";
 import { useModalContext } from "@/contexts/ModalContext";
 
-function ModalCoupon({ item }: any) {
+const UserInfo = () => {
   const { isCouponModalOpen, closeCouponModal } = useModalContext();
 
   return (
     <Modal
-      className="modal-coupon"
       title="Coupon"
       open={isCouponModalOpen}
       onCancel={closeCouponModal}
@@ -123,7 +119,7 @@ function ModalCoupon({ item }: any) {
         </section>
       </section>
     </Modal>
-  );
+  )
 }
 
-export default ModalCoupon;
+export default UserInfo;

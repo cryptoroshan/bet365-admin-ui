@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 
-import { getUsersCreatedBy } from "@/api/userManagement";
-import GeneralTable from "@/app/(app)/components/admin/reports/FinancialReport/GeneralTable";
-import UserTable from "@/app/(app)/components/admin/reports/FinancialReport/UserTable";
+import Button from "../../components/ui/Button";
 
 const UserSearch = ({ currentTab }: any) => {
   const [userId, setUserId] = useState(0);
@@ -68,12 +66,11 @@ const UserSearch = ({ currentTab }: any) => {
       <section className="flex flex-col gap-4 pt-4">
         <div className="w-full overflow-x-scroll md:overflow-hidden">
           <table className="w-full text-sm text-white text-center">
-            <thead className="text-sm bg-brand-yellow">
+            <thead className="text-sm bg-brand-yellow text-black">
               <tr>
-                <th
-                  scope="col"
-                  className="px-2 py-1.5 border border-black"
-                >User</th>
+                <th scope="col" className="px-2 py-1.5 border border-black">
+                  User
+                </th>
                 <th scope="col" className="px-2 py-1.5 border border-black">
                   User Type
                 </th>
@@ -89,46 +86,30 @@ const UserSearch = ({ currentTab }: any) => {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-brand-dark-grey border border-black">
+              <tr className="bg-[#666] border border-black">
                 <td
-                  className={clsx(
-                    "py-1 border border-black bg-[#333] text-black w-14",
-                  )}
+                  className={clsx("px-1 py-1 border border-black text-black w-14")}
                 >
-                  Pr
+                  <div className="flex gap-2 p-2 border border-black w-full justify-center bg-[#333] cursor-pointer text-brand-button-text hover:text-white">cryptoRoshan</div>
                 </td>
-                <td className="px-2 py-1 border border-black">0.00</td>
-                <td className="px-2 py-1 border border-black bg-brand-plus-cell">
-                  28,126.59
+                <td className="px-2 py-1 border border-black">Player</td>
+                <td className="px-2 py-1 border border-black">618</td>
+                <td className="px-2 py-1 border border-black">12/07 18:06</td>
+                <td className="px-1 py-1 border border-black w-48">
+                  <div className="flex gap-1 w-full justify-center">
+                    <Button type="action" name="Block" />
+                    <Button type="action" name="Location" />
+                    <Button type="action" name="Bets" />
+                    <Button type="action" name="Slots" />
+                    <Button type="action" name="Casino" />
+                    <Button type="action" name="Transactions" />
+                    <Button type="action" name="Activity" />
+                  </div>
                 </td>
-                <td className="px-2 py-1 border border-black">0.00</td>
-                <td className="px-2 py-1 border border-black">1,940.36</td>
-                <td className="px-2 py-1 border border-black">1,311.81</td>
-                <td className="px-2 py-1 border border-black bg-brand-plus-cell">
-                  26,814.78
-                </td>
-                <td className="px-2 py-1 border border-black">26,814.63</td>
-                <td className="px-2 py-1 border border-black">0.15</td>
               </tr>
-              {prSelected === true && (
-                <tr className="bg-brand-dark-grey border border-black">
-                  <td colSpan={9} className="p-4">
-                    <GeneralTable />
-                  </td>
-                </tr>
-              )}
             </tbody>
           </table>
         </div>
-        <UserTable
-          parentId_={0}
-          child={userList}
-          createTable={createTable}
-          getChildren={getChildren}
-          removeChildren={removeChildren}
-          addGeneralTable={addGeneralTable}
-          removeGeneralTable={removeGeneralTable}
-        />
       </section>
     </section>
   );

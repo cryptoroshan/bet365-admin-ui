@@ -21,7 +21,7 @@ const BetsList = ({ currentTab }: any) => {
   const [type7, setType7] = useState("All Agents");
   const [type5, setType5] = useState("All Agents");
   const [type3, setType3] = useState("All Agents");
-  const [user, setUser] = useState("All Players");
+  const [user, setUser] = useState("");
 
   const [single, setSingle] = useState(true);
   const [multiple, setMultiple] = useState(true);
@@ -56,12 +56,12 @@ const BetsList = ({ currentTab }: any) => {
   return (
     <section
       className={clsx(
-        "flex-col gap-4 pt-4 px-4",
+        "flex-col gap-4 py-4 px-4",
         currentTab === "Bets List" ? "flex" : "hidden"
       )}
     >
       <section className="flex flex-col gap-4">
-        <div className="flex gap-1 justify-center">
+        <div className="grid md:flex gap-1 justify-center items-center">
           <div className="flex flex-col">
             <p className="text-sm text-white">From:</p>
             <input
@@ -151,224 +151,122 @@ const BetsList = ({ currentTab }: any) => {
             </select>
           </div>
         </div>
-        <div className="flex gap-1 justify-center">
+        <div className="flex justify-center">
           <div className="flex flex-col">
-            <p className="text-sm text-white">SuperAgent:</p>
-            <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-              onChange={async (e) => {
-                console.log(e.target.value);
-                const _id = e.target.value;
-                const _childrenInfo = await getUsersCreatedBy(_id);
-                setType7List(_childrenInfo);
-                setSuperAgent(e.target.value);
-              }}
-            >
-              <option value="All Agents">All Agents</option>
-              {superAgentList?.map((item: any, index: number) => {
-                return (
-                  <option key={index} value={item._id}>
-                    {item.username}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div
-            className={clsx(
-              "flex-col",
-              type7List.length !== 0 ? "flex" : "hidden"
-            )}
-          >
-            <p className="text-sm text-white">Type7Admin:</p>
-            <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-              onChange={async (e) => {
-                const _id = e.target.value;
-                const _childrenInfo = await getUsersCreatedBy(_id);
-                setType5List(_childrenInfo);
-                setType7(e.target.value);
-              }}
-            >
-              <option value="All Agents">All Agents</option>
-              {type7List?.map((item: any, index: number) => {
-                return (
-                  <option key={index} value={item._id}>
-                    {item.username}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div
-            className={clsx(
-              "flex-col",
-              type5List.length !== 0 ? "flex" : "hidden"
-            )}
-          >
-            <p className="text-sm text-white">Type5Admin:</p>
-            <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-              onChange={async (e) => {
-                const _id = e.target.value;
-                const _childrenInfo = await getUsersCreatedBy(_id);
-                setType3List(_childrenInfo);
-                setType5(e.target.value);
-              }}
-            >
-              <option value="All Agents">All Agents</option>
-              {type5List?.map((item: any, index: number) => {
-                return (
-                  <option key={index} value={item._id}>
-                    {item.username}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div
-            className={clsx(
-              "flex-col",
-              type3List.length !== 0 ? "flex" : "hidden"
-            )}
-          >
-            <p className="text-sm text-white">Type3Admin:</p>
-            <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-              onChange={async (e) => {
-                const _id = e.target.value;
-                const _childrenInfo = await getUsersCreatedBy(_id);
-                setUserList(_childrenInfo);
-                setType3(e.target.value);
-              }}
-            >
-              <option value="All Agents">All Agents</option>
-              {type3List?.map((item: any, index: number) => {
-                return (
-                  <option key={index} value={item._id}>
-                    {item.username}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div
-            className={clsx(
-              "flex-col",
-              userList.length !== 0 ? "flex" : "hidden"
-            )}
-          >
             <p className="text-sm text-white">User:</p>
-            <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
+            <input
+              type="text"
+              className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
+              value={user}
               onChange={(e) => setUser(e.target.value)}
-            >
-              <option value="All Players">All Players</option>
-              {userList?.map((item: any, index: number) => {
-                return (
-                  <option key={index} value={item._id}>
-                    {item.username}
-                  </option>
-                );
-              })}
-            </select>
+            />
           </div>
         </div>
-        <div className="flex gap-2 justify-center">
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-              onChange={() => setSingle(!single)}
-              checked={single === true ? true : false}
-            />
-            <label className="ml-0.5 text-sm font-medium text-white">
-              Single
-            </label>
+        <div className="flex flex-col md:flex-row gap-2 justify-center w-2/3 mx-auto">
+          <div className="flex justify-between">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                onChange={() => setSingle(!single)}
+                checked={single === true ? true : false}
+              />
+              <label className="ml-0.5 text-sm font-medium text-white">
+                Single
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                onChange={() => setMultiple(!multiple)}
+                checked={multiple === true ? true : false}
+              />
+              <label className="ml-0.5 text-sm font-medium text-white">
+                Multiple
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                onChange={() => setSystem(!system)}
+                checked={system === true ? true : false}
+              />
+              <label className="ml-0.5 text-sm font-medium text-white">
+                System
+              </label>
+            </div>
           </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-              onChange={() => setMultiple(!multiple)}
-              checked={multiple === true ? true : false}
-            />
-            <label className="ml-0.5 text-sm font-medium text-white">
-              Multiple
-            </label>
+          <div className="flex justify-between">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                onChange={() => setPre(!pre)}
+                checked={pre === true ? true : false}
+              />
+              <label className="ml-0.5 text-sm font-medium text-white">
+                Pre
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                onChange={() => setInPlay(!inPlay)}
+                checked={inPlay === true ? true : false}
+              />
+              <label className="ml-0.5 text-sm font-medium text-white">
+                In-Play
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                onChange={() => setCurrent(!current)}
+                checked={current === true ? true : false}
+              />
+              <label className="ml-0.5 text-sm font-medium text-white">
+                Current
+              </label>
+            </div>
           </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-              onChange={() => setSystem(!system)}
-              checked={system === true ? true : false}
-            />
-            <label className="ml-0.5 text-sm font-medium text-white">
-              System
-            </label>
-          </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-              onChange={() => setPre(!pre)}
-              checked={pre === true ? true : false}
-            />
-            <label className="ml-0.5 text-sm font-medium text-white">Pre</label>
-          </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-              onChange={() => setInPlay(!inPlay)}
-              checked={inPlay === true ? true : false}
-            />
-            <label className="ml-0.5 text-sm font-medium text-white">
-              In-Play
-            </label>
-          </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-              onChange={() => setCurrent(!current)}
-              checked={current === true ? true : false}
-            />
-            <label className="ml-0.5 text-sm font-medium text-white">
-              Current
-            </label>
-          </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-              onChange={() => setWon(!won)}
-              checked={won === true ? true : false}
-            />
-            <label className="ml-0.5 text-sm font-medium text-white">Won</label>
-          </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-              onChange={() => setLost(!lost)}
-              checked={lost === true ? true : false}
-            />
-            <label className="ml-0.5 text-sm font-medium text-white">
-              Lost
-            </label>
-          </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-              onChange={() => setChecking(!checking)}
-              checked={checking === true ? true : false}
-            />
-            <label className="ml-0.5 text-sm font-medium text-white">
-              Checking
-            </label>
+          <div className="flex justify-between">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                onChange={() => setWon(!won)}
+                checked={won === true ? true : false}
+              />
+              <label className="ml-0.5 text-sm font-medium text-white">
+                Won
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                onChange={() => setLost(!lost)}
+                checked={lost === true ? true : false}
+              />
+              <label className="ml-0.5 text-sm font-medium text-white">
+                Lost
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                onChange={() => setChecking(!checking)}
+                checked={checking === true ? true : false}
+              />
+              <label className="ml-0.5 text-sm font-medium text-white">
+                Checking
+              </label>
+            </div>
           </div>
         </div>
         <div className="flex justify-center ">
@@ -380,7 +278,7 @@ const BetsList = ({ currentTab }: any) => {
           </button>
         </div>
       </section>
-      <section className="pt-4">
+      <section className="pt-4 w-full overflow-scroll">
         {betsList?.length === 0 ? (
           <p className="text-lg font-bold text-center text-brand-button-text">
             No results
@@ -389,56 +287,56 @@ const BetsList = ({ currentTab }: any) => {
           <table className="w-full text-sm text-gray-400 text-center">
             <thead className="text-sm bg-brand-yellow text-black">
               <tr>
-                <th scope="col" className="py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   User
                 </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Date
                 </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Coupon ID
                 </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Type
                 </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Pre/Live
                 </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Status
                 </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Amount
                 </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Pos.Win.
                 </th>
-                <th scope="col" className="py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Bet Win
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr className="bg-brand-dark-grey text-white">
-                <td className="py-1 border border-gray-600"></td>
-                <td className="py-1 border border-gray-600"></td>
-                <td className="py-1 border border-gray-600">
+                <td className="px-2 py-1 border border-gray-600"></td>
+                <td className="px-2 py-1 border border-gray-600"></td>
+                <td className="px-2 py-1 border border-gray-600">
                   {total_info.coupon_id}
                 </td>
-                <td className="py-1 border border-gray-600">
+                <td className="px-2 py-1 border border-gray-600">
                   {total_info.type}
                 </td>
-                <td className="py-1 border border-gray-600"></td>
-                <td className="py-1 border border-gray-600">
+                <td className="px-2 py-1 border border-gray-600"></td>
+                <td className="px-2 py-1 border border-gray-600">
                   {total_info.status}
                 </td>
-                <td className="py-1 border border-gray-600">
+                <td className="px-2 py-1 border border-gray-600">
                   {total_info.amount}
                 </td>
-                <td className="py-1 border border-gray-600">
+                <td className="px-2 py-1 border border-gray-600">
                   {total_info.pos_win}
                 </td>
-                <td className="py-1 border border-gray-600">
+                <td className="px-2 py-1 border border-gray-600">
                   {total_info.bet_win}
                 </td>
               </tr>
@@ -452,25 +350,25 @@ const BetsList = ({ currentTab }: any) => {
                       openCouponModal();
                     }}
                   >
-                    <td className="py-1 border border-gray-600">{item.user}</td>
-                    <td className="py-1 border border-gray-600">{item.date}</td>
-                    <td className="py-1 border border-gray-600">
+                    <td className="px-2 py-1 border border-gray-600">{item.user}</td>
+                    <td className="px-2 py-1 border border-gray-600">{item.date}</td>
+                    <td className="px-2 py-1 border border-gray-600">
                       {item.coupon_id}
                     </td>
-                    <td className="py-1 border border-gray-600">{item.type}</td>
-                    <td className="py-1 border border-gray-600">
+                    <td className="px-2 py-1 border border-gray-600">{item.type}</td>
+                    <td className="px-2 py-1 border border-gray-600">
                       {item.pre_live}
                     </td>
-                    <td className="py-1 border border-gray-600">
+                    <td className="px-2 py-1 border border-gray-600">
                       {item.status}
                     </td>
-                    <td className="py-1 border border-gray-600">
+                    <td className="px-2 py-1 border border-gray-600">
                       {item.amount}
                     </td>
-                    <td className="py-1 border border-gray-600">
+                    <td className="px-2 py-1 border border-gray-600">
                       {item.pos_win}
                     </td>
-                    <td className="py-1 border border-gray-600">
+                    <td className="px-2 py-1 border border-gray-600">
                       {item.bet_win}
                     </td>
                   </tr>
@@ -486,9 +384,6 @@ const BetsList = ({ currentTab }: any) => {
 };
 
 export default BetsList;
-//     {/* <Flowbite theme={{ theme: customTheme }}>
-//   <Datepicker input="primary" />
-// </Flowbite> */}
 
 const bets_list = [
   {

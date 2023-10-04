@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import clsx from "clsx";
 
 import { useModalContext } from "@/contexts/ModalContext";
-import { getUsersCreatedBy } from "@/api/userManagement";
+import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
 import ModalCoupon from "./ModalCoupon";
 
 const BetsList = ({ currentTab }: any) => {
+  const { data: session, status } = useSession();
   const { openCouponModal } = useModalContext();
 
   const [startingOn, setStartingOn] = useState("");
@@ -41,15 +43,6 @@ const BetsList = ({ currentTab }: any) => {
 
   const [betsList, setBetsList] = useState(bets_list);
   const [selectedItem, setSelectedItem] = useState(null);
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
-
-  const getUserInfo = async () => {
-    const _superAgentList = await getUsersCreatedBy(0);
-    setSuperAgentList(_superAgentList);
-  };
 
   const onHandleSearch = async () => {};
 

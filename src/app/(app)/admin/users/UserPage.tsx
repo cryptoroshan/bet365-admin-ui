@@ -10,8 +10,7 @@ import ModalNewUser from "./ModalNewUser";
 import ModalBlockUser from "./ModalBlockUser";
 
 const UserPage = () => {
-  const { data: session, status } = useSession();
-  console.log(session);
+  const { data: session } = useSession();
   const { openNewUserModal } = useModalContext();
 
   const [userList, setUserList] = useState([]);
@@ -31,7 +30,6 @@ const UserPage = () => {
       session.user.token,
       session.user.role
     );
-    console.log(_userinfo);
     const _userList = [];
     _userList.push(_userinfo);
     setUserList([..._userList]);
@@ -39,10 +37,8 @@ const UserPage = () => {
 
   const getChildren = async (username: string, id: number) => {
     const _childrenInfo = await getUsersCreatedBy(id, session.user.token, session.user.role);
-    console.log(_childrenInfo);
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
-      console.log(_newUserList);
       setUserList([..._newUserList]);
     }
   };

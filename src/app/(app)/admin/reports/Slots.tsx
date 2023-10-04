@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import clsx from "clsx";
 
-import { getUsersCreatedBy } from "@/api/userManagement";
+import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
 import VendorTable from "@/app/(app)/components/admin/reports/Slots/VendorTable";
 import UserTable from "@/app/(app)/components/admin/reports/Slots/UserTable";
 
 const Slots = ({ currentTab }: any) => {
+  const { data: session } = useSession();
   const [startingOn, setStartingOn] = useState("");
   const [endingOn, setEndingOn] = useState("");
   const [provider, setProvider] = useState("All");
@@ -17,16 +19,22 @@ const Slots = ({ currentTab }: any) => {
   const [userList, setUserList] = useState(null);
 
   useEffect(() => {
-    getUserInfo();
-  }, []);
+    if (session !== undefined) getUserInfo();
+  }, [session]);
 
   const getUserInfo = async () => {
-    const _userinfo = await getUsersCreatedBy(0);
-    setUserList(_userinfo);
+    const _userinfo = await getUserById(
+      session.user._id,
+      session.user.token,
+      session.user.role
+    );
+    const _userList = [];
+    _userList.push(_userinfo);
+    setUserList([..._userList]);
   };
 
   const getChildren = async (username: string, id: number) => {
-    const _childrenInfo = await getUsersCreatedBy(id);
+    const _childrenInfo = await getUsersCreatedBy(id, session.user.token, session.user.role);
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
       setUserList([..._newUserList]);

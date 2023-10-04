@@ -199,7 +199,7 @@ function BlockUserModal(props: any) {
                   ></th>
                   <th
                     scope="col"
-                    className="max-sm:hidden py-1.5 border border-gray-600 w-[60%]"
+                    className="py-1.5 border border-gray-600 w-[60%]"
                   >
                     Name
                   </th>
@@ -212,14 +212,14 @@ function BlockUserModal(props: any) {
                 <tr className="bg-[#666] text-white hover:cursor-pointer hover:bg-brand-hover-table">
                   <td className="py-1 border border-gray-600">1</td>
                   <td className="py-1 border border-gray-600">egt</td>
-                  <td className="max-sm:hidden py-1 border border-gray-600">
+                  <td className="py-1 border border-gray-600">
                     ekko
                   </td>
                 </tr>
                 <tr className="bg-[#666] text-white hover:cursor-pointer hover:bg-brand-hover-table">
                   <td className="py-1 border border-gray-600">2</td>
                   <td className="py-1 border border-gray-600">novomatic</td>
-                  <td className="max-sm:hidden py-1 border border-gray-600">
+                  <td className="py-1 border border-gray-600">
                     ekko
                   </td>
                 </tr>
@@ -243,7 +243,7 @@ function BlockUserModal(props: any) {
                   </th>
                   <th
                     scope="col"
-                    className="max-sm:hidden py-1.5 border border-gray-600 w-[60%]"
+                    className="py-1.5 border border-gray-600 w-[60%]"
                   >
                     Provider
                   </th>

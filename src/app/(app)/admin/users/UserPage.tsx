@@ -102,7 +102,7 @@ const UserPage = () => {
     <section className="flex flex-col w-full overflow-y-auto h-[calc(100vh-60px)]">
       <p className="text-lg text-white bg-brand-title p-4">Users</p>
       <section className="flex flex-col gap-4 p-3">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col md:flex-row gap-2 justify-between items-center">
           <input
             type="text"
             className="bg-white h-8 p-2 focus:outline-none focus:ring-0"

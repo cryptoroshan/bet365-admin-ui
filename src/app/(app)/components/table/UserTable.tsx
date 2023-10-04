@@ -20,7 +20,7 @@ const UserTable = ({
   const [selectedItem, setSelectedItem] = useState(false);
 
   return (
-    <>
+    <div className="w-full overflow-x-scroll md:overflow-hidden">
       <table className="w-full text-sm text-gray-400 text-center">
         <thead
           className={clsx(
@@ -29,19 +29,19 @@ const UserTable = ({
           )}
         >
           <tr>
-            <th scope="col" className="py-1.5 border border-gray-600 w-[25%]">
+            <th scope="col" className="px-2 py-1.5 border border-gray-600 w-[25%]">
               User
             </th>
             <th
               scope="col"
-              className="max-sm:hidden py-1.5 border border-gray-600 w-[25%]"
+              className="max-sm:hidden px-2  py-1.5 border border-gray-600 w-[25%]"
             >
               Type
             </th>
-            <th scope="col" className="py-1.5 border border-gray-600 w-[10%]">
+            <th scope="col" className="px-2 py-1.5 border border-gray-600 w-[10%]">
               Sum
             </th>
-            <th scope="col" className="py-1.5 border border-gray-600"></th>
+            <th scope="col" className="px-2 py-1.5 border border-gray-600"></th>
           </tr>
         </thead>
         <tbody>
@@ -61,7 +61,7 @@ const UserTable = ({
             })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

@@ -52,8 +52,8 @@ function NewUserModal() {
           </div>,
         ]}
       >
-        <section className="flex flex-col bg-brand-dialog items-center mt-6">
-          <div className="flex gap-6 justify-center h-10 w-full text-white">
+        <section className="flex flex-col bg-brand-dialog items-center mt-6 px-2">
+          <div className="flex gap-2 md:gap-6 justify-center h-10 w-full text-white">
             <p className="w-full text-right m-auto">User Type:</p>
             <div className="w-full m-auto">
               <select className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-48 focus:ring-0 focus:border-gray-300" onChange={(e) => setUserType(e.target.value)} disabled>
@@ -61,7 +61,7 @@ function NewUserModal() {
               </select>
             </div>
           </div>
-          <div className="flex gap-6 justify-center h-10 w-full">
+          <div className="flex gap-2 md:gap-6 justify-center h-10 w-full">
             <p className="w-full text-right m-auto text-white">Username:</p>
             <div className="w-full m-auto">
               <input
@@ -72,7 +72,7 @@ function NewUserModal() {
               />
             </div>
           </div>
-          <div className="flex gap-6 justify-center h-10 w-full">
+          <div className="flex gap-2 md:gap-6 justify-center h-10 w-full">
             <p className="w-full text-right m-auto text-white">Password:</p>
             <div className="w-full m-auto">
               <input
@@ -83,7 +83,7 @@ function NewUserModal() {
               />
             </div>
           </div>
-          <div className="flex gap-6 items-center justify-center h-10 w-full">
+          <div className="flex gap-2 md:gap-6 items-center justify-center h-10 w-full">
             <p className="w-full text-right m-auto text-white">Confirm Password:</p>
             <div className="w-full m-auto">
               <input

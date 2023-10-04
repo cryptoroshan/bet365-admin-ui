@@ -218,13 +218,13 @@
 }
 
 @media screen and (max-width: 360px) {
-  .ant-modal {
+  .modal-coupon {
     width: 100vw !important;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .ant-modal {
+  .modal-coupon {
     width: 70vw !important;
   }
 }

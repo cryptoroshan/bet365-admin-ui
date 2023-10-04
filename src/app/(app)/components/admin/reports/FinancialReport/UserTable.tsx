@@ -17,39 +17,39 @@ const UserTable = ({
   const [parentId, setParentId] = useState(parentId_);
 
   return (
-    <>
+    <div className="w-full overflow-x-scroll">
       <table className="w-full text-sm text-white text-center">
         <thead className="text-sm bg-[#222] uppercase">
           <tr>
-            <th scope="col" className="py-1.5 border border-black"></th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black"></th>
+            <th scope="col" className="px-2 py-1.5 border border-black">
               {child !== null && child[0].role === "User" ? "player" : "agent"}
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               type
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               tax
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               ggr
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               t.o.
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               bonus
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               converted
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               ngr
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               hands
             </th>
-            <th scope="col" className="py-1.5 border border-black">
+            <th scope="col" className="px-2 py-1.5 border border-black">
               partner
             </th>
           </tr>
@@ -84,7 +84,7 @@ const UserTable = ({
             })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

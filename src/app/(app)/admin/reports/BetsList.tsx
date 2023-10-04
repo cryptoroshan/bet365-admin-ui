@@ -278,7 +278,7 @@ const BetsList = ({ currentTab }: any) => {
           </button>
         </div>
       </section>
-      <section className="pt-4 w-full overflow-scroll">
+      <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
         {betsList?.length === 0 ? (
           <p className="text-lg font-bold text-center text-brand-button-text">
             No results
@@ -350,12 +350,18 @@ const BetsList = ({ currentTab }: any) => {
                       openCouponModal();
                     }}
                   >
-                    <td className="px-2 py-1 border border-gray-600">{item.user}</td>
-                    <td className="px-2 py-1 border border-gray-600">{item.date}</td>
+                    <td className="px-2 py-1 border border-gray-600">
+                      {item.user}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600">
+                      {item.date}
+                    </td>
                     <td className="px-2 py-1 border border-gray-600">
                       {item.coupon_id}
                     </td>
-                    <td className="px-2 py-1 border border-gray-600">{item.type}</td>
+                    <td className="px-2 py-1 border border-gray-600">
+                      {item.type}
+                    </td>
                     <td className="px-2 py-1 border border-gray-600">
                       {item.pre_live}
                     </td>

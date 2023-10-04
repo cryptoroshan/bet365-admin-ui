@@ -105,10 +105,9 @@ const FinancialReport = ({ currentTab }: any) => {
         }
       } else {
         if (userInfo_[i]._id === id) {
-          if (userInfo_[i+1].prSelected === undefined)
-            userInfo_.splice(i+2, 1);
-          else
-          userInfo_.splice(i+1, 1);
+          if (userInfo_[i + 1].prSelected === undefined)
+            userInfo_.splice(i + 2, 1);
+          else userInfo_.splice(i + 1, 1);
         }
       }
     }
@@ -138,7 +137,7 @@ const FinancialReport = ({ currentTab }: any) => {
   return (
     <section
       className={clsx(
-        "flex-col gap-4 pt-4 px-4",
+        "flex-col gap-4 py-4 px-4",
         currentTab === "Financial Report" ? "flex" : "hidden"
       )}
     >
@@ -173,69 +172,71 @@ const FinancialReport = ({ currentTab }: any) => {
         </div>
       </section>
       <section className="flex flex-col gap-4 pt-4">
-        <table className="w-full text-sm text-white text-center">
-          <thead className="text-sm bg-[#222] uppercase">
-            <tr>
-              <th scope="col" className="py-1.5 border border-black"></th>
-              <th scope="col" className="py-1.5 border border-black">
-                tax
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                ggr
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                t.o.
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                bonus
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                converted
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                ngr
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                hands
-              </th>
-              <th scope="col" className="py-1.5 border border-black">
-                to partners
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="bg-brand-dark-grey border border-black">
-              <td
-                className={clsx(
-                  "py-1 border border-black cursor-pointer hover:bg-brand-yellow text-black w-14",
-                  prSelected === true ? "bg-brand-yellow" : "bg-white"
-                )}
-                onClick={() => setPrSelected(!prSelected)}
-              >
-                Pr
-              </td>
-              <td className="py-1 border border-black">0.00</td>
-              <td className="py-1 border border-black bg-brand-plus-cell">
-                28,126.59
-              </td>
-              <td className="py-1 border border-black">0.00</td>
-              <td className="py-1 border border-black">1,940.36</td>
-              <td className="py-1 border border-black">1,311.81</td>
-              <td className="py-1 border border-black bg-brand-plus-cell">
-                26,814.78
-              </td>
-              <td className="py-1 border border-black">26,814.63</td>
-              <td className="py-1 border border-black">0.15</td>
-            </tr>
-            {prSelected === true && (
-              <tr className="bg-brand-dark-grey border border-black">
-                <td colSpan={9} className="p-4">
-                  <GeneralTable />
-                </td>
+        <div className="overflow-x-scroll">
+          <table className="w-full text-sm text-white text-center">
+            <thead className="text-sm bg-[#222] uppercase">
+              <tr>
+                <th scope="col" className="px-2 py-1.5 border border-black"></th>
+                <th scope="col" className="px-2 py-1.5 border border-black">
+                  tax
+                </th>
+                <th scope="col" className="px-2 py-1.5 border border-black">
+                  ggr
+                </th>
+                <th scope="col" className="px-2 py-1.5 border border-black">
+                  t.o.
+                </th>
+                <th scope="col" className="px-2 py-1.5 border border-black">
+                  bonus
+                </th>
+                <th scope="col" className="px-2 py-1.5 border border-black">
+                  converted
+                </th>
+                <th scope="col" className="px-2 py-1.5 border border-black">
+                  ngr
+                </th>
+                <th scope="col" className="px-2 py-1.5 border border-black">
+                  hands
+                </th>
+                <th scope="col" className="px-2 py-1.5 border border-black">
+                  to partners
+                </th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <tr className="bg-brand-dark-grey border border-black">
+                <td
+                  className={clsx(
+                    "px-6 py-1 border border-black cursor-pointer hover:bg-brand-yellow text-black w-14",
+                    prSelected === true ? "bg-brand-yellow" : "bg-white"
+                  )}
+                  onClick={() => setPrSelected(!prSelected)}
+                >
+                  Pr
+                </td>
+                <td className="px-2 py-1 border border-black">0.00</td>
+                <td className="px-2 py-1 border border-black bg-brand-plus-cell">
+                  28,126.59
+                </td>
+                <td className="px-2 py-1 border border-black">0.00</td>
+                <td className="px-2 py-1 border border-black">1,940.36</td>
+                <td className="px-2 py-1 border border-black">1,311.81</td>
+                <td className="px-2 py-1 border border-black bg-brand-plus-cell">
+                  26,814.78
+                </td>
+                <td className="px-2 py-1 border border-black">26,814.63</td>
+                <td className="px-2 py-1 border border-black">0.15</td>
+              </tr>
+              {prSelected === true && (
+                <tr className="bg-brand-dark-grey border border-black">
+                  <td colSpan={9} className="p-4">
+                    <GeneralTable />
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
         <UserTable
           parentId_={0}
           child={userList}

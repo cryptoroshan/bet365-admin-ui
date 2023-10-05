@@ -10,7 +10,7 @@ export const navItems = [
     },
     {
         label: "Reports",
-        link: "/admin/reports",
+        link: "/admin/reports/bets_list",
     },
     {
         label: "Tools",

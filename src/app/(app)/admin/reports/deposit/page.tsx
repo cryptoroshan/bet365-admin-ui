@@ -1,10 +1,10 @@
+"use client";
 import { useState, useEffect } from "react";
-import clsx from "clsx";
 
 import DepositTable from "@/app/(app)/components/admin/reports/Deposit/DepositTable";
 import Pagination from "@/components/ui/Pagination";
 
-const Deposit = ({ currentTab }: any) => {
+const Deposit = () => {
   const [startingOn, setStartingOn] = useState("");
   const [endingOn, setEndingOn] = useState("");
   const [methods, setMethods] = useState("All");
@@ -16,12 +16,7 @@ const Deposit = ({ currentTab }: any) => {
   const onHandleSearch = async () => {};
 
   return (
-    <section
-      className={clsx(
-        "flex-col gap-4 p-4",
-        currentTab === "Deposit" ? "flex" : "hidden"
-      )}
-    >
+    <section className="flex flex-col gap-4 p-4">
       <section className="flex flex-col gap-4">
         <div className="grid md:flex gap-1 justify-center items-center">
           <div className="flex flex-col">

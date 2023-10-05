@@ -1,10 +1,10 @@
+"use client";
 import { useState, useEffect } from "react";
-import clsx from "clsx";
 
 import TransactionTable from "@/app/(app)/components/admin/reports/Transactions/TransactionTable";
 import Pagination from "@/components/ui/Pagination";
 
-const Transactions = ({ currentTab }: any) => {
+const Transactions = () => {
   const [startingOn, setStartingOn] = useState("");
   const [endingOn, setEndingOn] = useState("");
   const [type, setType] = useState("All");
@@ -16,12 +16,7 @@ const Transactions = ({ currentTab }: any) => {
   const onHandleSearch = async () => {};
 
   return (
-    <section
-      className={clsx(
-        "flex-col gap-4 p-4",
-        currentTab === "Transactions" ? "flex" : "hidden"
-      )}
-    >
+    <section className="flex flex-col gap-4 p-4">
       <section className="flex flex-col gap-4">
         <div className="grid md:flex gap-1 justify-center items-center">
           <div className="flex flex-col">

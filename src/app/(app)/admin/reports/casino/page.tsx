@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
@@ -6,12 +7,10 @@ import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
 import VendorTable from "@/app/(app)/components/admin/reports/Slots/VendorTable";
 import UserTable from "@/app/(app)/components/admin/reports/Slots/UserTable";
 
-const Slots = ({ currentTab }: any) => {
+const Casino = () => {
   const { data: session } = useSession();
   const [startingOn, setStartingOn] = useState("");
   const [endingOn, setEndingOn] = useState("");
-  const [provider, setProvider] = useState("All");
-  const [vendor, setVendor] = useState("All");
   const [bonus, setBonus] = useState("Without Bonus");
   const [user, setUser] = useState("");
 
@@ -34,7 +33,11 @@ const Slots = ({ currentTab }: any) => {
   };
 
   const getChildren = async (username: string, id: number) => {
-    const _childrenInfo = await getUsersCreatedBy(id, session.user.token, session.user.role);
+    const _childrenInfo = await getUsersCreatedBy(
+      id,
+      session.user.token,
+      session.user.role
+    );
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
       setUserList([..._newUserList]);
@@ -147,12 +150,7 @@ const Slots = ({ currentTab }: any) => {
   const onHandleSearch = async () => {};
 
   return (
-    <section
-      className={clsx(
-        "flex-col gap-4 p-4",
-        currentTab === "Slots" ? "flex" : "hidden"
-      )}
-    >
+    <section className="flex flex-col gap-4 p-4">
       <section className="flex flex-col gap-4">
         <div className="grid md:flex gap-1 justify-center items-center">
           <div className="flex flex-col">
@@ -173,32 +171,6 @@ const Slots = ({ currentTab }: any) => {
               onChange={(e) => setEndingOn(e.target.value)}
             />
           </div>
-          <div className="flex flex-col">
-            <p className="text-sm text-white">Provider:</p>
-            <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-              onChange={(e) => setProvider(e.target.value)}
-            >
-              <option value="All">All</option>
-              <option value="Ekko">Ekko</option>
-              <option value="Gapi">Gapi</option>
-              <option value="Gbs">Gbs</option>
-            </select>
-          </div>
-          {provider !== "All" && (
-            <div className="flex flex-col">
-              <p className="text-sm text-white">Vendor:</p>
-              <select
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-                onChange={(e) => setVendor(e.target.value)}
-              >
-                <option value="All">All</option>
-                <option value="Ekko">amatic</option>
-                <option value="Gapi">egt</option>
-                <option value="Gbs">netent</option>
-              </select>
-            </div>
-          )}
           <div className="flex flex-col">
             <p className="text-sm text-white">Bonus:</p>
             <select
@@ -241,22 +213,40 @@ const Slots = ({ currentTab }: any) => {
                     scope="col"
                     className="px-2 py-1.5 border border-gray-600"
                   ></th>
-                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                  <th
+                    scope="col"
+                    className="px-2 py-1.5 border border-gray-600"
+                  >
                     vendors
                   </th>
-                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                  <th
+                    scope="col"
+                    className="px-2 py-1.5 border border-gray-600"
+                  >
                     players
                   </th>
-                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                  <th
+                    scope="col"
+                    className="px-2 py-1.5 border border-gray-600"
+                  >
                     games
                   </th>
-                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                  <th
+                    scope="col"
+                    className="px-2 py-1.5 border border-gray-600"
+                  >
                     in
                   </th>
-                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                  <th
+                    scope="col"
+                    className="px-2 py-1.5 border border-gray-600"
+                  >
                     out
                   </th>
-                  <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                  <th
+                    scope="col"
+                    className="px-2 py-1.5 border border-gray-600"
+                  >
                     ggr
                   </th>
                 </tr>
@@ -275,9 +265,15 @@ const Slots = ({ currentTab }: any) => {
                   <td className="px-2 py-1 border border-gray-600">16</td>
                   <td className="px-2 py-1 border border-gray-600">94</td>
                   <td className="px-2 py-1 border border-gray-600">378</td>
-                  <td className="px-2 py-1 border border-gray-600">261,169.52</td>
-                  <td className="px-2 py-1 border border-gray-600">247,634.09</td>
-                  <td className="px-2 py-1 border border-gray-600">13,535.43</td>
+                  <td className="px-2 py-1 border border-gray-600">
+                    261,169.52
+                  </td>
+                  <td className="px-2 py-1 border border-gray-600">
+                    247,634.09
+                  </td>
+                  <td className="px-2 py-1 border border-gray-600">
+                    13,535.43
+                  </td>
                 </tr>
                 {vendorsSelected === true && (
                   <tr className="bg-brand-dark-grey border border-gray-600">
@@ -307,4 +303,4 @@ const Slots = ({ currentTab }: any) => {
   );
 };
 
-export default Slots;
+export default Casino;

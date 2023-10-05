@@ -14,7 +14,7 @@ export const navItems = [
     },
     {
         label: "Tools",
-        link: "/admin/tools",
+        link: "/admin/tools/user_search",
     },
     {
         label: "Sports Management",

@@ -35,7 +35,6 @@ const ReportsTab = () => {
                 "inline-block px-4 cursor-pointer pb-2",
                 pathname === "/admin/reports/bets_list" ? "border-white border-b-4" : ""
               )}
-              onClick={() => setCurrentTab("Bets List")}
             >
               Bets List
             </Link>
@@ -49,7 +48,6 @@ const ReportsTab = () => {
                   ? "border-white border-b-4"
                   : ""
               )}
-              onClick={() => setCurrentTab("Financial Report")}
             >
               Financial Report
             </Link>
@@ -61,7 +59,6 @@ const ReportsTab = () => {
                 "inline-block px-4 cursor-pointer pb-2",
                 pathname === "/admin/reports/slots" ? "border-white border-b-4" : ""
               )}
-              onClick={() => setCurrentTab("Games")}
             >
               Slots
             </Link>
@@ -73,7 +70,6 @@ const ReportsTab = () => {
                 "inline-block px-4 cursor-pointer pb-2",
                 pathname === "/admin/reports/casino" ? "border-white border-b-4" : ""
               )}
-              onClick={() => setCurrentTab("Casino")}
             >
               Casino
             </Link>
@@ -85,7 +81,6 @@ const ReportsTab = () => {
                 "inline-block px-4 cursor-pointer pb-2",
                 pathname === "/admin/reports/transactions" ? "border-white border-b-4" : ""
               )}
-              onClick={() => setCurrentTab("Transactions")}
             >
               Transactions
             </Link>
@@ -97,7 +92,6 @@ const ReportsTab = () => {
                 "inline-block px-4 cursor-pointer pb-2",
                 pathname === "/admin/reports/deposit" ? "border-white border-b-4" : ""
               )}
-              onClick={() => setCurrentTab("Deposit Report")}
             >
               Deposit
             </Link>

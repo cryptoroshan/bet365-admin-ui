@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
 
-import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
+import { getUserById, getUsersCreatedBy, getUsersByQuery } from "@/api/userManagement";
 import VendorTable from "@/app/(app)/components/admin/reports/Slots/VendorTable";
 import UserTable from "@/app/(app)/components/admin/reports/Slots/UserTable";
 
@@ -13,6 +13,8 @@ const Casino = () => {
   const [endingOn, setEndingOn] = useState("");
   const [bonus, setBonus] = useState("Without Bonus");
   const [user, setUser] = useState("");
+  const [descendants, setDescendants] = useState([]);
+  const [descendantListView, setDescendantListView] = useState(false);
 
   const [vendorsSelected, setVendorsSelected] = useState(false);
   const [userList, setUserList] = useState(null);
@@ -185,12 +187,44 @@ const Casino = () => {
         <div className="flex justify-center">
           <div className="flex flex-col">
             <p className="text-sm text-white">User:</p>
-            <input
-              type="text"
-              className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
-            />
+            <div className="relative">
+              <input
+                type="text"
+                className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
+                value={user}
+                onChange={async (e) => {
+                  setDescendantListView(false);
+                  setUser(e.target.value);
+                  const _res = await getUsersByQuery(
+                    e.target.value,
+                    session.user.token
+                  );
+                  setDescendants(_res);
+                  setDescendantListView(true);
+                }}
+              />
+              <div
+                className={clsx(
+                  "absolute right-0 flex-col bg-white rounded-sm",
+                  descendantListView === true ? "flex" : "hidden"
+                )}
+              >
+                {descendants.map((item: any, index: number) => {
+                  return (
+                    <div
+                      key={index}
+                      className="hover:bg-red-400 px-4 cursor-pointer py-1"
+                      onClick={() => {
+                        setUser(item.username);
+                        setDescendantListView(false);
+                      }}
+                    >
+                      {item.username}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
         <div className="flex justify-center">

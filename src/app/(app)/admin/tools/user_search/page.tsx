@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
 
-import UserInfo from "@/app/(app)/components/admin/tools/UserSearch/UserInfo";
+import ModalUserInfo from "@/app/(app)/components/admin/tools/UserSearch/ModalUserInfo";
 import Button from "@/app/(app)/components/ui/Button";
 import { getUserById } from "@/api/userManagement";
 import { useModalContext } from "@/contexts/ModalContext";
@@ -112,7 +112,7 @@ const UserSearch = ({ currentTab }: any) => {
                         <div
                           className="flex gap-2 p-2 border border-black w-full justify-center bg-[#333] cursor-pointer text-brand-button-text hover:text-white"
                           onClick={() => {
-                            setSelectedItem(null);
+                            setSelectedItem(item);
                             openUserInfoModal();
                           }}
                         >
@@ -143,7 +143,7 @@ const UserSearch = ({ currentTab }: any) => {
           </div>
         </section>
       )}
-      <UserInfo />
+      <ModalUserInfo item={selectedItem} />
     </section>
   );
 };

@@ -7,8 +7,7 @@ export const getUserById = async (id: number, token: string, role: string) => {
   else if (role === "Type5Admin") role_url = 5;
   else if (role === "Type3Admin") role_url = 3;
 
-  const API_ENDPOINT =
-    env.SERVER_URL + `/admin/${role_url}/users/${id}`;
+  const API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/users/${id}`;
   const myHeaders = new Headers();
   myHeaders.append("X-ACCESS-TOKEN", token);
 
@@ -26,9 +25,12 @@ export const getUserById = async (id: number, token: string, role: string) => {
   }
 };
 
-export const getUsersCreatedBy = async (id: number, token: string, role: string) => {
-  const API_ENDPOINT =
-    env.SERVER_URL + `/admin/7/users/createdBy/${id}`;
+export const getUsersCreatedBy = async (
+  id: number,
+  token: string,
+  role: string
+) => {
+  const API_ENDPOINT = env.SERVER_URL + `/admin/7/users/createdBy/${id}`;
   const myHeaders = new Headers();
   console.log(API_ENDPOINT);
   console.log(token);
@@ -147,10 +149,7 @@ export const newUser = async (
   }
 };
 
-export const getBlockStatus = async (
-  id: number,
-  role: string,
-) => {
+export const getBlockStatus = async (id: number, role: string) => {
   let role_url;
   if (role === "SuperAgent") role_url = "superagent";
   else if (role === "Type7Admin") role_url = "superagent";
@@ -171,7 +170,7 @@ export const getBlockStatus = async (
 
   const requestOptions = {
     method: "GET",
-    headers: myHeaders
+    headers: myHeaders,
   };
 
   try {
@@ -179,6 +178,31 @@ export const getBlockStatus = async (
     console.log(API_ENDPOINT);
     const data = await response.json();
     console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getUsersByQuery = async (query: string, token: string) => {
+  const API_ENDPOINT = env.SERVER_URL + "/regex/users/descendants";
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("X-ACCESS-TOKEN", token);
+
+  let raw = JSON.stringify({
+    query: query
+  });
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+  };
+
+  try {
+    const response = await fetch(API_ENDPOINT, requestOptions);
+    const data = await response.json();
     return data;
   } catch (err) {
     console.log(err);

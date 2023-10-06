@@ -218,7 +218,7 @@
 }
 
 @media screen and (max-width: 360px) {
-  .modal-coupon {
+  .modal-coupon,.modal-location {
     width: 100vw !important;
   }
 }
@@ -226,6 +226,9 @@
 @media screen and (min-width: 768px) {
   .modal-coupon {
     width: 70vw !important;
+  }
+  .modal-location {
+    width: 50vw !important;
   }
 }
 

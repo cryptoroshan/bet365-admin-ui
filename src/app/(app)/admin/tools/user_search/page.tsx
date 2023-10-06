@@ -1,15 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 import clsx from "clsx";
 
 import ModalUserInfo from "@/app/(app)/components/admin/tools/UserSearch/ModalUserInfo";
+import BlockUserModal from "../../users/ModalBlockUser";
+import ModalLocation from "@/app/(app)/components/admin/tools/UserSearch/ModalLocation";
+
 import Button from "@/app/(app)/components/ui/Button";
 import { getUserById } from "@/api/userManagement";
 import { useModalContext } from "@/contexts/ModalContext";
 
 const UserSearch = ({ currentTab }: any) => {
-  const { openUserInfoModal } = useModalContext();
+  const router = useRouter();
+  const { openUserInfoModal, openBlockUserModal, openLocationModal } = useModalContext();
   const { data: session } = useSession();
 
   const [userId, setUserId] = useState(0);
@@ -126,9 +131,15 @@ const UserSearch = ({ currentTab }: any) => {
                       </td>
                       <td className="px-1 py-1 border border-black w-48">
                         <div className="flex gap-1 w-full justify-center">
-                          <Button type="action" name="Block" />
-                          <Button type="action" name="Location" />
-                          <Button type="action" name="Bets" />
+                          <Button type="action" name="Block" onHandleClick={() => {
+                            setSelectedItem(item);
+                            openBlockUserModal();
+                          }} />
+                          <Button type="action" name="Location" onHandleClick={() => {
+                            setSelectedItem(item);
+                            openLocationModal();
+                          }} />
+                          <Button type="action" name="Bets" onHandleClick={() => router.push(`/admin/reports/bets_list?=${item.username}`)} />
                           <Button type="action" name="Slots" />
                           <Button type="action" name="Casino" />
                           <Button type="action" name="Transactions" />
@@ -144,6 +155,8 @@ const UserSearch = ({ currentTab }: any) => {
         </section>
       )}
       <ModalUserInfo item={selectedItem} />
+      <BlockUserModal item_={selectedItem} />
+      <ModalLocation item={selectedItem} />
     </section>
   );
 };

@@ -67,7 +67,7 @@ module.exports = {
           "clicked-button": "#14805e",
           "button-text": "#bbb",
           yellow: "#ffdf1b",
-          "light-grey":"#e4e4e4",
+          "light-grey":"#c4c4c4",
           "dark-grey":'#333',
           "dialog": "#575757",
           "dialog-button": "#c9cad4",

@@ -38,6 +38,10 @@ interface ModalContextType {
   isChangePasswordModalOpen: boolean;
   openChangePasswordModal: () => void;
   closeChangePasswordModal: () => void;
+
+  isLocationModalOpen: boolean;
+  openLocationModal: () => void;
+  closeLocationModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -50,9 +54,11 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isLimitUserModalOpen, setIsLimitUserModalOpen] = useState(false);
 
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  // User Search page
   const [isUserInfoModalOpen, setIsUserInfoModalOpen] = useState(false);
   const [isTransferAmountModalOpen, setIsTransferAmountModalOpen] = useState(false);
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -126,6 +132,14 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsChangePasswordModalOpen(false);
   };
 
+  const openLocationModal = () => {
+    setIsLocationModalOpen(true);
+  };
+
+  const closeLocationModal = () => {
+    setIsLocationModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -156,6 +170,9 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         isChangePasswordModalOpen,
         openChangePasswordModal,
         closeChangePasswordModal,
+        isLocationModalOpen,
+        openLocationModal,
+        closeLocationModal,
       }}
     >
       {children}

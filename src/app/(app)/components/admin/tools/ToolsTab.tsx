@@ -31,10 +31,10 @@ const ToolsTab = () => {
           </li>
           <li className="mr-2">
             <Link
-              href="/admin/reports/financial_report"
+              href="/admin/tools/coupons"
               className={clsx(
                 "inline-block px-4 cursor-pointer pb-2",
-                pathname === "/admin/reports/financial_report"
+                pathname === "/admin/tools/coupons"
                   ? "border-white border-b-4"
                   : ""
               )}

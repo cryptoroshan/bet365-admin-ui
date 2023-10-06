@@ -1,18 +1,22 @@
 interface InputProps {
   className: string,
-  value: string,
+  value: any,
+  placeholder: string,
   disable_value: boolean,
   onHandleChange: any
 }
 
-const Input = ({ className, value, disable_value, onHandleChange }: InputProps) => {
+const Input = ({ className, value, placeholder, disable_value, onHandleChange }: InputProps) => {
   return (
     <input
       type="text"
       className={className}
+      placeholder={placeholder}
       value={value}
-      disabled={disable_value === false ? true : false}
-      onChange={(e) => onHandleChange(e.target.value)}
+      disabled={disable_value === true ? true : false}
+      onChange={(e) => {
+        onHandleChange(e);
+      }}
     />
   );
 };

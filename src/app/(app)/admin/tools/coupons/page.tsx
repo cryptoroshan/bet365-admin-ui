@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useParams, useSearchParams } from 'next/navigation';
 import clsx from "clsx";
 
 import { useModalContext } from "@/contexts/ModalContext";
@@ -10,29 +9,26 @@ import {
   getUserById,
   getUsersCreatedBy,
 } from "@/api/userManagement";
-import ModalCoupon from "@/app/(app)/components/admin/reports/BetsList/ModalCoupon";
+import ModalCoupon from "@/app/(app)/components/admin/tools/Coupons/ModalCoupon";
+import Input from "@/app/(app)/components/ui/Input";
 
-const BetsList = () => {
+const Coupons = () => {
   const { data: session, status } = useSession();
-  const params = useParams();
-  const searchParams = useSearchParams()
-  console.log(params, searchParams)
   const { openCouponModal } = useModalContext();
 
   const [startingOn, setStartingOn] = useState("");
   const [endingOn, setEndingOn] = useState("");
+  const [cashout, setCashout] = useState("All");
+  const [bonus, setBonus] = useState("All");
   const [betSymbol, setBetSymbol] = useState("All");
   const [betCost, setBetCost] = useState(0);
   const [sumSymbol, setSumSymbol] = useState("All");
   const [sumOdds, setSumOdds] = useState(0);
-  const [cashout, setCashout] = useState("All");
-  const [bonus, setBonus] = useState("All");
-  // user type
-  const [superAgent, setSuperAgent] = useState("All Agents");
-  const [type7, setType7] = useState("All Agents");
-  const [type5, setType5] = useState("All Agents");
-  const [type3, setType3] = useState("All Agents");
+  const [userId, setUserId] = useState("");
+  const [couponId, setCouponId] = useState("");
+
   const [user, setUser] = useState("");
+  const [userList, setUserList] = useState([]);
   const [descendants, setDescendants] = useState([]);
   const [descendantListView, setDescendantListView] = useState(false);
 
@@ -45,14 +41,8 @@ const BetsList = () => {
   const [won, setWon] = useState(true);
   const [lost, setLost] = useState(true);
   const [checking, setChecking] = useState(true);
+  const [cashoutAlert, setCashoutAlert] = useState(false);
 
-  const [superAgentList, setSuperAgentList] = useState([]);
-  const [type7List, setType7List] = useState([]);
-  const [type5List, setType5List] = useState([]);
-  const [type3List, setType3List] = useState([]);
-  const [userList, setUserList] = useState([]);
-
-  const [betsList, setBetsList] = useState(bets_list);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const onHandleSearch = async () => {};
@@ -81,6 +71,28 @@ const BetsList = () => {
               />
             </div>
             <div className="flex flex-col">
+              <p className="text-sm text-white">Cashout:</p>
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
+                onChange={(e) => setCashout(e.target.value)}
+              >
+                <option value="All">All</option>
+                <option value="Without Cashout">Without Cashout</option>
+                <option value="Only Cashout">Only Cashout</option>
+              </select>
+            </div>
+            <div className="flex flex-col">
+              <p className="text-sm text-white">Bonus:</p>
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
+                onChange={(e) => setBonus(e.target.value)}
+              >
+                <option value="All">All</option>
+                <option value="Without Bonus">Without Bonus</option>
+                <option value="Only Bonus">Only Bonus</option>
+              </select>
+            </div>
+            <div className="flex flex-col">
               <p className="text-sm text-white">Bet Cost:</p>
               <div className="flex">
                 <select
@@ -91,12 +103,12 @@ const BetsList = () => {
                   <option value="<">&#60;</option>
                   <option value=">">&gt;</option>
                 </select>
-                <input
-                  type="text"
-                  className="bg-white border-gray-300 w-24 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
+                <Input
+                  className="bg-white border-gray-300 w-24 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300 text-sm"
                   placeholder="Amount"
                   value={betCost}
-                  onChange={(e) => {
+                  disable_value={false}
+                  onHandleChange={(e: any) => {
                     const regex = /^[0-9\b]+$/;
                     if (e.target.value === "" || regex.test(e.target.value))
                       setBetCost(Number(e.target.value));
@@ -115,12 +127,12 @@ const BetsList = () => {
                   <option value="<">&#60;</option>
                   <option value=">">&gt;</option>
                 </select>
-                <input
-                  type="text"
-                  className="bg-white border-gray-300 w-24 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
-                  placeholder="Total"
+                <Input
+                  className="bg-white border-gray-300 w-24 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300 text-sm"
+                  placeholder="Amount"
                   value={sumOdds}
-                  onChange={(e) => {
+                  disable_value={false}
+                  onHandleChange={(e: any) => {
                     const regex = /^[0-9\b]+$/;
                     if (e.target.value === "" || regex.test(e.target.value))
                       setSumOdds(Number(e.target.value));
@@ -129,26 +141,24 @@ const BetsList = () => {
               </div>
             </div>
             <div className="flex flex-col">
-              <p className="text-sm text-white">Cashout:</p>
-              <select
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-                onChange={(e) => setCashout(e.target.value)}
-              >
-                <option value="All">All</option>
-                <option value="Without Cashout">Without Cashout</option>
-                <option value="Only Cashout">Only Cashout</option>
-              </select>
+              <p className="text-sm text-white">User Id:</p>
+              <Input
+                className="bg-white border-gray-300 w-24 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300 text-sm"
+                placeholder=""
+                disable_value={false}
+                value={userId}
+                onHandleChange={(e: any) => setUserId(e.target.value)}
+              />
             </div>
             <div className="flex flex-col">
-              <p className="text-sm text-white">Bonus:</p>
-              <select
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-                onChange={(e) => setBonus(e.target.value)}
-              >
-                <option value="All">All</option>
-                <option value="Without Cashout">Without Bonus</option>
-                <option value="Only Cashout">Only Bonus</option>
-              </select>
+              <p className="text-sm text-white">Coupon Id:</p>
+              <Input
+                className="bg-white border-gray-300 w-24 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300 text-sm"
+                placeholder=""
+                disable_value={false}
+                value={couponId}
+                onHandleChange={(e: any) => setCouponId(e.target.value)}
+              />
             </div>
           </div>
           <div className="flex justify-center">
@@ -170,21 +180,32 @@ const BetsList = () => {
                     setDescendantListView(true);
                   }}
                 />
-                <div className={clsx("absolute right-0 flex-col bg-white rounded-sm", descendantListView === true ? "flex" : "hidden")}>
+                <div
+                  className={clsx(
+                    "absolute right-0 flex-col bg-white rounded-sm",
+                    descendantListView === true ? "flex" : "hidden"
+                  )}
+                >
                   {descendants.map((item: any, index: number) => {
                     return (
-                      <div key={index} className="hover:bg-red-400 px-4 cursor-pointer py-1" onClick={() => {
-                        setUser(item.username);
-                        setDescendantListView(false);
-                      }}>{item.username}</div>
-                    )
+                      <div
+                        key={index}
+                        className="hover:bg-red-400 px-4 cursor-pointer py-1"
+                        onClick={() => {
+                          setUser(item.username);
+                          setDescendantListView(false);
+                        }}
+                      >
+                        {item.username}
+                      </div>
+                    );
                   })}
                 </div>
               </div>
             </div>
           </div>
           <div className="flex flex-col md:flex-row gap-2 justify-center w-2/3 mx-auto">
-            <div className="flex justify-between">
+            <div className="flex gap-1 justify-between">
               <div className="flex items-center">
                 <input
                   type="checkbox"
@@ -219,7 +240,7 @@ const BetsList = () => {
                 </label>
               </div>
             </div>
-            <div className="flex justify-between">
+            <div className="flex gap-1 justify-between">
               <div className="flex items-center">
                 <input
                   type="checkbox"
@@ -254,7 +275,7 @@ const BetsList = () => {
                 </label>
               </div>
             </div>
-            <div className="flex justify-between">
+            <div className="flex gap-1 justify-between">
               <div className="flex items-center">
                 <input
                   type="checkbox"
@@ -288,6 +309,17 @@ const BetsList = () => {
                   Checking
                 </label>
               </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+                  onChange={() => setCashoutAlert(!cashoutAlert)}
+                  checked={cashoutAlert === true ? true : false}
+                />
+                <label className="ml-0.5 text-sm font-medium text-white">
+                  Cashout Alert
+                </label>
+              </div>
             </div>
           </div>
           <div className="flex justify-center ">
@@ -300,7 +332,7 @@ const BetsList = () => {
           </div>
         </section>
         <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
-          {betsList?.length === 0 ? (
+          {userList?.length !== 0 ? (
             <p className="text-lg font-bold text-center text-brand-button-text">
               No results
             </p>
@@ -388,11 +420,11 @@ const BetsList = () => {
                     {total_info.bet_win}
                   </td>
                 </tr>
-                {betsList?.map((item: any, index: number) => {
+                {bets_list?.map((item: any, index: number) => {
                   return (
                     <tr
                       key={index}
-                      className="bg-brand-red text-white hover:cursor-pointer"
+                      className={clsx("text-white hover:cursor-pointer", item.status === "Current" && "bg-[#666]", item.status === "Won" && "bg-green-700", item.status === "Lost" && "bg-brand-red")}
                       onClick={() => {
                         setSelectedItem(item);
                         openCouponModal();
@@ -432,15 +464,26 @@ const BetsList = () => {
             </table>
           )}
         </section>
-        <ModalCoupon item={selectedItem} />
       </section>
+      <ModalCoupon item={selectedItem} />
     </>
   );
 };
 
-export default BetsList;
+export default Coupons;
 
 const bets_list = [
+  {
+    user: "cryptoRoshan",
+    date: "03/09 03:17",
+    coupon_id: "422442",
+    type: "multiple",
+    pre_live: "Bonus Pre",
+    status: "Current",
+    amount: "20.00",
+    pos_win: "0.00",
+    bet_win: "0.00",
+  },
   {
     user: "cryptoRoshan",
     date: "03/09 03:17",
@@ -458,7 +501,7 @@ const bets_list = [
     coupon_id: "422442",
     type: "multiple",
     pre_live: "Bonus Pre",
-    status: "Lost",
+    status: "Won",
     amount: "20.00",
     pos_win: "0.00",
     bet_win: "0.00",

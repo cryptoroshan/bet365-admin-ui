@@ -16,45 +16,15 @@ import { navItems } from "./list";
 const PrimaryHeader = () => {
   const { status } = useSession();
   const [openNav, setOpenNav] = useState(false);
-  const menuLinks = [
-    {
-      label: "Sports",
-      link: "/sports",
-      active: true,
-    },
-    {
-      label: "In-Play",
-      link: "/in-play",
-    },
-  ];
-  const router = useRouter();
-  const location = usePathname();
   return (
     <div className="mx-auto bg-brand-green">
       <Container className=" items-center h-[60px] justify-between hidden md:flex">
         <div className="ml-[20px]">
           <Logo />
         </div>
-        <div className=" flex gap-[45px]">
-          {menuLinks.map((link, index) => {
-            return (
-              <CustomLink
-                key={index}
-                href={link.link}
-                className="text-white hover:text-brand-green-light text-sm leading-[0px]"
-                activeClassName="underline underline-offset-[23px] decoration-brand-yellow decoration-2"
-              >
-                {link.label}
-              </CustomLink>
-            );
-          })}
-        </div>
         <div className="flex gap-6 items-center ">
           <div className="flex-shrink-0 h-4  w-4 hidden md:flex">
             <Search />
-          </div>
-          <div className="hidden md:flex">
-            <Button>Join</Button>
           </div>
           <div className="flex-1 flex-shrink-0 mr-[20px] text-xs">
             {status === "authenticated" ? (

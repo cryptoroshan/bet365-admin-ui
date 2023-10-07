@@ -1,12 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 import TransactionTable from "@/app/(app)/components/admin/reports/Transactions/TransactionTable";
 import Pagination from "@/components/ui/Pagination";
 
 const Transactions = () => {
+  const searchParams = useSearchParams();
+  const username = searchParams?.get("username");
   const [startingOn, setStartingOn] = useState("");
   const [endingOn, setEndingOn] = useState("");
+  const [kind, setKind] = useState("All");
   const [type, setType] = useState("All");
   const [user, setUser] = useState("");
 
@@ -37,26 +41,76 @@ const Transactions = () => {
               onChange={(e) => setEndingOn(e.target.value)}
             />
           </div>
-          <div className="flex flex-col">
-            <p className="text-sm text-white">Type:</p>
-            <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-              onChange={(e) => setType(e.target.value)}
-            >
-              <option value="All">All</option>
-              <option value="In">In</option>
-              <option value="Out">Out</option>
-            </select>
-          </div>
-          <div className="flex flex-col">
-            <p className="text-sm text-white">User:</p>
-            <input
-              type="text"
-              className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
-            />
-          </div>
+          {username !== null && (
+            <div className="flex flex-col">
+              <p className="text-sm text-white">Kind:</p>
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
+                onChange={(e) => setKind(e.target.value)}
+              >
+                <option value="All">All</option>
+                <option value="Sport">Sport</option>
+                <option value="Slots">Slots</option>
+                <option value="Casino">Casino</option>
+                <option value="Poker">Poker</option>
+                <option value="Internal">Internal</option>
+                <option value="Voucher">Voucher</option>
+                <option value="Payment">Payment</option>
+                <option value="Virtual">Virtual</option>
+                <option value="Lottery">Lottery</option>
+                <option value="Egames">Egames</option>
+              </select>
+            </div>
+          )}
+          {username === null && (
+            <>
+              <div className="flex flex-col">
+                <p className="text-sm text-white">Type:</p>
+                <select
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
+                  onChange={(e) => setType(e.target.value)}
+                >
+                  <option value="All">All</option>
+                  <option value="In">In</option>
+                  <option value="Out">Out</option>
+                </select>
+              </div>
+              <div className="flex flex-col">
+                <p className="text-sm text-white">User:</p>
+                <input
+                  type="text"
+                  className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
+                  value={user}
+                  onChange={(e) => setUser(e.target.value)}
+                />
+              </div>
+            </>
+          )}
+          {username !== null && (
+            <div className="flex flex-col">
+              <p className="text-sm text-white">Type:</p>
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
+                onChange={(e) => setType(e.target.value)}
+              >
+                <option value="All">All</option>
+                <option value="Bet">Bet</option>
+                <option value="Win">Win</option>
+                <option value="Rollback">Rollback</option>
+                <option value="Cashout">Cashout</option>
+                <option value="Deposit">Deposit</option>
+                <option value="Withdraw">Withdraw</option>
+                <option value="Convert">Convert</option>
+                <option value="Cancel">Cancel</option>
+                <option value="Void">Void</option>
+                <option value="Merge Balance">Merge Balance</option>
+                <option value="Pay">Pay</option>
+                <option value="Pay Out">Pay Out</option>
+                <option value="BETWIN">BETWIN</option>
+                <option value="Cancel Withdraw">Cancel Withdraw</option>
+              </select>
+            </div>
+          )}
         </div>
         <div className="flex justify-center">
           <button

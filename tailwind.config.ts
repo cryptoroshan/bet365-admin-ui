@@ -66,6 +66,7 @@ module.exports = {
           "button": "#474747",
           "clicked-button": "#14805e",
           "button-text": "#bbb",
+          "no-result": "#bbb",
           yellow: "#ffdf1b",
           "light-grey":"#c4c4c4",
           "dark-grey":'#333',

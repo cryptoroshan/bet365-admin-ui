@@ -42,6 +42,18 @@ interface ModalContextType {
   isLocationModalOpen: boolean;
   openLocationModal: () => void;
   closeLocationModal: () => void;
+
+  isSearchCouponModalOpen: boolean;
+  openSearchCouponModal: () => void;
+  closeSearchCouponModal: () => void;
+
+  isDetailsModalOpen: boolean;
+  openDetailsModal: () => void;
+  closeDetailsModal: () => void;
+
+  isDetailViewModalOpen: boolean;
+  openDetailViewModal: () => void;
+  closeDetailViewModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -59,6 +71,10 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isTransferAmountModalOpen, setIsTransferAmountModalOpen] = useState(false);
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  // Search Coupon page
+  const [isSearchCouponModalOpen, setIsSearchCouponModalOpen] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isDetailViewModalOpen, setIsDetailViewModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -140,6 +156,30 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsLocationModalOpen(false);
   };
 
+  const openSearchCouponModal = () => {
+    setIsSearchCouponModalOpen(true);
+  };
+
+  const closeSearchCouponModal = () => {
+    setIsSearchCouponModalOpen(false);
+  };
+
+  const openDetailsModal = () => {
+    setIsDetailsModalOpen(true);
+  };
+
+  const closeDetailsModal = () => {
+    setIsDetailsModalOpen(false);
+  };
+
+  const openDetailViewModal = () => {
+    setIsDetailViewModalOpen(true);
+  };
+
+  const closeDetailViewModal = () => {
+    setIsDetailViewModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -173,6 +213,15 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         isLocationModalOpen,
         openLocationModal,
         closeLocationModal,
+        isSearchCouponModalOpen,
+        openSearchCouponModal,
+        closeSearchCouponModal,
+        isDetailsModalOpen,
+        openDetailsModal,
+        closeDetailsModal,
+        isDetailViewModalOpen,
+        openDetailViewModal,
+        closeDetailViewModal,
       }}
     >
       {children}

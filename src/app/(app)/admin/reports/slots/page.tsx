@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import clsx from "clsx";
 
 import {
@@ -12,6 +13,8 @@ import VendorTable from "@/app/(app)/components/admin/reports/Slots/VendorTable"
 import UserTable from "@/app/(app)/components/admin/reports/Slots/UserTable";
 
 const Slots = () => {
+  const searchParams = useSearchParams();
+  const username = searchParams?.get("username");
   const { data: session } = useSession();
   const [startingOn, setStartingOn] = useState("");
   const [endingOn, setEndingOn] = useState("");
@@ -179,18 +182,20 @@ const Slots = () => {
               onChange={(e) => setEndingOn(e.target.value)}
             />
           </div>
-          <div className="flex flex-col">
-            <p className="text-sm text-white">Provider:</p>
-            <select
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-              onChange={(e) => setProvider(e.target.value)}
-            >
-              <option value="All">All</option>
-              <option value="Ekko">Ekko</option>
-              <option value="Gapi">Gapi</option>
-              <option value="Gbs">Gbs</option>
-            </select>
-          </div>
+          {username === null && (
+            <div className="flex flex-col">
+              <p className="text-sm text-white">Provider:</p>
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
+                onChange={(e) => setProvider(e.target.value)}
+              >
+                <option value="All">All</option>
+                <option value="Ekko">Ekko</option>
+                <option value="Gapi">Gapi</option>
+                <option value="Gbs">Gbs</option>
+              </select>
+            </div>
+          )}
           {provider !== "All" && (
             <div className="flex flex-col">
               <p className="text-sm text-white">Vendor:</p>

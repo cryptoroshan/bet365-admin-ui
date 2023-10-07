@@ -139,11 +139,11 @@ const UserSearch = ({ currentTab }: any) => {
                             setSelectedItem(item);
                             openLocationModal();
                           }} />
-                          <Button type="action" name="Bets" onHandleClick={() => router.push(`/admin/reports/bets_list?=${item.username}`)} />
-                          <Button type="action" name="Slots" />
-                          <Button type="action" name="Casino" />
-                          <Button type="action" name="Transactions" />
-                          <Button type="action" name="Activity" />
+                          <Button type="action" name="Bets" onHandleClick={() => router.push(`/admin/reports/bets_list?username=${item.username}`)} />
+                          <Button type="action" name="Slots" onHandleClick={() => router.push(`/admin/reports/slots?username=${item.username}`)} />
+                          <Button type="action" name="Casino" onHandleClick={() => router.push(`/admin/reports/casino?username=${item.username}`)} />
+                          <Button type="action" name="Transactions" onHandleClick={() => router.push(`/admin/reports/transactions?username=${item.username}`)} />
+                          <Button type="action" name="Activity" onHandleClick={() => router.push(`/admin/reports/transactions?username=${item.username}`)} />
                         </div>
                       </td>
                     </tr>

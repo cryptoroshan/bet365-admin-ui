@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useParams, useSearchParams } from 'next/navigation';
 import clsx from "clsx";
 
 import { useModalContext } from "@/contexts/ModalContext";
@@ -13,10 +12,7 @@ import {
 import ModalCoupon from "@/app/(app)/components/admin/reports/BetsList/ModalCoupon";
 
 const BetsList = () => {
-  const { data: session, status } = useSession();
-  const params = useParams();
-  const searchParams = useSearchParams()
-  console.log(params, searchParams)
+  const { data: session } = useSession();
   const { openCouponModal } = useModalContext();
 
   const [startingOn, setStartingOn] = useState("");

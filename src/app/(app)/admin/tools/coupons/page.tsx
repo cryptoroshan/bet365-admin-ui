@@ -13,7 +13,7 @@ import ModalCoupon from "@/app/(app)/components/admin/tools/Coupons/ModalCoupon"
 import Input from "@/app/(app)/components/ui/Input";
 
 const Coupons = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const { openCouponModal } = useModalContext();
 
   const [startingOn, setStartingOn] = useState("");

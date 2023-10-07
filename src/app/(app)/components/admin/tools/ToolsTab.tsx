@@ -55,10 +55,10 @@ const ToolsTab = () => {
           </li>
           <li className="mr-2">
             <Link
-              href="/admin/reports/casino"
+              href="/admin/tools/slot_transactions"
               className={clsx(
                 "inline-block px-4 cursor-pointer pb-2",
-                pathname === "/admin/reports/casino" ? "border-white border-b-4" : ""
+                pathname === "/admin/tools/slot_transactions" ? "border-white border-b-4" : ""
               )}
             >
               Slot Transactions

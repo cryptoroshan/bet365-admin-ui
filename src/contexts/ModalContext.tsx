@@ -54,6 +54,10 @@ interface ModalContextType {
   isDetailViewModalOpen: boolean;
   openDetailViewModal: () => void;
   closeDetailViewModal: () => void;
+
+  isGameTransactionModalOpen: boolean;
+  openGameTransactionModal: () => void;
+  closeGameTransactionModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -75,6 +79,8 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isSearchCouponModalOpen, setIsSearchCouponModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isDetailViewModalOpen, setIsDetailViewModalOpen] = useState(false);
+  // Slot Transactions
+  const [isGameTransactionModalOpen, setIsGameTransactionModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -180,6 +186,14 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsDetailViewModalOpen(false);
   };
 
+  const openGameTransactionModal = () => {
+    setIsGameTransactionModalOpen(true);
+  };
+
+  const closeGameTransactionModal = () => {
+    setIsGameTransactionModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -222,6 +236,9 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         isDetailViewModalOpen,
         openDetailViewModal,
         closeDetailViewModal,
+        isGameTransactionModalOpen,
+        openGameTransactionModal,
+        closeGameTransactionModal
       }}
     >
       {children}

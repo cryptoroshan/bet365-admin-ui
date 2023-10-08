@@ -9,8 +9,9 @@ import {
   getUserById,
   getUsersCreatedBy,
 } from "@/api/userManagement";
-import ModalCasinoTransaction from "@/app/(app)/components/admin/tools/CasinoTransactions/ModalCasinoTransaction";
+import CasinoTransactionsTable from "@/app/(app)/components/admin/tools/CasinoTransactions/CasinoTransactionsTable";
 import Input from "@/app/(app)/components/ui/Input";
+import Pagination from "@/components/ui/Pagination";
 
 const CasinoTransactions = () => {
   const { data: session } = useSession();
@@ -32,7 +33,8 @@ const CasinoTransactions = () => {
   const [descendants, setDescendants] = useState([]);
   const [descendantListView, setDescendantListView] = useState(false);
 
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [pageTotalCount, setPageTotalCount] = useState(2);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const onHandleSearch = async () => {};
 
@@ -191,149 +193,14 @@ const CasinoTransactions = () => {
             </button>
           </div>
         </section>
-        <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
-          {searchList?.length === 0 ? (
-            <p className="text-lg font-bold text-center text-brand-button-text">
-              No results
-            </p>
-          ) : (
-            <table className="w-full text-sm text-gray-400 text-center">
-              <thead className="text-sm bg-brand-yellow text-black">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
-                  >
-                    Id
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
-                  >
-                    User
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
-                  >
-                    Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
-                  >
-                    Type
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
-                  >
-                    Bet
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
-                  >
-                    Win
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
-                  >
-                    Balance
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
-                  >
-                    Provider
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
-                  >
-                    Game
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
-                  >
-                    Round
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="bg-brand-dark-grey text-white">
-                  <td className="px-2 py-1 border border-gray-600"></td>
-                  <td className="px-2 py-1 border border-gray-600">Players: 36</td>
-                  <td className="px-2 py-1 border border-gray-600">
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600">
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600">Total Bet: 31,572.69</td>
-                  <td className="px-2 py-1 border border-gray-600">
-                    Total Win: 32,884.40
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600">
-                    Total: -1,311.71
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600">
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600">
-                    Games: 144
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600">
-                  </td>
-                </tr>
-                {searchList.map((item: any, index: number) => {
-                  return (
-                    <tr
-                      key={index}
-                      className="text-white bg-[#777] hover:cursor-pointer"
-                      onClick={() => {
-                        setSelectedItem(item);
-                        openCasinoTransactionModal();
-                      }}
-                    >
-                      <td className="px-2 py-1 border border-gray-600">
-                        {item.id}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600">
-                        {item.user}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600">
-                        {item.date}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600">
-                        {item.type}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600">
-                        {item.bet_amount}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600">
-                        {item.win_amount}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600">
-                        {item.balance}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600">
-                        {item.vendor}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600">
-                        {item.game}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600">
-                        {item.round}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </section>
+        <CasinoTransactionsTable tableList={searchList} currentPage={currentPage} />
+        <div className="flex flex-row justify-center">
+          <Pagination
+            pageCount={pageTotalCount}
+            gotoPage={(page: number) => setCurrentPage(page)}
+          />
+        </div>
       </section>
-      <ModalCasinoTransaction item={selectedItem} />
     </>
   );
 };
@@ -341,6 +208,84 @@ const CasinoTransactions = () => {
 export default CasinoTransactions;
 
 const search_list = [
+  {
+    id: "17179924",
+    user: "cryptoRoshan",
+    date: "07/09 12:31:56",
+    type: "BETWIN",
+    bet_amount: "0.20",
+    win_amount: "0.18",
+    balance: "7.20",
+    vendor: "ekko",
+    game: "9k Yeti",
+    round: "1084171997",
+    description: "GameRound TableID=3"
+  },
+  {
+    id: "17179924",
+    user: "cryptoRoshan",
+    date: "07/09 12:31:56",
+    type: "BETWIN",
+    bet_amount: "0.20",
+    win_amount: "0.18",
+    balance: "7.20",
+    vendor: "ekko",
+    game: "9k Yeti",
+    round: "1084171997",
+    description: "GameRound TableID=3"
+  },
+  {
+    id: "17179924",
+    user: "cryptoRoshan",
+    date: "07/09 12:31:56",
+    type: "BETWIN",
+    bet_amount: "0.20",
+    win_amount: "0.18",
+    balance: "7.20",
+    vendor: "ekko",
+    game: "9k Yeti",
+    round: "1084171997",
+    description: "GameRound TableID=3"
+  },
+  {
+    id: "17179924",
+    user: "cryptoRoshan",
+    date: "07/09 12:31:56",
+    type: "BETWIN",
+    bet_amount: "0.20",
+    win_amount: "0.18",
+    balance: "7.20",
+    vendor: "ekko",
+    game: "9k Yeti",
+    round: "1084171997",
+    description: "GameRound TableID=3"
+  },
+  {
+    id: "17179924",
+    user: "cryptoRoshan",
+    date: "07/09 12:31:56",
+    type: "BETWIN",
+    bet_amount: "0.20",
+    win_amount: "0.18",
+    balance: "7.20",
+    vendor: "ekko",
+    game: "9k Yeti",
+    round: "1084171997",
+    description: "GameRound TableID=3"
+  },
+  {
+    id: "17179924",
+    user: "cryptoRoshan",
+    date: "07/09 12:31:56",
+    type: "BETWIN",
+    bet_amount: "0.20",
+    win_amount: "0.18",
+    balance: "7.20",
+    vendor: "ekko",
+    game: "9k Yeti",
+    round: "1084171997",
+    description: "GameRound TableID=3"
+  },
   {
     id: "17179924",
     user: "cryptoRoshan",

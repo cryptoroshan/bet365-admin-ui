@@ -1,4 +1,8 @@
-const TransactionTable = ({ currentPage }) => {
+interface TransactionTableProps {
+  currentPage: number
+}
+
+const TransactionTable = ({ currentPage }: TransactionTableProps) => {
   return (
     <div className="w-full overflow-x-scroll md:overflow-hidden">
       <table className="w-full text-sm text-white text-center">

@@ -13,7 +13,7 @@ const BetTypesItems = ({ item, onHandleGroupClick, onHandleTranslateClick }: Bet
   const [betCat, setBetCat] = useState(item.bet_cat);
 
   return (
-    <tr className="text-white bg-[#777] hover:cursor-pointer">
+    <tr className="text-white bg-[#777]">
       <td className="px-2 py-1 border border-gray-600">{item.id}</td>
       <td className="px-2 py-1 border border-gray-600">{item.name}</td>
       <td className="px-2 py-1 border border-gray-600">{item.sport}</td>

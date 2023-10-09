@@ -2,12 +2,12 @@ import { Modal } from "antd";
 
 import { useModalContext } from "@/contexts/ModalContext";
 
-const ModalTransalte = () => {
+const ModalTransalte = ({ name }: { name: string }) => {
   const { isTranslateModalOpen, closeTranslateModal } = useModalContext();
 
   return (
     <Modal
-      title="Translate - Match Result (3-ways)"
+      title={name}
       open={isTranslateModalOpen}
       onCancel={closeTranslateModal}
       footer={[
@@ -18,12 +18,6 @@ const ModalTransalte = () => {
           >
             Save
           </button>
-          <button
-            className="px-4 py-1.5 rounded-md bg-[#333] text-brand-light-grey"
-            onClick={closeTranslateModal}
-          >
-            Close
-          </button>
         </div>,
       ]}
     >
@@ -32,7 +26,7 @@ const ModalTransalte = () => {
           <thead className="text-sm bg-brand-yellow text-black">
             <tr>
               <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                Id
+                Language
               </th>
               <th scope="col" className="px-2 py-1.5 border border-gray-600">
                 Name
@@ -43,8 +37,8 @@ const ModalTransalte = () => {
             {matchResultList.map((item: any, index: number) => {
               return (
                 <tr key={index} className="cursor-pointer">
-                  <td className="px-2 py-1.5 border border-gray-600">{item.id}</td>
-                  <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">{item.name}</td>
+                  <td className="px-2 py-1.5 border border-gray-600 w-[30%]">{item.language}</td>
+                  <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">{name}</td>
                 </tr>
               )
             })}
@@ -59,15 +53,12 @@ export default ModalTransalte;
 
 const matchResultList = [
   {
-    id: "EN",
-    name: "Match Result (3-ways)",
+    language: "EN"
   },
   {
-    id: "ES",
-    name: "Ganador - 3 vias (Hora regular)",
+    language: "ES"
   },
   {
-    id: "DE",
-    name: "Spielergebnis 1*2",
+    language: "DE"
   }
 ];

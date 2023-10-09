@@ -114,7 +114,7 @@ const search_list = [
   },
   {
     id: "2",
-    name: "Match Result (3-ways)",
+    name: "Over/Inder",
     sport: "Football",
     act_pre: true,
     act_live: true,
@@ -125,7 +125,7 @@ const search_list = [
   },
   {
     id: "3",
-    name: "Match Result (3-ways)",
+    name: "Correct Score",
     sport: "Football",
     act_pre: true,
     act_live: true,

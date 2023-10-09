@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { useModalContext } from "@/contexts/ModalContext";
 import ModalMatchResult from "./ModalMatchResult";
-import ModalTransalte from "./ModalTranslate";
+import ModalTransalte from "@/components/ui/ModalDialog/ModalTranslate";
 import BetTypesItems from "./BetTypesItems";
 
 interface BetTypesTableProps {
@@ -13,7 +13,7 @@ interface BetTypesTableProps {
 const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
   const { openMatchResultModal, openTranslateModal } = useModalContext();
 
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedName, setSelectedName] = useState("");
   const [betCat, setBetCat] = useState("");
 
   return (
@@ -67,7 +67,10 @@ const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
                       key={index}
                       item={item}
                       onHandleGroupClick={(item: any) => openMatchResultModal()}
-                      onHandleTranslateClick={(item: any) => openTranslateModal()}
+                      onHandleTranslateClick={(name: string) => {
+                        setSelectedName(name);
+                        openTranslateModal();
+                      }}
                     />
                   );
               })}
@@ -76,7 +79,7 @@ const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
         )}
       </section>
       <ModalMatchResult />
-      <ModalTransalte />
+      <ModalTransalte name={selectedName} />
     </>
   );
 };

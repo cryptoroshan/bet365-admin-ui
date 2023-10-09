@@ -23,6 +23,8 @@ const ToolsTab = () => {
       setCurrentTab("Bet Types");
     else if (pathname === "/admin/tools/league")
       setCurrentTab("League");
+    else if (pathname === "/admin/tools/sports")
+      setCurrentTab("Sports");
   }, [pathname])
 
   return (
@@ -107,6 +109,17 @@ const ToolsTab = () => {
               )}
             >
               League
+            </Link>
+          </li>
+          <li className="mr-2">
+            <Link
+              href="/admin/tools/sports"
+              className={clsx(
+                "inline-block px-4 cursor-pointer pb-2",
+                pathname === "/admin/tools/sports" ? "border-white border-b-4" : ""
+              )}
+            >
+              Sports
             </Link>
           </li>
         </ul>

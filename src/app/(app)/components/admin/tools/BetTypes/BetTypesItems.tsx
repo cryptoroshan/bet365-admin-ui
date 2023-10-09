@@ -68,7 +68,7 @@ const BetTypesItems = ({ item, onHandleGroupClick, onHandleTranslateClick }: Bet
             Group
           </button>
           <button className="button py-2 bg-[#333] hover:bg-[#444] w-full"
-            onClick={() => onHandleTranslateClick(item)}
+            onClick={() => onHandleTranslateClick(item.name)}
           >
             Translate
           </button>

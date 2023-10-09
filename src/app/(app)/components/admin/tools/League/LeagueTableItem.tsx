@@ -23,7 +23,7 @@ const LeagueTableItem = ({
       <td className="w-48 border border-gray-600">
         <button
           className="button py-2 bg-green-700 hover:bg-green-600 w-full"
-          onClick={() => onHandleTranslateClick(item)}
+          onClick={() => onHandleTranslateClick(item.league_default_name)}
         >
           Translate
         </button>

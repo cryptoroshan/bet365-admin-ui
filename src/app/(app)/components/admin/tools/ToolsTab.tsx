@@ -11,6 +11,18 @@ const ToolsTab = () => {
   useEffect(() => {
     if (pathname === "/admin/tools/user_search")
       setCurrentTab("Users");
+    else if (pathname === "/admin/tools/coupons")
+      setCurrentTab("Coupons");
+    else if (pathname === "/admin/tools/search_coupon")
+      setCurrentTab("Search Coupon");
+    else if (pathname === "/admin/tools/slot_transactions")
+      setCurrentTab("Slots");
+    else if (pathname === "/admin/tools/casino_transactions")
+      setCurrentTab("Casino");
+    else if (pathname === "/admin/tools/bet_types")
+      setCurrentTab("Bet Types");
+    else if (pathname === "/admin/tools/league")
+      setCurrentTab("League");
   }, [pathname])
 
   return (
@@ -84,6 +96,17 @@ const ToolsTab = () => {
               )}
             >
               Bet Types
+            </Link>
+          </li>
+          <li className="mr-2">
+            <Link
+              href="/admin/tools/league"
+              className={clsx(
+                "inline-block px-4 cursor-pointer pb-2",
+                pathname === "/admin/tools/league" ? "border-white border-b-4" : ""
+              )}
+            >
+              League
             </Link>
           </li>
         </ul>

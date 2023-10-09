@@ -70,6 +70,10 @@ interface ModalContextType {
   isTranslateModalOpen: boolean;
   openTranslateModal: () => void;
   closeTranslateModal: () => void;
+
+  isExcludedBetTypesModalOpen: boolean;
+  openExcludedBetTypesModal: () => void;
+  closeExcludedBetTypesModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -98,6 +102,7 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   // Bet Types
   const [isMatchResultModalOpen, setIsMatchResultModalOpen] = useState(false);
   const [isTranslateModalOpen, setIsTranslateModalOpen] = useState(false);
+  const [isExcludedBetTypesModalOpen, setIsExcludedBetTypesModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -235,6 +240,14 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsTranslateModalOpen(false);
   };
 
+  const openExcludedBetTypesModal = () => {
+    setIsExcludedBetTypesModalOpen(true);
+  };
+
+  const closeExcludedBetTypesModal = () => {
+    setIsExcludedBetTypesModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -288,7 +301,10 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         closeMatchResultModal,
         isTranslateModalOpen,
         openTranslateModal,
-        closeTranslateModal
+        closeTranslateModal,
+        isExcludedBetTypesModalOpen,
+        openExcludedBetTypesModal,
+        closeExcludedBetTypesModal
       }}
     >
       {children}

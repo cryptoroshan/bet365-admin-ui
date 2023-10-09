@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import clsx from "clsx";
+import { useRouter } from 'next/navigation';
 
 import { useModalContext } from "@/contexts/ModalContext";
 import {
@@ -15,6 +15,7 @@ import Pagination from "@/components/ui/Pagination";
 
 const BetTypes = () => {
   const { data: session } = useSession();
+  const router = useRouter();
   const { openCasinoTransactionModal } = useModalContext();
 
   const [sport, setSport] = useState("Football");
@@ -69,13 +70,15 @@ const BetTypes = () => {
         <div className="flex gap-1 items-center">
           <button
             type="button"
-            className="px-4 py-2 bg-green-700 hover:bg-green-600 text-brand-button-text hover:text-white"
+            className="px-4 py-1.5 bg-green-700 hover:bg-green-600 text-brand-button-text hover:text-white"
+            onClick={() => router.push('/admin/tools/categories')}
           >
             Categories
           </button>
           <button
             type="button"
-            className="px-4 py-2 bg-green-700 hover:bg-green-600 text-brand-button-text hover:text-white"
+            className="px-4 py-1.5 bg-green-700 hover:bg-green-600 text-brand-button-text hover:text-white"
+            onClick={() => router.push('/admin/tools/exclude')}
           >
             Exclude
           </button>

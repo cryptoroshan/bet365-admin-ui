@@ -21,7 +21,7 @@ const BetTypesItems = ({ item, onHandleGroupClick, onHandleTranslateClick }: Bet
         <input
           type="checkbox"
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-          checked={actPre === true ? true : false}
+          defaultChecked={actPre === true ? true : false}
           onClick={() => setActPre(!actPre)}
         />
       </td>
@@ -29,7 +29,7 @@ const BetTypesItems = ({ item, onHandleGroupClick, onHandleTranslateClick }: Bet
         <input
           type="checkbox"
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-          checked={actLive === true ? true : false}
+          defaultChecked={actLive === true ? true : false}
           onClick={() => setActLive(!actLive)}
         />
       </td>
@@ -37,7 +37,7 @@ const BetTypesItems = ({ item, onHandleGroupClick, onHandleTranslateClick }: Bet
         <input
           type="checkbox"
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-          checked={cashout === true ? true : false}
+          defaultChecked={cashout === true ? true : false}
           onClick={() => setCashout(!cashout)}
         />
       </td>

@@ -64,6 +64,7 @@ const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
                 if (index >= currentPage * 5 && index < (currentPage + 1) * 5)
                   return (
                     <BetTypesItems
+                      key={index}
                       item={item}
                       onHandleGroupClick={(item: any) => openMatchResultModal()}
                       onHandleTranslateClick={(item: any) => openTranslateModal()}

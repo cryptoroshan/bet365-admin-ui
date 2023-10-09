@@ -62,6 +62,14 @@ interface ModalContextType {
   isCasinoTransactionModalOpen: boolean;
   openCasinoTransactionModal: () => void;
   closeCasinoTransactionModal: () => void;
+
+  isMatchResultModalOpen: boolean;
+  openMatchResultModal: () => void;
+  closeMatchResultModal: () => void;
+
+  isTranslateModalOpen: boolean;
+  openTranslateModal: () => void;
+  closeTranslateModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -87,6 +95,9 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isGameTransactionModalOpen, setIsGameTransactionModalOpen] = useState(false);
   // Casino Transactions
   const [isCasinoTransactionModalOpen, setIsCasinoTransactionModalOpen] = useState(false);
+  // Bet Types
+  const [isMatchResultModalOpen, setIsMatchResultModalOpen] = useState(false);
+  const [isTranslateModalOpen, setIsTranslateModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -208,6 +219,22 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsCasinoTransactionModalOpen(false);
   };
 
+  const openMatchResultModal = () => {
+    setIsMatchResultModalOpen(true);
+  };
+
+  const closeMatchResultModal = () => {
+    setIsMatchResultModalOpen(false);
+  };
+
+  const openTranslateModal = () => {
+    setIsTranslateModalOpen(true);
+  };
+
+  const closeTranslateModal = () => {
+    setIsTranslateModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -255,7 +282,13 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         closeGameTransactionModal,
         isCasinoTransactionModalOpen,
         openCasinoTransactionModal,
-        closeCasinoTransactionModal
+        closeCasinoTransactionModal,
+        isMatchResultModalOpen,
+        openMatchResultModal,
+        closeMatchResultModal,
+        isTranslateModalOpen,
+        openTranslateModal,
+        closeTranslateModal
       }}
     >
       {children}

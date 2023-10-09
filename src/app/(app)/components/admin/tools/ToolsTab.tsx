@@ -75,6 +75,17 @@ const ToolsTab = () => {
               Casino Transactions
             </Link>
           </li>
+          <li className="mr-2">
+            <Link
+              href="/admin/tools/bet_types"
+              className={clsx(
+                "inline-block px-4 cursor-pointer pb-2",
+                pathname === "/admin/tools/bet_types" ? "border-white border-b-4" : ""
+              )}
+            >
+              Bet Types
+            </Link>
+          </li>
         </ul>
       </section>
     </>

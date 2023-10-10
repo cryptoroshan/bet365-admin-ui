@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import clsx from "clsx";
 
 import ModalUserInfo from "@/app/(app)/components/admin/tools/UserSearch/ModalUserInfo";
@@ -14,7 +14,8 @@ import { useModalContext } from "@/contexts/ModalContext";
 
 const UserSearch = ({ currentTab }: any) => {
   const router = useRouter();
-  const { openUserInfoModal, openBlockUserModal, openLocationModal } = useModalContext();
+  const { openUserInfoModal, openBlockUserModal, openLocationModal } =
+    useModalContext();
   const { data: session } = useSession();
 
   const [userId, setUserId] = useState(0);
@@ -29,10 +30,11 @@ const UserSearch = ({ currentTab }: any) => {
       session.user.token,
       session.user.role
     );
-    const _userList = [];
-    _userList.push(_userinfo);
-    console.log(_userinfo);
-    setUserList([..._userList]);
+    if (_userinfo !== undefined) {
+      const _userList = [];
+      _userList.push(_userinfo);
+      setUserList([..._userList]);
+    }
   };
 
   return (
@@ -76,6 +78,7 @@ const UserSearch = ({ currentTab }: any) => {
         <div className="flex justify-center">
           <button
             className="w-16 h-8 text-sm rounded-md bg-brand-dialog-button hover:bg-white"
+            disabled={userId === 0 ? true : false}
             onClick={(e) => onHandleSearch()}
           >
             Search
@@ -124,26 +127,78 @@ const UserSearch = ({ currentTab }: any) => {
                           {item.username}
                         </div>
                       </td>
-                      <td className="px-2 py-1 border border-black">{item.role}</td>
-                      <td className="px-2 py-1 border border-black">{item.createdBy}</td>
                       <td className="px-2 py-1 border border-black">
-                        {Date(item.createdDate)}
+                        {item.role}
+                      </td>
+                      <td className="px-2 py-1 border border-black">
+                        {item.createdBy}
+                      </td>
+                      <td className="px-2 py-1 border border-black">
+                        {item.createdDate}
                       </td>
                       <td className="px-1 py-1 border border-black w-48">
                         <div className="flex gap-1 w-full justify-center">
-                          <Button type="action" name="Block" onHandleClick={() => {
-                            setSelectedItem(item);
-                            openBlockUserModal();
-                          }} />
-                          <Button type="action" name="Location" onHandleClick={() => {
-                            setSelectedItem(item);
-                            openLocationModal();
-                          }} />
-                          <Button type="action" name="Bets" onHandleClick={() => router.push(`/admin/reports/bets_list?username=${item.username}`)} />
-                          <Button type="action" name="Slots" onHandleClick={() => router.push(`/admin/reports/slots?username=${item.username}`)} />
-                          <Button type="action" name="Casino" onHandleClick={() => router.push(`/admin/reports/casino?username=${item.username}`)} />
-                          <Button type="action" name="Transactions" onHandleClick={() => router.push(`/admin/reports/transactions?username=${item.username}`)} />
-                          <Button type="action" name="Activity" onHandleClick={() => router.push(`/admin/reports/transactions?username=${item.username}`)} />
+                          <Button
+                            type="action"
+                            name="Block"
+                            onHandleClick={() => {
+                              setSelectedItem(item);
+                              openBlockUserModal();
+                            }}
+                          />
+                          <Button
+                            type="action"
+                            name="Location"
+                            onHandleClick={() => {
+                              setSelectedItem(item);
+                              openLocationModal();
+                            }}
+                          />
+                          <Button
+                            type="action"
+                            name="Bets"
+                            onHandleClick={() =>
+                              router.push(
+                                `/admin/reports/bets_list?username=${item.username}`
+                              )
+                            }
+                          />
+                          <Button
+                            type="action"
+                            name="Slots"
+                            onHandleClick={() =>
+                              router.push(
+                                `/admin/reports/slots?username=${item.username}`
+                              )
+                            }
+                          />
+                          <Button
+                            type="action"
+                            name="Casino"
+                            onHandleClick={() =>
+                              router.push(
+                                `/admin/reports/casino?username=${item.username}`
+                              )
+                            }
+                          />
+                          <Button
+                            type="action"
+                            name="Transactions"
+                            onHandleClick={() =>
+                              router.push(
+                                `/admin/reports/transactions?username=${item.username}`
+                              )
+                            }
+                          />
+                          <Button
+                            type="action"
+                            name="Activity"
+                            onHandleClick={() =>
+                              router.push(
+                                `/admin/reports/transactions?username=${item.username}`
+                              )
+                            }
+                          />
                         </div>
                       </td>
                     </tr>

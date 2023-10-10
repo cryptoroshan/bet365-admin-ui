@@ -96,7 +96,7 @@ const ModalUserInfo = ({ item }: any) => {
                 </div>
                 <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
                   <p className="w-full text-right m-auto">Register:</p>
-                  <p className="w-full m-auto">{Date(item.createdDate)}</p>
+                  <p className="w-full m-auto">{item.createdDate}</p>
                 </div>
                 <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
                   <p className="w-full text-right m-auto">Balance:</p>
@@ -160,6 +160,7 @@ const ModalUserInfo = ({ item }: any) => {
                       "w-full h-8 p-2 focus:outline-none focus:ring-0 text-black",
                       editMode === false ? "bg-gray-300" : "bg-white"
                     )}
+                    placeholder=""
                     value={name}
                     disable_value={editMode}
                     onHandleChange={(value: string) => setName(value)}
@@ -172,6 +173,7 @@ const ModalUserInfo = ({ item }: any) => {
                       "w-full h-8 p-2 focus:outline-none focus:ring-0 text-black",
                       editMode === false ? "bg-gray-300" : "bg-white"
                     )}
+                    placeholder=""
                     value={surname}
                     disable_value={editMode}
                     onHandleChange={(value: string) => setSurname(value)}
@@ -195,6 +197,7 @@ const ModalUserInfo = ({ item }: any) => {
                       "w-full h-8 p-2 focus:outline-none focus:ring-0 text-black",
                       editMode === false ? "bg-gray-300" : "bg-white"
                     )}
+                    placeholder=""
                     value={region}
                     disable_value={editMode}
                     onHandleChange={(value: string) => setRegion(value)}
@@ -207,6 +210,7 @@ const ModalUserInfo = ({ item }: any) => {
                       "w-full h-8 p-2 focus:outline-none focus:ring-0 text-black",
                       editMode === false ? "bg-gray-300" : "bg-white"
                     )}
+                    placeholder=""
                     value={city}
                     disable_value={editMode}
                     onHandleChange={(value: string) => setCity(value)}
@@ -219,6 +223,7 @@ const ModalUserInfo = ({ item }: any) => {
                       "w-full h-8 p-2 focus:outline-none focus:ring-0 text-black",
                       editMode === false ? "bg-gray-300" : "bg-white"
                     )}
+                    placeholder=""
                     value={address}
                     disable_value={editMode}
                     onHandleChange={(value: string) => setAddress(value)}
@@ -231,6 +236,7 @@ const ModalUserInfo = ({ item }: any) => {
                       "w-full h-8 p-2 focus:outline-none focus:ring-0 text-black",
                       editMode === false ? "bg-gray-300" : "bg-white"
                     )}
+                    placeholder=""
                     value={zip}
                     disable_value={editMode}
                     onHandleChange={(value: string) => setZip(value)}
@@ -243,6 +249,7 @@ const ModalUserInfo = ({ item }: any) => {
                       "w-full h-8 p-2 focus:outline-none focus:ring-0 text-black",
                       editMode === false ? "bg-gray-300" : "bg-white"
                     )}
+                    placeholder=""
                     value={phone}
                     disable_value={editMode}
                     onHandleChange={(value: string) => setPhone(value)}
@@ -255,6 +262,7 @@ const ModalUserInfo = ({ item }: any) => {
                       "w-full h-8 p-2 focus:outline-none focus:ring-0 text-black",
                       editMode === false ? "bg-gray-300" : "bg-white"
                     )}
+                    placeholder=""
                     value={email}
                     disable_value={editMode}
                     onHandleChange={(value: string) => setEmail(value)}
@@ -278,7 +286,7 @@ const ModalUserInfo = ({ item }: any) => {
                     <button
                       type="button"
                       className={clsx(
-                        "flex gap-2 w-20 py-1.5 border border-black justify-center cursor-pointer text-brand-button-text hover:text-white",
+                        "flex gap-2 w-20 mt-1 py-1.5 border border-black justify-center cursor-pointer text-brand-button-text hover:text-white",
                         editMode === false ? "bg-[#14805e]" : "bg-[#333]"
                       )}
                       onClick={() => setEditMode(!editMode)}
@@ -288,7 +296,7 @@ const ModalUserInfo = ({ item }: any) => {
                     <button
                       type="button"
                       className={clsx(
-                        "gap-2 w-20 py-1.5 border border-black justify-center cursor-pointer text-brand-button-text hover:text-white bg-[#333]",
+                        "gap-2 w-20 mt-1 py-1.5 border border-black justify-center cursor-pointer text-brand-button-text hover:text-white bg-[#333]",
                         editMode === false ? "hidden" : "flex"
                       )}
                       onClick={() => setEditMode(!editMode)}

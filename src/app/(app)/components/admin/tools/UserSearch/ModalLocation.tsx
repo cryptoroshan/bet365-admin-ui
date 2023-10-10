@@ -41,13 +41,13 @@ function ModalLocation({ item }: { item: any }) {
                   <tr>
                     <th
                       scope="col"
-                      className="py-1.5 border border-gray-600 w-[10%]"
+                      className="py-1.5 border border-gray-600"
                     >
                       Ip
                     </th>
                     <th
                       scope="col"
-                      className="py-1.5 border border-gray-600 w-[60%]"
+                      className="py-1.5 border border-gray-600"
                     >
                       City
                     </th>

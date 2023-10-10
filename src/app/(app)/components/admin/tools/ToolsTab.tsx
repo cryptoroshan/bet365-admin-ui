@@ -37,6 +37,10 @@ const ToolsTab = () => {
       setCurrentTab("Exclude Events");
     else if (pathname === "/admin/tools/event_statistics")
       setCurrentTab("Event Statistics");
+    else if (pathname === "/admin/tools/logs")
+      setCurrentTab("Logs");
+    else if (pathname === "/admin/tools/margins")
+      setCurrentTab("Margins");
   }, [pathname])
 
   return (
@@ -187,6 +191,28 @@ const ToolsTab = () => {
               )}
             >
               Event Statistics
+            </Link>
+          </li>
+          <li className="mr-2">
+            <Link
+              href="/admin/tools/logs"
+              className={clsx(
+                "inline-block px-4 cursor-pointer pb-2",
+                pathname === "/admin/tools/logs" ? "border-white border-b-4" : ""
+              )}
+            >
+              Logs
+            </Link>
+          </li>
+          <li className="mr-2">
+            <Link
+              href="/admin/tools/margins"
+              className={clsx(
+                "inline-block px-4 cursor-pointer pb-2",
+                pathname === "/admin/tools/margins" ? "border-white border-b-4" : ""
+              )}
+            >
+              Margins
             </Link>
           </li>
         </ul>

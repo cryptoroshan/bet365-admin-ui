@@ -36,7 +36,11 @@ const UserPage = () => {
   };
 
   const getChildren = async (username: string, id: number) => {
-    const _childrenInfo = await getUsersCreatedBy(id, session.user.token, session.user.role);
+    const _childrenInfo = await getUsersCreatedBy(
+      id,
+      session.user.token,
+      session.user.role
+    );
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
       setUserList([..._newUserList]);
@@ -129,18 +133,20 @@ const UserPage = () => {
           </div>
         </div>
         <div className="relative overflow-x-auto">
-          <UserTable
-            parentId_={parentId}
-            child={userList}
-            createTable={createTable}
-            getChildren={getChildren}
-            removeChildren={removeChildren}
-            onHandleTransfer={(item: any) => setSelectedItem(item)}
-            onHandleBlock={(item: any, blockStatus: any) => {
-              setSelectedItem(item);
-              setBlockStatus(blockStatus);
-            }}
-          />
+          {userList.length !== 0 && (
+            <UserTable
+              parentId_={parentId}
+              child={userList}
+              createTable={createTable}
+              getChildren={getChildren}
+              removeChildren={removeChildren}
+              onHandleTransfer={(item: any) => setSelectedItem(item)}
+              onHandleBlock={(item: any, blockStatus: any) => {
+                setSelectedItem(item);
+                setBlockStatus(blockStatus);
+              }}
+            />
+          )}
           <ModalTransfer item_={selectedItem} />
           <ModalNewUser />
           <ModalBlockUser item_={selectedItem} blockStatus={blockStatus} />

@@ -29,6 +29,10 @@ const ToolsTab = () => {
       setCurrentTab("Locations");
     else if (pathname === "/admin/tools/users_online")
       setCurrentTab("Users Online");
+    else if (pathname === "/admin/tools/countries")
+      setCurrentTab("Countries");
+    else if (pathname === "/admin/tools/country_groups")
+      setCurrentTab("Country Groups");
   }, [pathname])
 
   return (
@@ -146,6 +150,17 @@ const ToolsTab = () => {
               )}
             >
               Users Online
+            </Link>
+          </li>
+          <li className="mr-2">
+            <Link
+              href="/admin/tools/countries"
+              className={clsx(
+                "inline-block px-4 cursor-pointer pb-2",
+                pathname === "/admin/tools/countries" ? "border-white border-b-4" : ""
+              )}
+            >
+              Countries
             </Link>
           </li>
         </ul>

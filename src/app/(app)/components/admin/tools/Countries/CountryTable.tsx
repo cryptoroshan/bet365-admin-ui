@@ -1,18 +1,19 @@
 import { useState } from "react";
 
 import { useModalContext } from "@/contexts/ModalContext";
-import ModalMatchResult from "./ModalMatchResult";
 import ModalTransalte from "@/components/ui/ModalDialog/ModalTranslate";
-import BetTypesItems from "./BetTypesItems";
+import CountryTableItem from "./CountryTableItem";
 
-interface BetTypesTableProps {
+interface CountriesTableProps {
   tableList: Array<any>;
   currentPage: number;
 }
 
-const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
+const CountriesTable = ({ tableList, currentPage }: CountriesTableProps) => {
   const { openMatchResultModal, openTranslateModal } = useModalContext();
+
   const [selectedName, setSelectedName] = useState("");
+  const [betCat, setBetCat] = useState("");
 
   return (
     <>
@@ -32,25 +33,10 @@ const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
                   Name
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Sport
-                </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Act pre
-                </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Act live
-                </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Cashout
-                </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Order
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Bet Set
-                </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Bet Cat
+                  Group
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Actions
@@ -61,10 +47,9 @@ const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
               {tableList.map((item: any, index: number) => {
                 if (index >= currentPage * 5 && index < (currentPage + 1) * 5)
                   return (
-                    <BetTypesItems
+                    <CountryTableItem
                       key={index}
                       item={item}
-                      onHandleGroupClick={(item: any) => openMatchResultModal()}
                       onHandleTranslateClick={(name: string) => {
                         setSelectedName(name);
                         openTranslateModal();
@@ -76,10 +61,9 @@ const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
           </table>
         )}
       </section>
-      <ModalMatchResult />
       <ModalTransalte name={selectedName} />
     </>
   );
 };
 
-export default BetTypesTable;
+export default CountriesTable;

@@ -7,7 +7,7 @@ const ModalTransalte = ({ name }: { name: string }) => {
 
   return (
     <Modal
-      title={name}
+      title={"Translate - " + name}
       open={isTranslateModalOpen}
       onCancel={closeTranslateModal}
       footer={[

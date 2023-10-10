@@ -27,6 +27,8 @@ const ToolsTab = () => {
       setCurrentTab("Sports");
     else if (pathname === "/admin/tools/locations")
       setCurrentTab("Locations");
+    else if (pathname === "/admin/tools/users_online")
+      setCurrentTab("Users Online");
   }, [pathname])
 
   return (
@@ -133,6 +135,17 @@ const ToolsTab = () => {
               )}
             >
               Locations
+            </Link>
+          </li>
+          <li className="mr-2">
+            <Link
+              href="/admin/tools/users_online"
+              className={clsx(
+                "inline-block px-4 cursor-pointer pb-2",
+                pathname === "/admin/tools/users_online" ? "border-white border-b-4" : ""
+              )}
+            >
+              Users Online
             </Link>
           </li>
         </ul>

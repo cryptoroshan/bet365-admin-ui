@@ -35,6 +35,8 @@ const ToolsTab = () => {
       setCurrentTab("Country Groups");
     else if (pathname === "/admin/tools/exclude_events")
       setCurrentTab("Exclude Events");
+    else if (pathname === "/admin/tools/event_statistics")
+      setCurrentTab("Event Statistics");
   }, [pathname])
 
   return (
@@ -174,6 +176,17 @@ const ToolsTab = () => {
               )}
             >
               Exclude Events
+            </Link>
+          </li>
+          <li className="mr-2">
+            <Link
+              href="/admin/tools/event_statistics"
+              className={clsx(
+                "inline-block px-4 cursor-pointer pb-2",
+                pathname === "/admin/tools/event_statistics" ? "border-white border-b-4" : ""
+              )}
+            >
+              Event Statistics
             </Link>
           </li>
         </ul>

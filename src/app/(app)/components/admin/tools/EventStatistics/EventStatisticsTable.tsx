@@ -1,18 +1,18 @@
 import { useState } from "react";
 
 import { useModalContext } from "@/contexts/ModalContext";
-import ModalTransalte from "@/components/ui/ModalDialog/ModalTranslate";
-import CountryTableItem from "./CountryTableItem";
+import ModalStatistics from "./ModalStatistics";
+import EventStatisticsTableItem from "./EventStatisticsTableItem";
 
-interface CountriesTableProps {
+interface EventStatisticsTableProps {
   tableList: Array<any>;
   currentPage: number;
 }
 
-const CountriesTable = ({ tableList, currentPage }: CountriesTableProps) => {
-  const { openTranslateModal } = useModalContext();
+const EventStatisticsTable = ({ tableList, currentPage }: EventStatisticsTableProps) => {
+  const { openStatisticsModal } = useModalContext();
 
-  const [selectedName, setSelectedName] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
 
   return (
     <>
@@ -26,19 +26,22 @@ const CountriesTable = ({ tableList, currentPage }: CountriesTableProps) => {
             <thead className="text-sm bg-brand-yellow text-black">
               <tr>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Id
+                  Sport
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Name
+                  Country
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Order
+                  League
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Group
+                  Start Date
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600">
-                  Actions
+                  Games
+                </th>
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                  Action
                 </th>
               </tr>
             </thead>
@@ -46,12 +49,13 @@ const CountriesTable = ({ tableList, currentPage }: CountriesTableProps) => {
               {tableList.map((item: any, index: number) => {
                 if (index >= currentPage * 5 && index < (currentPage + 1) * 5)
                   return (
-                    <CountryTableItem
+                    <EventStatisticsTableItem
                       key={index}
                       item={item}
-                      onHandleTranslateClick={(name: string) => {
-                        setSelectedName(name);
-                        openTranslateModal();
+                      onHandleStatisticsClick={(item: any) => {
+                        console.log(item)
+                        setSelectedItem(item);
+                        openStatisticsModal();
                       }}
                     />
                   );
@@ -60,9 +64,9 @@ const CountriesTable = ({ tableList, currentPage }: CountriesTableProps) => {
           </table>
         )}
       </section>
-      <ModalTransalte name={selectedName} />
+      <ModalStatistics item={selectedItem} />
     </>
   );
 };
 
-export default CountriesTable;
+export default EventStatisticsTable;

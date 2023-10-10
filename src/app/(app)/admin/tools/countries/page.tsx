@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-import { useModalContext } from "@/contexts/ModalContext";
 import {
   getUsersByQuery,
   getUserById,
@@ -15,7 +14,6 @@ import Pagination from "@/components/ui/Pagination";
 const Countries = () => {
   const { data: session } = useSession();
   const router = useRouter();
-  const { openTranslateModal } = useModalContext();
 
   const [sport, setSport] = useState("Football");
 

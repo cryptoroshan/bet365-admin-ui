@@ -36,7 +36,7 @@ const CountryGroups = () => {
             if (e.target.value === "" || regex.test(e.target.value))
               setExcludeId(Number(e.target.value));
           }}
-        />{" "}
+        />
         <button
           type="button"
           className={clsx(

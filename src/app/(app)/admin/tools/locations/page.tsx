@@ -129,7 +129,7 @@ const Locations = () => {
 
 export default Locations;
 
-const search_location_list = [
+const search_location_list: any = [
   {
     ip: "91.140.28.138",
     user: "tolis11",
@@ -212,7 +212,7 @@ const search_location_list = [
   },
 ];
 
-const search_duplicate_table = [
+const search_duplicate_table: any = [
   {
     ip: "109.242.25.184",
     users: 11,

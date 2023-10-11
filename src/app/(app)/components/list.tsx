@@ -17,12 +17,8 @@ export const navItems = [
         link: "/admin/tools/user_search",
     },
     {
-        label: "Sports Management",
-        link: "/admin/sports_management",
-    },
-    {
         label: "Limits",
-        link: "/admin/limits",
+        link: "/admin/limits/settings",
     },
     {
         label: "Delays",

@@ -26,7 +26,7 @@ const League = () => {
 
   return (
     <section className="flex flex-col gap-4 p-4">
-      <section className="flex justify-between">
+      <section className="flex justify-between items-end">
         <div className="grid md:flex gap-1 items-center">
           <div className="flex flex-col">
             <p className="text-sm text-white">Sport:</p>

@@ -43,7 +43,7 @@ const Margins = () => {
                 <option value="Live">Live</option>
               </select>
             <button
-              className="w-16 h-8 text-sm rounded-md bg-brand-dialog-button hover:bg-white"
+              className="mx-auto w-16 h-8 text-sm rounded-md bg-brand-dialog-button hover:bg-white"
               onClick={onHandleSearch}
             >
               Search

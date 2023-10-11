@@ -26,7 +26,7 @@ const Categories = () => {
   return (
     <section className="flex flex-col gap-4 p-4">
       <section className="flex justify-between">
-        <div className="grid md:flex gap-1 justify-between items-center w-full">
+        <div className="flex flex-col md:flex-row gap-1 justify-between items-center w-full">
           <select
             className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
             onChange={(e) => setSport(e.target.value)}

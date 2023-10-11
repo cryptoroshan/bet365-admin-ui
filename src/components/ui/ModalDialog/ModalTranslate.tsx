@@ -37,7 +37,7 @@ const ModalTransalte = ({ name }: { name: string }) => {
             {matchResultList.map((item: any, index: number) => {
               return (
                 <tr key={index} className="cursor-pointer">
-                  <td className="px-2 py-1.5 border border-gray-600 w-[30%]">{item.language}</td>
+                  <td className="px-2 py-1.5 border border-gray-600">{item.language}</td>
                   <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">{name}</td>
                 </tr>
               )

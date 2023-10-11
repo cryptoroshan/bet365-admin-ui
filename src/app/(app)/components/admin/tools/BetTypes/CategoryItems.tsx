@@ -13,10 +13,10 @@ const CategoryItems = ({ item }: CategoryItemProps) => {
       </td>
       <td className="w-48 border border-gray-600">
         <div className="flex gap-0.5">
-          <button className="button py-2 bg-[#333] hover:bg-[#444] w-full">
+          <button className="button px-2 py-2 bg-[#333] hover:bg-[#444] w-full">
             Translate
           </button>
-          <button className="button py-2 bg-[#333] hover:bg-[#444] w-full">
+          <button className="button px-2 py-2 bg-[#333] hover:bg-[#444] w-full">
             Delete
           </button>
         </div>

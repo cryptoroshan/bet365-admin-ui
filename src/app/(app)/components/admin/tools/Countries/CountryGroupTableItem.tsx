@@ -33,13 +33,13 @@ const CountryGroupTableItem = ({ item, onHandleRemoveClick, onHandleTranslateCli
       </td>
       <td className="w-48 border border-gray-600">
         <div className="flex gap-0.5">
-          <button className="button py-2 bg-green-700 hover:bg-green-600 w-full"
+          <button className="button px-2 py-2 bg-green-700 hover:bg-green-600 w-full"
             onClick={() => onHandleTranslateClick(item.name)}
           >
             Translate
           </button>
           <button
-            className="button py-2 bg-[#333] hover:bg-[#444] w-full"
+            className="button px-2 py-2 bg-[#333] hover:bg-[#444] w-full"
             onClick={() => onHandleRemoveClick(item)}
           >
             Remove

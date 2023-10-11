@@ -27,8 +27,8 @@ const Locations = () => {
           {userList.map((item: any, index: number) => {
             return (
               <tr key={index} className="text-white bg-[#777]">
-                <td className="px-2 py-1 border border-gray-600">{item.id}</td>
-                <td className="px-2 py-1 border border-gray-600">
+                <td className="px-2 py-1 border border-gray-600 truncate">{item.id}</td>
+                <td className="px-2 py-1 border border-gray-600 truncate">
                   {item.count}
                 </td>
               </tr>

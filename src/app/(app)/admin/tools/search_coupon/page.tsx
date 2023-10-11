@@ -100,43 +100,43 @@ const SearchCoupon = () => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-10 py-1.5 border border-gray-600"
                   >
                     {"Games (" + gameList.length + ")"}
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Sport
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Country
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     League
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Start Date
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Coupons
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Details
                   </th>
@@ -149,19 +149,19 @@ const SearchCoupon = () => {
                       key={index}
                       className="text-white bg-[#666]"
                     >
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.game_name}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.sport}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.country}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.league}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.start_date}
                       </td>
                       <td className="border border-gray-600 w-36">

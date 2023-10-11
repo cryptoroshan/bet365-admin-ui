@@ -25,34 +25,34 @@ const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
           <table className="w-full text-sm text-gray-400 text-center">
             <thead className="text-sm bg-brand-yellow text-black">
               <tr>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Id
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Name
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Sport
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Act pre
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Act live
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Cashout
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Order
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Bet Set
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Bet Cat
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Actions
                 </th>
               </tr>

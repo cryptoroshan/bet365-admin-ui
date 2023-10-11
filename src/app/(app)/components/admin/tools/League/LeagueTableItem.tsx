@@ -11,12 +11,12 @@ const LeagueTableItem = ({
 }: LeagueTableItemProps) => {
   return (
     <tr className="text-white bg-[#777]">
-      <td className="px-2 py-1 border border-gray-600">{item.sport}</td>
-      <td className="px-2 py-1 border border-gray-600">{item.country}</td>
-      <td className="px-2 py-1 border border-gray-600">
+      <td className="px-2 py-1 border border-gray-600 truncate">{item.sport}</td>
+      <td className="px-2 py-1 border border-gray-600 truncate">{item.country}</td>
+      <td className="px-2 py-1 border border-gray-600 truncate">
         {item.league_default_name}
       </td>
-      <td className="px-2 py-1 border border-gray-600">{item.league_id}</td>
+      <td className="px-2 py-1 border border-gray-600 truncate">{item.league_id}</td>
       <td className="px-2 py-1 border border-gray-600 bg-white text-black">
         {item.order}
       </td>

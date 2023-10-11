@@ -49,19 +49,19 @@ function ModalDetails({ item }: any) {
                     <tr>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Game Id
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Game Name
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Details
                       </th>
@@ -69,13 +69,13 @@ function ModalDetails({ item }: any) {
                   </thead>
                   <tbody className="bg-[#777] text-white text-xs">
                     <tr>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         22963873
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         Ceara SC - Londriina EC PR
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         <div className="flex">
                           <button type="button" className="px-4 py-2 bg-green-700 hover:bg-green-500 text-brand-button-text hover:text-white" onClick={() => onHandleDetailView("Score", score_data)}>Score</button>
                           <button type="button" className="px-4 py-2 bg-green-700 hover:bg-green-500 text-brand-button-text hover:text-white" onClick={() => onHandleDetailView("Corners", corner_data)}>Corners</button>

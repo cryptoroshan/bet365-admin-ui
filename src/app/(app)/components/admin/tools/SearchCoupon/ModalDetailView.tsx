@@ -41,19 +41,19 @@ function ModalDetailView({ type, data }: { type: string; data: any }) {
                     <tr>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Time
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         {type}
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Minute
                       </th>
@@ -63,13 +63,13 @@ function ModalDetailView({ type, data }: { type: string; data: any }) {
                     {data?.map((item: any, index: number) => {
                       return (
                         <tr key={index}>
-                          <td className="px-2 py-1 border border-gray-600">
+                          <td className="px-2 py-1 border border-gray-600 truncate">
                             {item.time}
                           </td>
-                          <td className="px-2 py-1 border border-gray-600">
+                          <td className="px-2 py-1 border border-gray-600 truncate">
                             {item.score}
                           </td>
-                          <td className="px-2 py-1 border border-gray-600">
+                          <td className="px-2 py-1 border border-gray-600 truncate">
                             {item.minute}&apos;
                           </td>
                         </tr>

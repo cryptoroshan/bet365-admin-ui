@@ -92,43 +92,43 @@ function ModalCoupon({ item }: any) {
                 <tr>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Game
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Start Date
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-8 py-1.5 border border-gray-600 !w-[200px]"
                   >
                     Event
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Prediction
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Odds value
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Result
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Status
                   </th>
@@ -136,22 +136,22 @@ function ModalCoupon({ item }: any) {
               </thead>
               <tbody className="bg-white text-black text-xs">
                 <tr>
-                  <td className="px-2 py-1 border border-gray-600">22892872</td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">22892872</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     03/09 17:15
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     Mallorca - Athletic Bilbao <br />
                     Both Teams To Score <br />
                     SCORE: 0:0
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">Yes</td>
-                  <td className="px-2 py-1 border border-gray-600">2.06</td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">Yes</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">2.06</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     Score <br />
                     0:0 (0:0)
                   </td>
-                  <td className="border border-gray-600 px-2">
+                  <td className="border border-gray-600 px-2 truncate">
                     <div className="py-2 bg-green-700">Won</div>
                   </td>
                 </tr>

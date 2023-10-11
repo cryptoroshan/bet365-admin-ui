@@ -245,41 +245,41 @@ const Casino = () => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   ></th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     vendors
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     players
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     games
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     in
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     out
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     ggr
                   </th>
@@ -296,16 +296,16 @@ const Casino = () => {
                   >
                     Pr
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">16</td>
-                  <td className="px-2 py-1 border border-gray-600">94</td>
-                  <td className="px-2 py-1 border border-gray-600">378</td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">16</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">94</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">378</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     261,169.52
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     247,634.09
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     13,535.43
                   </td>
                 </tr>

@@ -306,55 +306,55 @@ const BetsList = () => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     User
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Date
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Coupon ID
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Type
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Pre/Live
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Status
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Amount
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Pos.Win.
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Bet Win
                   </th>
@@ -362,25 +362,25 @@ const BetsList = () => {
               </thead>
               <tbody>
                 <tr className="bg-brand-dark-grey text-white">
-                  <td className="px-2 py-1 border border-gray-600"></td>
-                  <td className="px-2 py-1 border border-gray-600"></td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     {total_info.coupon_id}
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     {total_info.type}
                   </td>
-                  <td className="px-2 py-1 border border-gray-600"></td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     {total_info.status}
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     {total_info.amount}
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     {total_info.pos_win}
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     {total_info.bet_win}
                   </td>
                 </tr>
@@ -394,31 +394,31 @@ const BetsList = () => {
                         openCouponModal();
                       }}
                     >
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.user}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.date}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.coupon_id}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.type}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.pre_live}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.status}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.amount}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.pos_win}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.bet_win}
                       </td>
                     </tr>

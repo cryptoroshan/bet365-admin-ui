@@ -46,43 +46,43 @@ function ModalSearchCoupon({ item }: any) {
                     <tr>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         User
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Date
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Coupon Status
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Game Status
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Bet Type
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Bet
                       </th>
                       <th
                         scope="col"
-                        className="px-2 py-1.5 border border-gray-600"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
                       >
                         Win
                       </th>
@@ -90,36 +90,36 @@ function ModalSearchCoupon({ item }: any) {
                   </thead>
                   <tbody className="bg-[#777] text-white text-xs">
                     <tr className="bg-[#333]">
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         Total: 36
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         Open: 9
                       </td>
-                      <td className="px-2 py-1 border border-gray-600"></td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         Average: 4.87
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         Pos.Win.: 1057.71
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         175.45
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">5.11</td>
+                      <td className="px-2 py-1 border border-gray-600 truncate">5.11</td>
                     </tr>
                     {item.map((item: any, index: number) => {
                       return (
                         <tr key={index} className="cursor-pointer" onClick={openCouponModal}>
-                          <td className="px-2 py-1 border border-gray-600">
+                          <td className="px-2 py-1 border border-gray-600 truncate">
                             {item.user}
                           </td>
-                          <td className="px-2 py-1 border border-gray-600">
+                          <td className="px-2 py-1 border border-gray-600 truncate">
                             {item.date}
                           </td>
                           <td
                             className={clsx(
-                              "px-2 py-1 border border-gray-600",
+                              "px-2 py-1 border border-gray-600 truncate",
                               item.coupon_status === "Won" && "bg-green-700",
                               item.coupon_status === "Lost" && "bg-brand-red"
                             )}
@@ -127,17 +127,17 @@ function ModalSearchCoupon({ item }: any) {
                             <p>coupon id: {item.id}</p>
                             <p>{item.coupon_status}</p>
                           </td>
-                          <td className="px-2 py-1 border border-gray-600">
+                          <td className="px-2 py-1 border border-gray-600 truncate">
                             {item.game_status}
                           </td>
-                          <td className="px-2 py-1 border border-gray-600">
+                          <td className="px-2 py-1 border border-gray-600 truncate">
                             <p>Match Result (3-ways)</p>
                             <p>1</p>
                           </td>
-                          <td className="px-2 py-1 border border-gray-600">
+                          <td className="px-2 py-1 border border-gray-600 truncate">
                             {item.bet}
                           </td>
-                          <td className="px-2 py-1 border border-gray-600">
+                          <td className="px-2 py-1 border border-gray-600 truncate">
                             {item.win}
                           </td>
                         </tr>

@@ -192,55 +192,55 @@ const SlotTransactions = () => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Id
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     User
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Date
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Type
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Bet
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Win
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Balance
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Vendor
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Game
                   </th>
@@ -248,22 +248,22 @@ const SlotTransactions = () => {
               </thead>
               <tbody>
                 <tr className="bg-brand-dark-grey text-white">
-                  <td className="px-2 py-1 border border-gray-600"></td>
-                  <td className="px-2 py-1 border border-gray-600">Players: 36</td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">Players: 36</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">Total Bet: 31,572.69</td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">Total Bet: 31,572.69</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     Total Win: 32,884.40
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     Total: -1,311.71
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     Games: 144
                   </td>
                 </tr>
@@ -277,31 +277,31 @@ const SlotTransactions = () => {
                         openGameTransactionModal();
                       }}
                     >
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.id}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.user}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.date}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.type}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.bet_amount}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.win_amount}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.balance}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.vendor}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.game}
                       </td>
                     </tr>

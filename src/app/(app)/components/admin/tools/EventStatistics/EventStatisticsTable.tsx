@@ -25,22 +25,22 @@ const EventStatisticsTable = ({ tableList, currentPage }: EventStatisticsTablePr
           <table className="w-full text-sm text-gray-400 text-center">
             <thead className="text-sm bg-brand-yellow text-black">
               <tr>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Sport
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Country
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   League
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Start Date
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Games
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Action
                 </th>
               </tr>

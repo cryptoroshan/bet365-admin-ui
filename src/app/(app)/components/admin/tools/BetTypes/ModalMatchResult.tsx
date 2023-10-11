@@ -31,10 +31,10 @@ const ModalMatchResult = () => {
         <table className="w-full text-sm text-white bg-[#666] text-center">
           <thead className="text-sm bg-brand-red">
             <tr>
-              <th scope="col" className="px-2 py-1.5 border border-gray-600">
+              <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                 1
               </th>
-              <th scope="col" className="px-2 py-1.5 border border-gray-600">
+              <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                 Main Markets
               </th>
             </tr>
@@ -43,8 +43,8 @@ const ModalMatchResult = () => {
             {matchResultList.map((item: any, index: number) => {
               return (
                 <tr key={index} className="cursor-pointer">
-                  <td className="px-2 py-1.5 border border-gray-600">{item.id}</td>
-                  <td className="px-2 py-1.5 border border-gray-600">{item.main_market}</td>
+                  <td className="px-2 py-1.5 border border-gray-600 truncate">{item.id}</td>
+                  <td className="px-2 py-1.5 border border-gray-600 truncate">{item.main_market}</td>
                 </tr>
               )
             })}

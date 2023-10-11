@@ -46,7 +46,7 @@ const UserTable = ({
             >
               Sum
             </th>
-            <th scope="col" className="px-2 py-1.5 border border-gray-600"></th>
+            <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate"></th>
           </tr>
         </thead>
         <tbody>

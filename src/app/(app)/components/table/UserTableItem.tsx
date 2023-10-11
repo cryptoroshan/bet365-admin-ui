@@ -17,15 +17,15 @@ const UserTableItem = ({
 
   return (
     <>
-      <td className="px-2 py-1.5 border border-gray-600">{item.username}</td>
-      <td className="px-2 py-1.5 border border-gray-600">{item.role}</td>
+      <td className="px-2 py-1.5 border border-gray-600 truncate">{item.username}</td>
+      <td className="px-2 py-1.5 border border-gray-600 truncate">{item.role}</td>
       <td className="px-2 max-sm:hidden py-1.5 border border-gray-600">
         {item.balance.sports_betting +
           item.balance.casino +
           item.balance.sports_betting_bonus +
           item.balance.casino_bonus}
       </td>
-      <td className="px-2 py-1.5 border border-gray-600">
+      <td className="px-2 py-1.5 border border-gray-600 truncate">
         <div className="flex gap-2 w-full justify-center">
           <button
             type="button"

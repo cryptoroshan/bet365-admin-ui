@@ -30,49 +30,49 @@ const ModalStatistics = ({ item }: { item: any }) => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     date
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     final score
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     halftime score
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     corners
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     penalties
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     yellow cards
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     red cards
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     status
                   </th>
@@ -80,7 +80,7 @@ const ModalStatistics = ({ item }: { item: any }) => {
               </thead>
               <tbody>
                 <tr className="cursor-pointer">
-                  <td className="px-2 py-1.5 border border-gray-600">
+                  <td className="px-2 py-1.5 border border-gray-600 truncate">
                     {totalStatisticsInfo.date}
                   </td>
                   <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
@@ -122,37 +122,37 @@ const ModalStatistics = ({ item }: { item: any }) => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     minute
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     score
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     corners
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     penalties
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     yellow cards
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     red cards
                   </th>
@@ -162,7 +162,7 @@ const ModalStatistics = ({ item }: { item: any }) => {
                 {statisticsList.map((item: any, index: number) => {
                   return (
                     <tr key={index}>
-                      <td className="px-2 py-1.5 border border-gray-600">
+                      <td className="px-2 py-1.5 border border-gray-600 truncate">
                         {item.minute}
                       </td>
                       <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">

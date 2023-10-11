@@ -25,10 +25,10 @@ const ModalTransalte = ({ name }: { name: string }) => {
         <table className="w-full text-sm text-white bg-[#666] text-center">
           <thead className="text-sm bg-brand-yellow text-black">
             <tr>
-              <th scope="col" className="px-2 py-1.5 border border-gray-600">
+              <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                 Language
               </th>
-              <th scope="col" className="px-2 py-1.5 border border-gray-600">
+              <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                 Name
               </th>
             </tr>

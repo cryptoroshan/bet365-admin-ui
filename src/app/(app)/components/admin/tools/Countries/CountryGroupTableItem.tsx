@@ -12,10 +12,10 @@ const CountryGroupTableItem = ({ item, onHandleRemoveClick, onHandleTranslateCli
 
   return (
     <tr className="text-white bg-[#777]">
-      <td className="px-2 py-1 border border-gray-600">{item.id}</td>
-      <td className="px-2 py-1 border border-gray-600">{item.name}</td>
-      <td className="px-2 py-1 border border-gray-600">{item.order}</td>
-      <td className="px-2 py-1 border border-gray-600">
+      <td className="px-2 py-1 border border-gray-600 truncate">{item.id}</td>
+      <td className="px-2 py-1 border border-gray-600 truncate">{item.name}</td>
+      <td className="px-2 py-1 border border-gray-600 truncate">{item.order}</td>
+      <td className="px-2 py-1 border border-gray-600 truncate">
         <input
           type="checkbox"
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
@@ -23,7 +23,7 @@ const CountryGroupTableItem = ({ item, onHandleRemoveClick, onHandleTranslateCli
           onClick={() => setShowTitle(!showTitle)}
         />
       </td>
-      <td className="px-2 py-1 border border-gray-600">
+      <td className="px-2 py-1 border border-gray-600 truncate">
         <input
           type="checkbox"
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"

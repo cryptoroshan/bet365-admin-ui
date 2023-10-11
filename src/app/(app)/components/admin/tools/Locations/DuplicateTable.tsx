@@ -16,12 +16,12 @@ const DuplicateTable = ({ tableList, currentPage, onHandleClick }: DuplicateTabl
           <table className="w-full text-sm text-gray-400 text-center">
             <thead className="text-sm bg-brand-yellow text-black">
               <tr>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Ip
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Users
                 </th>
               </tr>
@@ -31,13 +31,13 @@ const DuplicateTable = ({ tableList, currentPage, onHandleClick }: DuplicateTabl
                 if (index >= currentPage * 5 && index < (currentPage + 1) * 5)
                   return (
                     <tr key={index} className="text-white bg-[#777] cursor-pointer" onClick={onHandleClick}>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {index}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.ip}
                       </td>
-                      <td className="px-2 py-1 border border-gray-600">
+                      <td className="px-2 py-1 border border-gray-600 truncate">
                         {item.users}
                       </td>
                     </tr>

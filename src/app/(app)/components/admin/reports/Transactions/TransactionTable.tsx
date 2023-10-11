@@ -8,19 +8,19 @@ const TransactionTable = ({ currentPage }: TransactionTableProps) => {
       <table className="w-full text-sm text-white text-center">
         <thead className="text-sm bg-brand-yellow text-black">
           <tr>
-            <th scope="col" className="px-2 py-1.5 border border-gray-600">
+            <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
               Date
             </th>
-            <th scope="col" className="px-2 py-1.5 border border-gray-600">
+            <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
               Description
             </th>
-            <th scope="col" className="px-2 py-1.5 border border-gray-600">
+            <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
               Type
             </th>
-            <th scope="col" className="px-2 py-1.5 border border-gray-600">
+            <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
               Kind
             </th>
-            <th scope="col" className="px-2 py-1.5 border border-gray-600">
+            <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
               Amount
             </th>
           </tr>
@@ -30,13 +30,13 @@ const TransactionTable = ({ currentPage }: TransactionTableProps) => {
             if (index >= currentPage * 5 && index < (currentPage + 1) * 5)
               return (
                 <tr key={index} className="bg-[#666]">
-                  <td className="px-2 py-1 border border-gray-600">{item.date}</td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">{item.date}</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     {item.description}
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">{item.type}</td>
-                  <td className="px-2 py-1 border border-gray-600">{item.kind}</td>
-                  <td className="px-2 py-1 border border-gray-600">{item.amount}</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">{item.type}</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">{item.kind}</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">{item.amount}</td>
                 </tr>
               );
           })}

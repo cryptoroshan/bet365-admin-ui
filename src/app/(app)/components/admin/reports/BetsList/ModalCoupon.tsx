@@ -45,44 +45,44 @@ function ModalCoupon({ item }: any) {
             </thead>
             <tbody className="bg-brand-light-grey text-black text-xs text-left">
               <tr>
-                <td className="px-4 py-1 border border-gray-600">Date</td>
-                <td className="px-4 py-1 border border-gray-600">
+                <td className="px-4 py-1 border border-gray-600 truncate">Date</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">
                   03/09 03:17
                 </td>
               </tr>
               <tr>
-                <td className="px-4 py-1 border border-gray-600">Type</td>
-                <td className="px-4 py-1 border border-gray-600">Single</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">Type</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">Single</td>
               </tr>
               <tr>
-                <td className="px-4 py-1 border border-gray-600">User</td>
-                <td className="px-4 py-1 border border-gray-600">
+                <td className="px-4 py-1 border border-gray-600 truncate">User</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">
                   cryptoRoshan
                 </td>
               </tr>
               <tr>
-                <td className="px-4 py-1 border border-gray-600">Amount</td>
-                <td className="px-4 py-1 border border-gray-600">10.00</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">Amount</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">10.00</td>
               </tr>
               <tr>
-                <td className="px-4 py-1 border border-gray-600">Pos.Win.</td>
-                <td className="px-4 py-1 border border-gray-600">23.00</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">Pos.Win.</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">23.00</td>
               </tr>
               <tr>
-                <td className="px-4 py-1 border border-gray-600">Bet Win</td>
-                <td className="px-4 py-1 border border-gray-600">23.00</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">Bet Win</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">23.00</td>
               </tr>
               <tr>
-                <td className="px-4 py-1 border border-gray-600">Sum Odds</td>
-                <td className="px-4 py-1 border border-gray-600">2.3</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">Sum Odds</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">2.3</td>
               </tr>
               <tr>
-                <td className="px-4 py-1 border border-gray-600">Ip</td>
-                <td className="px-4 py-1 border border-gray-600">test</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">Ip</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">test</td>
               </tr>
               <tr>
-                <td className="px-4 py-1 border border-gray-600">Status</td>
-                <td className="!p-0 border border-gray-600">
+                <td className="px-4 py-1 border border-gray-600 truncate">Status</td>
+                <td className="!p-0 border border-gray-600 truncate">
                   <div
                     className={clsx(
                       "bg-green-700 w-20 px-4 py-1 h-full text-center"
@@ -93,14 +93,14 @@ function ModalCoupon({ item }: any) {
                 </td>
               </tr>
               <tr>
-                <td className="px-4 py-1 border border-gray-600">
+                <td className="px-4 py-1 border border-gray-600 truncate">
                   Available Cashout
                 </td>
-                <td className="px-4 py-1 border border-gray-600">0</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">0</td>
               </tr>
               <tr>
-                <td className="px-4 py-1 border border-gray-600">Outright</td>
-                <td className="px-4 py-1 border border-gray-600">No</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">Outright</td>
+                <td className="px-4 py-1 border border-gray-600 truncate">No</td>
               </tr>
             </tbody>
           </table>
@@ -110,43 +110,43 @@ function ModalCoupon({ item }: any) {
                 <tr>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Game
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Start Date
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Event
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Prediction
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Odds value
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Result
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Status
                   </th>
@@ -154,22 +154,22 @@ function ModalCoupon({ item }: any) {
               </thead>
               <tbody className="bg-brand-light-grey text-black text-xs">
                 <tr>
-                  <td className="px-2 py-1 border border-gray-600">22892872</td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">22892872</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     03/09 17:15
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     Mallorca - Athletic Bilbao <br />
                     Both Teams To Score <br />
                     SCORE: 0:0
                   </td>
-                  <td className="px-2 py-1 border border-gray-600">Yes</td>
-                  <td className="px-2 py-1 border border-gray-600">2.06</td>
-                  <td className="px-2 py-1 border border-gray-600">
+                  <td className="px-2 py-1 border border-gray-600 truncate">Yes</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">2.06</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">
                     Score <br />
                     0:0 (0:0)
                   </td>
-                  <td className="border border-gray-600 px-2">
+                  <td className="border border-gray-600 px-2 truncate">
                     <div className="py-2 bg-brand-red">Lost</div>
                   </td>
                 </tr>
@@ -183,25 +183,25 @@ function ModalCoupon({ item }: any) {
                 <tr>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Column
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Combination
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Bet
                   </th>
                   <th
                     scope="col"
-                    className="px-2 py-1.5 border border-gray-600"
+                    className="px-2 py-1.5 border border-gray-600 truncate"
                   >
                     Amount
                   </th>
@@ -209,22 +209,22 @@ function ModalCoupon({ item }: any) {
               </thead>
               <tbody className="bg-brand-light-grey text-black text-xs">
                 <tr>
-                  <td className="px-4 py-1 border border-gray-600">4</td>
-                  <td className="px-4 py-1 border border-gray-600">15</td>
-                  <td className="px-4 py-1 border border-gray-600">0.3</td>
-                  <td className="px-4 py-1 border border-gray-600">4.50</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">4</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">15</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">0.3</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">4.50</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-1 border border-gray-600">5</td>
-                  <td className="px-4 py-1 border border-gray-600">6</td>
-                  <td className="px-4 py-1 border border-gray-600">0.6</td>
-                  <td className="px-4 py-1 border border-gray-600">3.60</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">5</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">6</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">0.6</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">3.60</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-1 border border-gray-600">6</td>
-                  <td className="px-4 py-1 border border-gray-600">1</td>
-                  <td className="px-4 py-1 border border-gray-600">1</td>
-                  <td className="px-4 py-1 border border-gray-600">1.00</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">6</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">1</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">1</td>
+                  <td className="px-4 py-1 border border-gray-600 truncate">1.00</td>
                 </tr>
               </tbody>
             </table>

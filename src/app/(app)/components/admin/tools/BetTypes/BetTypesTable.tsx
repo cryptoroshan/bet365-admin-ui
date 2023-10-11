@@ -52,7 +52,7 @@ const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
                 <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Bet Cat
                 </th>
-                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
+                <th scope="col" className="px-2 py-1.5 border border-gray-600">
                   Actions
                 </th>
               </tr>

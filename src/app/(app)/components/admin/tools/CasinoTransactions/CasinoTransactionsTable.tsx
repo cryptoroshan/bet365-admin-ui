@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ModalCasinoTransaction from "@/app/(app)/components/admin/tools/CasinoTransactions/ModalCasinoTransaction";
+import { useModalContext } from "@/contexts/ModalContext";
 
 interface CasinoTransactionsTableProps {
   tableList: Array<any>;
@@ -10,6 +11,7 @@ const CasinoTransactionsTable = ({
   tableList,
   currentPage,
 }: CasinoTransactionsTableProps) => {
+  const { openCasinoTransactionModal } = useModalContext();
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (

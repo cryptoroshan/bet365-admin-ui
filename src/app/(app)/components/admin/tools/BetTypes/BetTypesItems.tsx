@@ -62,12 +62,12 @@ const BetTypesItems = ({ item, onHandleGroupClick, onHandleTranslateClick }: Bet
       <td className="w-48 border border-gray-600">
         <div className="flex gap-0.5">
           <button
-            className="button py-2 bg-[#333] hover:bg-[#444] w-full"
+            className="button px-2 py-2 bg-[#333] hover:bg-[#444] w-full"
             onClick={() => onHandleGroupClick(item)}
           >
             Group
           </button>
-          <button className="button py-2 bg-[#333] hover:bg-[#444] w-full"
+          <button className="button px-2 py-2 bg-[#333] hover:bg-[#444] w-full"
             onClick={() => onHandleTranslateClick(item.name)}
           >
             Translate

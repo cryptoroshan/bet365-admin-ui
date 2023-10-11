@@ -28,8 +28,8 @@ const BetTypes = () => {
 
   return (
     <section className="flex flex-col gap-4 p-4">
-      <section className="flex justify-between">
-        <div className="grid md:flex gap-1 items-center">
+      <section className="flex flex-col md:flex-row items-center gap-4 justify-between">
+        <div className="flex flex-col md:flex-row gap-1 items-center">
           <div className="flex flex-col">
             <p className="text-sm text-white">Sport:</p>
             <select

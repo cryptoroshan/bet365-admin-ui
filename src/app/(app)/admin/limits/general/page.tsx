@@ -13,7 +13,7 @@ const General = () => {
 
   return (
     <section className="flex flex-col gap-4 p-4">
-      <div className="flex w-1/2 mx-auto gap-4">
+      <div className="flex flex-col md:flex-row md:w-1/2 mx-auto gap-4">
         <GeneralTable tableList={search_list[0]} />
         <GeneralTable tableList={search_list[1]} />
       </div>

@@ -18,7 +18,7 @@ const ModalLimit = ({ tableList, userName }: { tableList: any, userName: string 
       footer={[<div key="Confirm" className="flex gap-2 justify-center"></div>]}
     >
       <section className="flex flex-col gap-4 bg-brand-dialog items-center pt-4 px-4">
-        <section className="flex w-full justify-between">
+        <section className="flex flex-col md:flex-row gap-4 w-full justify-between items-center">
           <section className="flex gap-1 items-center">
             <select
               className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"

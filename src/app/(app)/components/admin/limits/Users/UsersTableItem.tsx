@@ -29,7 +29,7 @@ const UserTableItem = ({
     <>
       <td className="px-2 py-1.5 border border-gray-600 truncate">{item.username}</td>
       <td className="px-2 py-1.5 border border-gray-600 truncate">{item.role}</td>
-      <td className="px-2 max-sm:hidden py-1.5 border border-gray-600">
+      <td className="px-2 py-1.5 border border-gray-600 truncate">
         {item.createdDate}
       </td>
       <td className="w-6 px-1 py-1 border border-gray-600 truncate">

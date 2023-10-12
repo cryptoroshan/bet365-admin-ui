@@ -43,7 +43,7 @@ const UsersTable = ({
             </th>
             <th
               scope="col"
-              className="max-sm:hidden px-2  py-1.5 border border-gray-600 truncate"
+              className="px-2 py-1.5 border border-gray-600 truncate"
             >
               Type
             </th>
@@ -70,7 +70,7 @@ const UsersTable = ({
                         getChildren(username, id);
                       }}
                       removeChildren={removeChildren}
-                      onHandleLimitClick={(name) => onHandleLimitClick(name)}
+                      onHandleLimitClick={(name: string) => onHandleLimitClick(name)}
                     />
                   )}
                 </tr>
@@ -84,7 +84,7 @@ const UsersTable = ({
                   getChildren(username, id);
                 }}
                 removeChildren={removeChildren}
-                onHandleLimitClick={(name) => onHandleLimitClick(name)}
+                onHandleLimitClick={(name: string) => onHandleLimitClick(name)}
                 />
             </tr>
           )}

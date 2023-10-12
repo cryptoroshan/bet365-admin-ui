@@ -51,7 +51,7 @@ const Settings = () => {
           <option value="Group 10">Group 10</option>
         </select>
       </section>
-      <section className="grid grid-cols-3 gap-4">
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {searchList.map((item: any, index: number) => {
           return <GroupTable key={index} tableList={item} />;
         })}

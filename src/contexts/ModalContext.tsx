@@ -82,6 +82,10 @@ interface ModalContextType {
   isLimitModalOpen: boolean;
   openLimitModal: () => void;
   closeLimitModal: () => void;
+
+  isDelayModalOpen: boolean;
+  openDelayModal: () => void;
+  closeDelayModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -116,6 +120,9 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
 
   // Limits
   const [isLimitModalOpen, setIsLimitModalOpen] = useState(false);
+
+  // Delay
+  const [isDelayModalOpen, setIsDelayModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -277,6 +284,14 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsLimitModalOpen(false);
   };
 
+  const openDelayModal = () => {
+    setIsDelayModalOpen(true);
+  };
+
+  const closeDelayModal = () => {
+    setIsDelayModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -339,7 +354,10 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         closeStatisticsModal,
         isLimitModalOpen,
         openLimitModal,
-        closeLimitModal
+        closeLimitModal,
+        isDelayModalOpen,
+        openDelayModal,
+        closeDelayModal
       }}
     >
       {children}

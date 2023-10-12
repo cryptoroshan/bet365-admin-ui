@@ -54,7 +54,7 @@ const Settings = () => {
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {searchList.map((item: any, index: number) => {
           return (
-            <section key={index} className="flex flex-col gap-4">
+            <section key={index} className="flex flex-col gap-2">
               <GroupTable tableList={item} />
               <button className="w-fit mx-auto px-4 py-1.5 rounded-md bg-brand-dialog-button">
                 Confirm

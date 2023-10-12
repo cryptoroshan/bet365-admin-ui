@@ -4,44 +4,44 @@ import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import clsx from "clsx";
 
-const DelayTab = () => {
+const BonusesTab = () => {
   const pathname = usePathname();
   const [currentTab, setCurrentTab] = useState("");
 
   useEffect(() => {
-    if (pathname === "/admin/delay/settings")
+    if (pathname === "/admin/bonuses/bonus_prime")
       setCurrentTab("Settings");
-    else if (pathname === "/admin/delay/users")
+    else if (pathname === "/admin/bonuses/bonus_system")
       setCurrentTab("Users");
   }, [pathname])
 
   return (
     <>
-      <p className="text-lg text-white bg-brand-title p-4">Delay - {currentTab}</p>
+      <p className="text-lg text-white bg-brand-title p-4">Bonuses - {currentTab}</p>
       <section className="text-sm font-medium text-center text-white bg-brand-title">
         <ul className="flex flex-wrap -mb-px">
           <li className="mr-2">
             <Link
-              href="/admin/delay/settings"
+              href="/admin/bonuses/bonus_prime"
               className={clsx(
                 "inline-block px-4 cursor-pointer pb-2",
-                pathname === "/admin/delay/settings" ? "border-white border-b-4" : ""
+                pathname === "/admin/bonuses/bonus_prime" ? "border-white border-b-4" : ""
               )}
             >
-              Settings
+              Bonus Prime
             </Link>
           </li>
           <li className="mr-2">
             <Link
-              href="/admin/delay/users"
+              href="/admin/bonuses/bonus_system"
               className={clsx(
                 "inline-block px-4 cursor-pointer pb-2",
-                pathname === "/admin/delay/users"
+                pathname === "/admin/bonuses/bonus_system"
                   ? "border-white border-b-4"
                   : ""
               )}
             >
-              Users
+              Bonus System
             </Link>
           </li>
         </ul>
@@ -50,4 +50,4 @@ const DelayTab = () => {
   );
 };
 
-export default DelayTab;
+export default BonusesTab;

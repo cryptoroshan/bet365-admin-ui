@@ -8,7 +8,7 @@ import {
   getUserById,
   getUsersCreatedBy,
 } from "@/api/userManagement";
-import GroupTable from "@/app/(app)/components/admin/delay/settings/GroupTable";
+import GroupTable from "@/app/(app)/components/admin/delay/Settings/GroupTable";
 
 const Settings = () => {
   const { data: session } = useSession();

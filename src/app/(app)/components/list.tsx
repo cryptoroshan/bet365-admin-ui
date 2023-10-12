@@ -25,6 +25,10 @@ export const navItems = [
         link: "/admin/delay/settings",
     },
     {
+        label: "Bonuses",
+        link: "/admin/bonuses/bonus_prime",
+    },
+    {
         label: "Rakes",
         link: "/admin/rakes",
     },

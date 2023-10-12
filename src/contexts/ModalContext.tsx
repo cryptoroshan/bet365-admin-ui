@@ -86,6 +86,10 @@ interface ModalContextType {
   isDelayModalOpen: boolean;
   openDelayModal: () => void;
   closeDelayModal: () => void;
+
+  isBonusPrimeModalOpen: boolean;
+  openBonusPrimeModal: () => void;
+  closeBonusPrimeModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -123,6 +127,9 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
 
   // Delay
   const [isDelayModalOpen, setIsDelayModalOpen] = useState(false);
+
+  // Bonuses
+  const [isBonusPrimeModalOpen, setIsBonusPrimeModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -292,6 +299,14 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsDelayModalOpen(false);
   };
 
+  const openBonusPrimeModal = () => {
+    setIsBonusPrimeModalOpen(true);
+  };
+
+  const closeBonusPrimeModal = () => {
+    setIsBonusPrimeModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -357,7 +372,10 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         closeLimitModal,
         isDelayModalOpen,
         openDelayModal,
-        closeDelayModal
+        closeDelayModal,
+        isBonusPrimeModalOpen,
+        openBonusPrimeModal,
+        closeBonusPrimeModal,
       }}
     >
       {children}

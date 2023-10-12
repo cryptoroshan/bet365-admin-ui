@@ -1,8 +1,6 @@
 import { useState } from "react";
 import clsx from "clsx";
 
-import { useModalContext } from "@/contexts/ModalContext";
-import ModalTransfer from "@/app/admin/users/ModalTransfer";
 import UserTableItem from "./UserTableItem";
 
 interface UserTableProps {
@@ -11,8 +9,6 @@ interface UserTableProps {
   createTable: any;
   getChildren: any;
   removeChildren: any;
-  onHandleTransfer: any;
-  onHandleBlock: any;
 };
 
 const UserTable = ({
@@ -20,9 +16,7 @@ const UserTable = ({
   child,
   createTable,
   getChildren,
-  removeChildren,
-  onHandleTransfer,
-  onHandleBlock,
+  removeChildren
 }: UserTableProps) => {
   const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(parentId_);
@@ -40,23 +34,17 @@ const UserTable = ({
           <tr>
             <th
               scope="col"
-              className="px-2 py-1.5 border border-gray-600 w-[25%]"
+              className="px-2 py-1.5 border border-gray-600"
             >
               User
             </th>
             <th
               scope="col"
-              className="max-sm:hidden px-2  py-1.5 border border-gray-600 w-[25%]"
+              className="px-2 py-1.5 border border-gray-600"
             >
               Type
             </th>
-            <th
-              scope="col"
-              className="px-2 py-1.5 border border-gray-600 w-[10%]"
-            >
-              Sum
-            </th>
-            <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate"></th>
+            <th scope="col" className="w-6 px-2 py-1.5 border border-gray-600 truncate">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -69,8 +57,6 @@ const UserTable = ({
                   {Array.isArray(item) === false && (
                     <UserTableItem
                       item_={item}
-                      onHandleTransfer={onHandleTransfer}
-                      onHandleBlock={onHandleBlock}
                       getChildren={(username: string, id: number) => {
                         getChildren(username, id);
                       }}
@@ -84,8 +70,6 @@ const UserTable = ({
             <tr className="bg-[#666] text-white">
               <UserTableItem
                 item_={child}
-                onHandleTransfer={onHandleTransfer}
-                onHandleBlock={onHandleBlock}
                 getChildren={(username: string, id: number) => {
                   getChildren(username, id);
                 }}

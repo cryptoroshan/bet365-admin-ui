@@ -90,6 +90,18 @@ interface ModalContextType {
   isBonusPrimeModalOpen: boolean;
   openBonusPrimeModal: () => void;
   closeBonusPrimeModal: () => void;
+
+  isBonusSystemNewModalOpen: boolean;
+  openBonusSystemNewModal: () => void;
+  closeBonusSystemNewModal: () => void;
+
+  isBonusSystemEditModalOpen: boolean;
+  openBonusSystemEditModal: () => void;
+  closeBonusSystemEditModal: () => void;
+
+  isAssignModalOpen: boolean;
+  openAssignModal: () => void;
+  closeAssignModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -130,6 +142,9 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
 
   // Bonuses
   const [isBonusPrimeModalOpen, setIsBonusPrimeModalOpen] = useState(false);
+  const [isBonusSystemNewModalOpen, setIsBonusSystemNewModalOpen] = useState(false);
+  const [isBonusSystemEditModalOpen, setIsBonusSystemEditModalOpen] = useState(false);
+  const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -307,6 +322,30 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsBonusPrimeModalOpen(false);
   };
 
+  const openBonusSystemNewModal = () => {
+    setIsBonusSystemNewModalOpen(true);
+  };
+
+  const closeBonusSystemNewModal = () => {
+    setIsBonusSystemNewModalOpen(false);
+  };
+
+  const openBonusSystemEditModal = () => {
+    setIsBonusSystemEditModalOpen(true);
+  };
+
+  const closeBonusSystemEditModal = () => {
+    setIsBonusSystemEditModalOpen(false);
+  };
+
+  const openAssignModal = () => {
+    setIsAssignModalOpen(true);
+  };
+
+  const closeAssignModal = () => {
+    setIsAssignModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -376,6 +415,15 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         isBonusPrimeModalOpen,
         openBonusPrimeModal,
         closeBonusPrimeModal,
+        isBonusSystemNewModalOpen,
+        openBonusSystemNewModal,
+        closeBonusSystemNewModal,
+        isBonusSystemEditModalOpen,
+        openBonusSystemEditModal,
+        closeBonusSystemEditModal,
+        isAssignModalOpen,
+        openAssignModal,
+        closeAssignModal
       }}
     >
       {children}

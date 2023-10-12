@@ -218,7 +218,7 @@
 }
 
 @media screen and (max-width: 360px) {
-  .modal-coupon,.modal-location,.modal-search-coupon,.modal-details-coupon,.modal-statistics {
+  .modal-coupon,.modal-location,.modal-search-coupon,.modal-details-coupon,.modal-statistics,.modal-user-limit {
     width: 100vw !important;
   }
 }
@@ -226,6 +226,9 @@
 @media screen and (min-width: 768px) {
   .modal-coupon {
     width: 70vw !important;
+  }
+  .modal-user-limit {
+    width: 60vw !important;
   }
   .modal-location,.modal-search-coupon,.modal-details-coupon,.modal-statistics {
     width: 50vw !important;

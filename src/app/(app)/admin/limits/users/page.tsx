@@ -1,66 +1,130 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
-import {
-  getUsersByQuery,
-  getUserById,
-  getUsersCreatedBy,
-} from "@/api/userManagement";
-import GroupTable from "@/app/(app)/components/admin/limits/Settings/GroupTable";
+import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
+import UsersTable from "@/app/(app)/components/admin/limits/Users/UsersTable";
+import { useModalContext } from "@/contexts/ModalContext";
+import ModalLimit from "@/app/(app)/components/admin/limits/Users/ModalLimit";
 
-const Settings = () => {
+const Users = () => {
   const { data: session } = useSession();
+  const { openLimitModal } = useModalContext();
 
-  const [sport, setSport] = useState("Football");
-  const [group, setGroup] = useState("All Groups");
+  const [userList, setUserList] = useState([]);
+  const [parentId, setParentId] = useState(0);
 
-  const [searchList, setSearchList] = useState(search_list);
+  //transfer
+  const [selectedName, setSelectedName] = useState(null);
+
+  useEffect(() => {
+    if (session !== undefined) getUserInfo();
+  }, [session]);
+
+  const getUserInfo = async () => {
+    const _userinfo = await getUserById(
+      session.user._id,
+      session.user.token,
+      session.user.role
+    );
+    const _userList = [];
+    _userList.push(_userinfo);
+    setUserList([..._userList]);
+  };
+
+  const getChildren = async (username: string, id: number) => {
+    const _childrenInfo = await getUsersCreatedBy(
+      id,
+      session.user.token,
+      session.user.role
+    );
+    if (_childrenInfo.length !== 0) {
+      const _newUserList = addUserList(userList, username, _childrenInfo);
+      setUserList([..._newUserList]);
+    }
+  };
+
+  const removeChildren = (username: string, id: number) => {
+    const _newUserList = removeUserList(userList, username, id);
+    setUserList([..._newUserList]);
+  };
+
+  const removeUserList = (userInfo_: any[], username: string, id: number) => {
+    for (let i = 0; i < userInfo_.length; i++) {
+      if (Array.isArray(userInfo_[i]) === true) {
+        if (userInfo_[i][0].createdBy === String(id)) {
+          userInfo_.splice(i, 1);
+          break;
+        } else {
+          removeUserList(userInfo_[i], username, id);
+          if (i === userInfo_.length - 1) break;
+        }
+      }
+    }
+    return userInfo_;
+  };
+
+  const addUserList = (
+    userInfo_: any[],
+    username: string,
+    _childrenInfo: any[]
+  ) => {
+    for (let i = 0; i < userInfo_.length; i++) {
+      if (Array.isArray(userInfo_[i]) === true) {
+        addUserList(userInfo_[i], username, _childrenInfo);
+        if (i === userInfo_.length - 1) break;
+      }
+      if (userInfo_[i].username === username) {
+        userInfo_.splice(i + 1, 0, _childrenInfo);
+        break;
+      }
+    }
+    return userInfo_;
+  };
+
+  const createTable = (child: any, open: boolean, parentId: number) => {
+    return (
+      <>
+        <td colSpan={7} className="p-2 border border-gray-600">
+          <UsersTable
+            parentId_={parentId}
+            child={child}
+            createTable={createTable}
+            getChildren={getChildren}
+            removeChildren={removeChildren}
+            onHandleLimitClick={(name) => {
+              setSelectedName(name);
+              openLimitModal();
+            }}
+          />
+        </td>
+      </>
+    );
+  };
 
   return (
-    <section className="flex flex-col gap-4 p-4">
-      <section className="flex gap-1 items-center">
-        <select
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-          onChange={(e) => setSport(e.target.value)}
-        >
-          <option value="Football">Football</option>
-          <option value="Basketball">Basketball</option>
-          <option value="Tennis">Tennis</option>
-          <option value="Volleyball">Volleyball</option>
-          <option value="Table Tennis">Table Tennis</option>
-          <option value="Handball">Handball</option>
-          <option value="Futsal">Futsal</option>
-          <option value="Ice Hockey">Ice Hockey</option>
-        </select>
-        <select
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-          onChange={(e) => setGroup(e.target.value)}
-        >
-          <option value="All Groups">All Groups</option>
-          <option value="Group 1">Group 1</option>
-          <option value="Group 2">Group 2</option>
-          <option value="Group 3">Group 3</option>
-          <option value="Group 4">Group 4</option>
-          <option value="Group 5">Group 5</option>
-          <option value="Group 6">Group 6</option>
-          <option value="Group 7">Group 7</option>
-          <option value="Group 8">Group 8</option>
-          <option value="Group 9">Group 9</option>
-          <option value="Group 10">Group 10</option>
-        </select>
-      </section>
-      <section className="grid grid-cols-3 gap-4">
-        {searchList.map((item: any, index: number) => {
-          return <GroupTable key={index} tableList={item} />;
-        })}
-      </section>
+    <section className="flex flex-col w-full overflow-y-auto h-[calc(100vh-60px)] p-4">
+      <div className="relative overflow-x-auto">
+        {userList.length !== 0 && (
+          <UsersTable
+            parentId_={parentId}
+            child={userList}
+            createTable={createTable}
+            getChildren={getChildren}
+            removeChildren={removeChildren}
+            onHandleLimitClick={(name) => {
+              setSelectedName(name);
+              openLimitModal();
+            }}
+          />
+        )}
+      </div>
+      <ModalLimit tableList={search_list} userName={selectedName} />
     </section>
   );
 };
 
-export default Settings;
+export default Users;
 
 const search_list = [
   {

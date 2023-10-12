@@ -78,6 +78,10 @@ interface ModalContextType {
   isStatisticsModalOpen: boolean;
   openStatisticsModal: () => void;
   closeStatisticsModal: () => void;
+
+  isLimitModalOpen: boolean;
+  openLimitModal: () => void;
+  closeLimitModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -109,6 +113,9 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isExcludedBetTypesModalOpen, setIsExcludedBetTypesModalOpen] = useState(false);
   // Event Statistics
   const [isStatisticsModalOpen, setIsStatisticsModalOpen] = useState(false);
+
+  // Limits
+  const [isLimitModalOpen, setIsLimitModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -262,6 +269,14 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsStatisticsModalOpen(false);
   };
 
+  const openLimitModal = () => {
+    setIsLimitModalOpen(true);
+  };
+
+  const closeLimitModal = () => {
+    setIsLimitModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -321,7 +336,10 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         closeExcludedBetTypesModal,
         isStatisticsModalOpen,
         openStatisticsModal,
-        closeStatisticsModal
+        closeStatisticsModal,
+        isLimitModalOpen,
+        openLimitModal,
+        closeLimitModal
       }}
     >
       {children}

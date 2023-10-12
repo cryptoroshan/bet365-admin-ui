@@ -10,8 +10,10 @@ const BonusesTab = () => {
 
   useEffect(() => {
     if (pathname === "/admin/bonuses/bonus_prime")
-      setCurrentTab("Settings");
+      setCurrentTab("Bonus Prime");
     else if (pathname === "/admin/bonuses/bonus_system")
+      setCurrentTab("Bonus System");
+    else if (pathname === "/admin/bonuses/users")
       setCurrentTab("Users");
   }, [pathname])
 

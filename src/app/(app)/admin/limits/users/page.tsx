@@ -15,7 +15,7 @@ const Users = () => {
   const [parentId, setParentId] = useState(0);
 
   //transfer
-  const [selectedName, setSelectedName] = useState(null);
+  const [selectedName, setSelectedName] = useState("");
 
   useEffect(() => {
     if (session !== undefined) getUserInfo();
@@ -92,7 +92,7 @@ const Users = () => {
             createTable={createTable}
             getChildren={getChildren}
             removeChildren={removeChildren}
-            onHandleLimitClick={(name) => {
+            onHandleLimitClick={(name: string) => {
               setSelectedName(name);
               openLimitModal();
             }}
@@ -112,7 +112,7 @@ const Users = () => {
             createTable={createTable}
             getChildren={getChildren}
             removeChildren={removeChildren}
-            onHandleLimitClick={(name) => {
+            onHandleLimitClick={(name: string) => {
               setSelectedName(name);
               openLimitModal();
             }}

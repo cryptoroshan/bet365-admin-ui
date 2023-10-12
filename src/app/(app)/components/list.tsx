@@ -21,8 +21,8 @@ export const navItems = [
         link: "/admin/limits/settings",
     },
     {
-        label: "Delays",
-        link: "/admin/delays",
+        label: "Delay",
+        link: "/admin/delay/settings",
     },
     {
         label: "Rakes",

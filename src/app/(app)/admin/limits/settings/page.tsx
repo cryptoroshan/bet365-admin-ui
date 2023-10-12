@@ -53,7 +53,14 @@ const Settings = () => {
       </section>
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {searchList.map((item: any, index: number) => {
-          return <GroupTable key={index} tableList={item} />;
+          return (
+            <section key={index} className="flex flex-col gap-4">
+              <GroupTable tableList={item} />
+              <button className="w-fit mx-auto px-4 py-1.5 rounded-md bg-brand-dialog-button">
+                Confirm
+              </button>
+            </section>
+          );
         })}
       </section>
     </section>
@@ -72,7 +79,7 @@ const search_list = [
         pre_win: 4500,
         live_id: "Single",
         live_bet: 1000,
-        live_win: 4000
+        live_win: 4000,
       },
       {
         pre_id: "Multiple 2",
@@ -80,7 +87,7 @@ const search_list = [
         pre_win: 7000,
         live_id: "Multiple 2",
         live_bet: 1000,
-        live_win: 6500
+        live_win: 6500,
       },
       {
         pre_id: "Multiple 3",
@@ -88,7 +95,7 @@ const search_list = [
         pre_win: 8000,
         live_id: "Multiple 3",
         live_bet: 1000,
-        live_win: 7500
+        live_win: 7500,
       },
       {
         pre_id: "Multiple 4",
@@ -96,7 +103,7 @@ const search_list = [
         pre_win: 10000,
         live_id: "Multiple 4",
         live_bet: 1000,
-        live_win: 9500
+        live_win: 9500,
       },
       {
         pre_id: "Multiple 5+",
@@ -104,7 +111,7 @@ const search_list = [
         pre_win: 12000,
         live_id: "Multiple 5+",
         live_bet: 1000,
-        live_win: 11000
+        live_win: 11000,
       },
       {
         pre_id: "System",
@@ -112,9 +119,9 @@ const search_list = [
         pre_win: 12000,
         live_id: "System",
         live_bet: 1000,
-        live_win: 11000
-      }
-    ]
+        live_win: 11000,
+      },
+    ],
   },
   {
     id: 2,
@@ -125,7 +132,7 @@ const search_list = [
         pre_win: 4500,
         live_id: "Single",
         live_bet: 1000,
-        live_win: 4000
+        live_win: 4000,
       },
       {
         pre_id: "Multiple 2",
@@ -133,7 +140,7 @@ const search_list = [
         pre_win: 7000,
         live_id: "Multiple 2",
         live_bet: 1000,
-        live_win: 6500
+        live_win: 6500,
       },
       {
         pre_id: "Multiple 3",
@@ -141,7 +148,7 @@ const search_list = [
         pre_win: 8000,
         live_id: "Multiple 3",
         live_bet: 1000,
-        live_win: 7500
+        live_win: 7500,
       },
       {
         pre_id: "Multiple 4",
@@ -149,7 +156,7 @@ const search_list = [
         pre_win: 10000,
         live_id: "Multiple 4",
         live_bet: 1000,
-        live_win: 9500
+        live_win: 9500,
       },
       {
         pre_id: "Multiple 5+",
@@ -157,7 +164,7 @@ const search_list = [
         pre_win: 12000,
         live_id: "Multiple 5+",
         live_bet: 1000,
-        live_win: 11000
+        live_win: 11000,
       },
       {
         pre_id: "System",
@@ -165,9 +172,9 @@ const search_list = [
         pre_win: 12000,
         live_id: "System",
         live_bet: 1000,
-        live_win: 11000
-      }
-    ]
+        live_win: 11000,
+      },
+    ],
   },
   {
     id: 3,
@@ -178,7 +185,7 @@ const search_list = [
         pre_win: 4500,
         live_id: "Single",
         live_bet: 1000,
-        live_win: 4000
+        live_win: 4000,
       },
       {
         pre_id: "Multiple 2",
@@ -186,7 +193,7 @@ const search_list = [
         pre_win: 7000,
         live_id: "Multiple 2",
         live_bet: 1000,
-        live_win: 6500
+        live_win: 6500,
       },
       {
         pre_id: "Multiple 3",
@@ -194,7 +201,7 @@ const search_list = [
         pre_win: 8000,
         live_id: "Multiple 3",
         live_bet: 1000,
-        live_win: 7500
+        live_win: 7500,
       },
       {
         pre_id: "Multiple 4",
@@ -202,7 +209,7 @@ const search_list = [
         pre_win: 10000,
         live_id: "Multiple 4",
         live_bet: 1000,
-        live_win: 9500
+        live_win: 9500,
       },
       {
         pre_id: "Multiple 5+",
@@ -210,7 +217,7 @@ const search_list = [
         pre_win: 12000,
         live_id: "Multiple 5+",
         live_bet: 1000,
-        live_win: 11000
+        live_win: 11000,
       },
       {
         pre_id: "System",
@@ -218,9 +225,9 @@ const search_list = [
         pre_win: 12000,
         live_id: "System",
         live_bet: 1000,
-        live_win: 11000
-      }
-    ]
+        live_win: 11000,
+      },
+    ],
   },
   {
     id: 4,
@@ -231,7 +238,7 @@ const search_list = [
         pre_win: 4500,
         live_id: "Single",
         live_bet: 1000,
-        live_win: 4000
+        live_win: 4000,
       },
       {
         pre_id: "Multiple 2",
@@ -239,7 +246,7 @@ const search_list = [
         pre_win: 7000,
         live_id: "Multiple 2",
         live_bet: 1000,
-        live_win: 6500
+        live_win: 6500,
       },
       {
         pre_id: "Multiple 3",
@@ -247,7 +254,7 @@ const search_list = [
         pre_win: 8000,
         live_id: "Multiple 3",
         live_bet: 1000,
-        live_win: 7500
+        live_win: 7500,
       },
       {
         pre_id: "Multiple 4",
@@ -255,7 +262,7 @@ const search_list = [
         pre_win: 10000,
         live_id: "Multiple 4",
         live_bet: 1000,
-        live_win: 9500
+        live_win: 9500,
       },
       {
         pre_id: "Multiple 5+",
@@ -263,7 +270,7 @@ const search_list = [
         pre_win: 12000,
         live_id: "Multiple 5+",
         live_bet: 1000,
-        live_win: 11000
+        live_win: 11000,
       },
       {
         pre_id: "System",
@@ -271,9 +278,9 @@ const search_list = [
         pre_win: 12000,
         live_id: "System",
         live_bet: 1000,
-        live_win: 11000
-      }
-    ]
+        live_win: 11000,
+      },
+    ],
   },
   {
     id: 5,
@@ -284,7 +291,7 @@ const search_list = [
         pre_win: 4500,
         live_id: "Single",
         live_bet: 1000,
-        live_win: 4000
+        live_win: 4000,
       },
       {
         pre_id: "Multiple 2",
@@ -292,7 +299,7 @@ const search_list = [
         pre_win: 7000,
         live_id: "Multiple 2",
         live_bet: 1000,
-        live_win: 6500
+        live_win: 6500,
       },
       {
         pre_id: "Multiple 3",
@@ -300,7 +307,7 @@ const search_list = [
         pre_win: 8000,
         live_id: "Multiple 3",
         live_bet: 1000,
-        live_win: 7500
+        live_win: 7500,
       },
       {
         pre_id: "Multiple 4",
@@ -308,7 +315,7 @@ const search_list = [
         pre_win: 10000,
         live_id: "Multiple 4",
         live_bet: 1000,
-        live_win: 9500
+        live_win: 9500,
       },
       {
         pre_id: "Multiple 5+",
@@ -316,7 +323,7 @@ const search_list = [
         pre_win: 12000,
         live_id: "Multiple 5+",
         live_bet: 1000,
-        live_win: 11000
+        live_win: 11000,
       },
       {
         pre_id: "System",
@@ -324,9 +331,9 @@ const search_list = [
         pre_win: 12000,
         live_id: "System",
         live_bet: 1000,
-        live_win: 11000
-      }
-    ]
+        live_win: 11000,
+      },
+    ],
   },
   {
     id: 6,
@@ -337,7 +344,7 @@ const search_list = [
         pre_win: 4500,
         live_id: "Single",
         live_bet: 1000,
-        live_win: 4000
+        live_win: 4000,
       },
       {
         pre_id: "Multiple 2",
@@ -345,7 +352,7 @@ const search_list = [
         pre_win: 7000,
         live_id: "Multiple 2",
         live_bet: 1000,
-        live_win: 6500
+        live_win: 6500,
       },
       {
         pre_id: "Multiple 3",
@@ -353,7 +360,7 @@ const search_list = [
         pre_win: 8000,
         live_id: "Multiple 3",
         live_bet: 1000,
-        live_win: 7500
+        live_win: 7500,
       },
       {
         pre_id: "Multiple 4",
@@ -361,7 +368,7 @@ const search_list = [
         pre_win: 10000,
         live_id: "Multiple 4",
         live_bet: 1000,
-        live_win: 9500
+        live_win: 9500,
       },
       {
         pre_id: "Multiple 5+",
@@ -369,7 +376,7 @@ const search_list = [
         pre_win: 12000,
         live_id: "Multiple 5+",
         live_bet: 1000,
-        live_win: 11000
+        live_win: 11000,
       },
       {
         pre_id: "System",
@@ -377,9 +384,9 @@ const search_list = [
         pre_win: 12000,
         live_id: "System",
         live_bet: 1000,
-        live_win: 11000
-      }
-    ]
+        live_win: 11000,
+      },
+    ],
   },
   {
     id: 7,
@@ -390,7 +397,7 @@ const search_list = [
         pre_win: 4500,
         live_id: "Single",
         live_bet: 1000,
-        live_win: 4000
+        live_win: 4000,
       },
       {
         pre_id: "Multiple 2",
@@ -398,7 +405,7 @@ const search_list = [
         pre_win: 7000,
         live_id: "Multiple 2",
         live_bet: 1000,
-        live_win: 6500
+        live_win: 6500,
       },
       {
         pre_id: "Multiple 3",
@@ -406,7 +413,7 @@ const search_list = [
         pre_win: 8000,
         live_id: "Multiple 3",
         live_bet: 1000,
-        live_win: 7500
+        live_win: 7500,
       },
       {
         pre_id: "Multiple 4",
@@ -414,7 +421,7 @@ const search_list = [
         pre_win: 10000,
         live_id: "Multiple 4",
         live_bet: 1000,
-        live_win: 9500
+        live_win: 9500,
       },
       {
         pre_id: "Multiple 5+",
@@ -422,7 +429,7 @@ const search_list = [
         pre_win: 12000,
         live_id: "Multiple 5+",
         live_bet: 1000,
-        live_win: 11000
+        live_win: 11000,
       },
       {
         pre_id: "System",
@@ -430,9 +437,9 @@ const search_list = [
         pre_win: 12000,
         live_id: "System",
         live_bet: 1000,
-        live_win: 11000
-      }
-    ]
+        live_win: 11000,
+      },
+    ],
   },
   {
     id: 8,
@@ -443,7 +450,7 @@ const search_list = [
         pre_win: 4500,
         live_id: "Single",
         live_bet: 1000,
-        live_win: 4000
+        live_win: 4000,
       },
       {
         pre_id: "Multiple 2",
@@ -451,7 +458,7 @@ const search_list = [
         pre_win: 7000,
         live_id: "Multiple 2",
         live_bet: 1000,
-        live_win: 6500
+        live_win: 6500,
       },
       {
         pre_id: "Multiple 3",
@@ -459,7 +466,7 @@ const search_list = [
         pre_win: 8000,
         live_id: "Multiple 3",
         live_bet: 1000,
-        live_win: 7500
+        live_win: 7500,
       },
       {
         pre_id: "Multiple 4",
@@ -467,7 +474,7 @@ const search_list = [
         pre_win: 10000,
         live_id: "Multiple 4",
         live_bet: 1000,
-        live_win: 9500
+        live_win: 9500,
       },
       {
         pre_id: "Multiple 5+",
@@ -475,7 +482,7 @@ const search_list = [
         pre_win: 12000,
         live_id: "Multiple 5+",
         live_bet: 1000,
-        live_win: 11000
+        live_win: 11000,
       },
       {
         pre_id: "System",
@@ -483,9 +490,9 @@ const search_list = [
         pre_win: 12000,
         live_id: "System",
         live_bet: 1000,
-        live_win: 11000
-      }
-    ]
+        live_win: 11000,
+      },
+    ],
   },
   {
     id: 9,
@@ -496,7 +503,7 @@ const search_list = [
         pre_win: 4500,
         live_id: "Single",
         live_bet: 1000,
-        live_win: 4000
+        live_win: 4000,
       },
       {
         pre_id: "Multiple 2",
@@ -504,7 +511,7 @@ const search_list = [
         pre_win: 7000,
         live_id: "Multiple 2",
         live_bet: 1000,
-        live_win: 6500
+        live_win: 6500,
       },
       {
         pre_id: "Multiple 3",
@@ -512,7 +519,7 @@ const search_list = [
         pre_win: 8000,
         live_id: "Multiple 3",
         live_bet: 1000,
-        live_win: 7500
+        live_win: 7500,
       },
       {
         pre_id: "Multiple 4",
@@ -520,7 +527,7 @@ const search_list = [
         pre_win: 10000,
         live_id: "Multiple 4",
         live_bet: 1000,
-        live_win: 9500
+        live_win: 9500,
       },
       {
         pre_id: "Multiple 5+",
@@ -528,7 +535,7 @@ const search_list = [
         pre_win: 12000,
         live_id: "Multiple 5+",
         live_bet: 1000,
-        live_win: 11000
+        live_win: 11000,
       },
       {
         pre_id: "System",
@@ -536,9 +543,9 @@ const search_list = [
         pre_win: 12000,
         live_id: "System",
         live_bet: 1000,
-        live_win: 11000
-      }
-    ]
+        live_win: 11000,
+      },
+    ],
   },
   {
     id: 10,
@@ -549,7 +556,7 @@ const search_list = [
         pre_win: 4500,
         live_id: "Single",
         live_bet: 1000,
-        live_win: 4000
+        live_win: 4000,
       },
       {
         pre_id: "Multiple 2",
@@ -557,7 +564,7 @@ const search_list = [
         pre_win: 7000,
         live_id: "Multiple 2",
         live_bet: 1000,
-        live_win: 6500
+        live_win: 6500,
       },
       {
         pre_id: "Multiple 3",
@@ -565,7 +572,7 @@ const search_list = [
         pre_win: 8000,
         live_id: "Multiple 3",
         live_bet: 1000,
-        live_win: 7500
+        live_win: 7500,
       },
       {
         pre_id: "Multiple 4",
@@ -573,7 +580,7 @@ const search_list = [
         pre_win: 10000,
         live_id: "Multiple 4",
         live_bet: 1000,
-        live_win: 9500
+        live_win: 9500,
       },
       {
         pre_id: "Multiple 5+",
@@ -581,7 +588,7 @@ const search_list = [
         pre_win: 12000,
         live_id: "Multiple 5+",
         live_bet: 1000,
-        live_win: 11000
+        live_win: 11000,
       },
       {
         pre_id: "System",
@@ -589,8 +596,8 @@ const search_list = [
         pre_win: 12000,
         live_id: "System",
         live_bet: 1000,
-        live_win: 11000
-      }
-    ]
-  }
-]
+        live_win: 11000,
+      },
+    ],
+  },
+];

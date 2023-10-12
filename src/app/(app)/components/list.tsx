@@ -29,6 +29,10 @@ export const navItems = [
         link: "/admin/bonuses/bonus_prime",
     },
     {
+        label: "Commissions",
+        link: "/admin/commissions",
+    },
+    {
         label: "Rakes",
         link: "/admin/rakes",
     },

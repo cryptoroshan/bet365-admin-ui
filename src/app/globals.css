@@ -218,7 +218,7 @@
 }
 
 @media screen and (max-width: 360px) {
-  .modal-coupon,.modal-location,.modal-search-coupon,.modal-details-coupon,.modal-statistics,.modal-user-limit,.modal-delay {
+  .modal-coupon,.modal-location,.modal-search-coupon,.modal-details-coupon,.modal-statistics,.modal-user-limit,.modal-delay,.modal-set-rake {
     width: 100vw !important;
   }
 }
@@ -227,7 +227,7 @@
   .modal-coupon {
     width: 70vw !important;
   }
-  .modal-user-limit {
+  .modal-user-limit,.modal-set-rake {
     width: 60vw !important;
   }
   .modal-location,.modal-search-coupon,.modal-details-coupon,.modal-statistics,.modal-delay {

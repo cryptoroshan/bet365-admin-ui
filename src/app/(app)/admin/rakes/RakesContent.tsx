@@ -1,10 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 
+import { useModalContext } from "@/contexts/ModalContext";
 import RakesTable from "../../components/admin/rakes/RakesTable";
 import Pagination from "@/components/ui/Pagination";
+import ModalSetRake from "../../components/admin/rakes/ModalSetRake";
+import ModalCreateRake from "../../components/admin/rakes/ModalCreateRake";
 
 const RakesContent = () => {
+  const { openSetRakeModal, openCreateRakeModal } = useModalContext();
+
   const [rakeList, setRakeList] = useState(rake_list);
   const [pageTotalCount, setPageTotalCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
@@ -14,11 +19,11 @@ const RakesContent = () => {
       <section className="flex flex-col gap-4 p-4">
         <section className="flex flex-col md:flex-row gap-2 justify-between items-center">
           <p className="text-sm text-white">To create new rake put value from 85 to 99</p>
-          <div className="flex">
-            <button className="px-4 h-9 bg-green-700 hover:bg-green-600 text-white">
+          <div className="flex gap-2">
+            <button className="px-4 h-9 bg-green-700 hover:bg-green-600 text-white" onClick={() => openSetRakeModal()}>
               Set Rake to User
             </button>
-            <button className="px-4 h-9 bg-green-700 hover:bg-green-600 text-white">
+            <button className="px-4 h-9 bg-green-700 hover:bg-green-600 text-white" onClick={() => openCreateRakeModal()}>
               Create Rake
             </button>
           </div>
@@ -33,6 +38,8 @@ const RakesContent = () => {
           </div>
         )}
       </section>
+      <ModalSetRake />
+      <ModalCreateRake />
     </>
   );
 };

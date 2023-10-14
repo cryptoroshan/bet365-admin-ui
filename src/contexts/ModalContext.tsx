@@ -102,6 +102,14 @@ interface ModalContextType {
   isAssignModalOpen: boolean;
   openAssignModal: () => void;
   closeAssignModal: () => void;
+
+  isSetRakeModalOpen: boolean;
+  openSetRakeModal: () => void;
+  closeSetRakeModal: () => void;
+
+  isCreateRakeModalOpen: boolean;
+  openCreateRakeModal: () => void;
+  closeCreateRakeModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -145,6 +153,9 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isBonusSystemNewModalOpen, setIsBonusSystemNewModalOpen] = useState(false);
   const [isBonusSystemEditModalOpen, setIsBonusSystemEditModalOpen] = useState(false);
   const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
+  // Rakes
+  const [isSetRakeModalOpen, setIsSetRakeModalOpen] = useState(false);
+  const [isCreateRakeModalOpen, setIsCreateRakeModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -346,6 +357,22 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsAssignModalOpen(false);
   };
 
+  const openSetRakeModal = () => {
+    setIsSetRakeModalOpen(true);
+  };
+
+  const closeSetRakeModal = () => {
+    setIsSetRakeModalOpen(false);
+  };
+
+  const openCreateRakeModal = () => {
+    setIsCreateRakeModalOpen(true);
+  };
+
+  const closeCreateRakeModal = () => {
+    setIsCreateRakeModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -423,7 +450,13 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         closeBonusSystemEditModal,
         isAssignModalOpen,
         openAssignModal,
-        closeAssignModal
+        closeAssignModal,
+        isSetRakeModalOpen,
+        openSetRakeModal,
+        closeSetRakeModal,
+        isCreateRakeModalOpen,
+        openCreateRakeModal,
+        closeCreateRakeModal
       }}
     >
       {children}

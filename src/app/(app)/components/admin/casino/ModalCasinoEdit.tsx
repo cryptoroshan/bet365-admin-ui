@@ -4,38 +4,42 @@ import { Modal } from "antd";
 import { useModalContext } from "@/contexts/ModalContext";
 import Input from "../../ui/Input";
 
-const ModalGame = ({ item }: { item: any }) => {
-  const { isGameModalOpen, closeGameModal } = useModalContext();
+const ModalCasinoEdit = ({ item }: { item: any }) => {
+  const { isCasinoEditModalOpen, closeCasinoEditModal } = useModalContext();
   const [name, setName] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [order, setOrder] = useState(0);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     if (item !== null) {
       setName(item.name);
+      setDisplayName(item.display_name);
       setImageUrl(item.image_url);
       setOrder(item.order);
+      setActive(item.active);
     }
-  }, [item])
+  }, [item]);
 
   const onHandleSave = () => {
     setName("");
     setImageUrl("");
     setOrder(0);
-    closeGameModal();
+    closeCasinoEditModal();
   };
 
   const onHandleClose = () => {
     setName("");
     setImageUrl("");
     setOrder(0);
-    closeGameModal();
+    closeCasinoEditModal();
   };
 
   return (
     <Modal
-      title={"Game: " + item?.name}
-      open={isGameModalOpen}
+      title={item?.name + " - ID: " + item?.id}
+      open={isCasinoEditModalOpen}
       onCancel={onHandleClose}
       footer={[
         <div key="save" className="flex gap-2 justify-center">
@@ -68,6 +72,18 @@ const ModalGame = ({ item }: { item: any }) => {
           </div>
         </div>
         <div className="flex gap-6 items-center justify-center h-10 w-full">
+          <p className="w-full text-right m-auto text-white">Display Name:</p>
+          <div className="w-full m-auto">
+            <Input
+              className="w-full bg-white border-gray-300 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300 text-black"
+              placeholder=""
+              value={displayName}
+              disable_value={false}
+              onHandleChange={(value: string) => setDisplayName(value)}
+            />
+          </div>
+        </div>
+        <div className="flex gap-6 items-center justify-center h-10 w-full">
           <p className="w-full text-right m-auto text-white">Image:</p>
           <div className="w-full m-auto">
             <Input
@@ -91,9 +107,20 @@ const ModalGame = ({ item }: { item: any }) => {
             />
           </div>
         </div>
+        <div className="flex gap-6 items-center justify-center h-10 w-full">
+          <p className="w-full text-right m-auto text-white">Active:</p>
+          <div className="w-full">
+            <input
+              type="checkbox"
+              className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
+              checked={active === true ? true : false}
+              onChange={() => setActive(!active)}
+            />
+          </div>
+        </div>
       </section>
     </Modal>
   );
 };
 
-export default ModalGame;
+export default ModalCasinoEdit;

@@ -44,6 +44,10 @@ export const navItems = [
         label: "Slots",
         link: "/admin/slots",
     },
+    {
+        label: "Casino",
+        link: "/admin/casino",
+    },
 ]
 
 

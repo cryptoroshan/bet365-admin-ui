@@ -1,16 +1,16 @@
-import SlotsTableItem from "./SlotsTableItem";
+import CasinoTableItem from "./CasinoTableItem";
 
-interface SlotsTableProps {
+interface CasinoTableProps {
   tableList: Array<any>;
   currentPage: number;
   onHandleEditClick: any;
 }
 
-const SlotsTable = ({
+const CasinoTable = ({
   tableList,
   currentPage,
   onHandleEditClick,
-}: SlotsTableProps) => {
+}: CasinoTableProps) => {
   return (
     <div className="w-full overflow-x-scroll md:overflow-hidden">
       {tableList?.length === 0 ? (
@@ -37,7 +37,13 @@ const SlotsTable = ({
                 scope="col"
                 className="px-2 py-1.5 border border-gray-600 truncate"
               >
-                Type
+                Display Name
+              </th>
+              <th
+                scope="col"
+                className="px-2 py-1.5 border border-gray-600 truncate"
+              >
+                Aggregator
               </th>
               <th
                 scope="col"
@@ -49,30 +55,20 @@ const SlotsTable = ({
                 scope="col"
                 className="px-2 py-1.5 border border-gray-600 truncate"
               >
-                Listed
+                Active
               </th>
               <th
                 scope="col"
                 className="px-2 py-1.5 border border-gray-600 truncate"
               >
-                Open Count
+                Last Edit
               </th>
               <th
                 scope="col"
                 className="px-2 py-1.5 border border-gray-600 truncate"
               >
-                Played
+                Actions
               </th>
-              <th
-                scope="col"
-                className="px-2 py-1.5 border border-gray-600 truncate"
-              >
-                Changed
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-1.5 border border-gray-600 truncate"
-              ></th>
             </tr>
           </thead>
           <tbody>
@@ -80,7 +76,7 @@ const SlotsTable = ({
               if (index >= currentPage * 5 && index < (currentPage + 1) * 5)
                 return (
                   <tr key={index} className="bg-[#666] text-white">
-                    <SlotsTableItem
+                    <CasinoTableItem
                       item={item}
                       onHandleEditClick={(item: any) => onHandleEditClick(item)}
                     />
@@ -94,4 +90,4 @@ const SlotsTable = ({
   );
 };
 
-export default SlotsTable;
+export default CasinoTable;

@@ -118,6 +118,10 @@ interface ModalContextType {
   isGameModalOpen: boolean;
   openGameModal: () => void;
   closeGameModal: () => void;
+
+  isCasinoEditModalOpen: boolean;
+  openCasinoEditModal: () => void;
+  closeCasinoEditModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -168,6 +172,8 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [isTaxesSettingsModalOpen, setIsTaxesSettingsModalOpen] = useState(false);
   // Slots
   const [isGameModalOpen, setIsGameModalOpen] = useState(false);
+  // Casino
+  const [isCasinoEditModalOpen, setIsCasinoEditModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -401,6 +407,14 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsGameModalOpen(false);
   };
 
+  const openCasinoEditModal = () => {
+    setIsCasinoEditModalOpen(true);
+  };
+
+  const closeCasinoEditModal = () => {
+    setIsCasinoEditModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -490,7 +504,10 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         closeTaxesSettingsModal,
         isGameModalOpen,
         openGameModal,
-        closeGameModal
+        closeGameModal,
+        isCasinoEditModalOpen,
+        openCasinoEditModal,
+        closeCasinoEditModal
       }}
     >
       {children}

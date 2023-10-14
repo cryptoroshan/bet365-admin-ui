@@ -73,7 +73,7 @@ const SlotsContent = () => {
           }}
           currentPage={currentPage}
         />
-        {currentPage > 1 && (
+        {pageTotalCount > 1 && (
           <div className="flex flex-row justify-center">
             <Pagination
               pageCount={pageTotalCount}

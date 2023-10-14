@@ -110,6 +110,10 @@ interface ModalContextType {
   isCreateRakeModalOpen: boolean;
   openCreateRakeModal: () => void;
   closeCreateRakeModal: () => void;
+
+  isTaxesSettingsModalOpen: boolean;
+  openTaxesSettingsModal: () => void;
+  closeTaxesSettingsModal: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -156,6 +160,8 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
   // Rakes
   const [isSetRakeModalOpen, setIsSetRakeModalOpen] = useState(false);
   const [isCreateRakeModalOpen, setIsCreateRakeModalOpen] = useState(false);
+  // Taxes
+  const [isTaxesSettingsModalOpen, setIsTaxesSettingsModalOpen] = useState(false);
 
   const openEditUserModal = () => {
     setIsEditUserModalOpen(true);
@@ -373,6 +379,14 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
     setIsCreateRakeModalOpen(false);
   };
 
+  const openTaxesSettingsModal = () => {
+    setIsTaxesSettingsModalOpen(true);
+  };
+
+  const closeTaxesSettingsModal = () => {
+    setIsTaxesSettingsModalOpen(false);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -456,7 +470,10 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
         closeSetRakeModal,
         isCreateRakeModalOpen,
         openCreateRakeModal,
-        closeCreateRakeModal
+        closeCreateRakeModal,
+        isTaxesSettingsModalOpen,
+        openTaxesSettingsModal,
+        closeTaxesSettingsModal
       }}
     >
       {children}

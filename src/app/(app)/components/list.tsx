@@ -37,6 +37,10 @@ export const navItems = [
         link: "/admin/rakes",
     },
     {
+        label: "Taxes",
+        link: "/admin/taxes",
+    },
+    {
         label: "Transactions",
         link: "/admin/transactions",
     },

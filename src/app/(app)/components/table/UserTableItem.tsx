@@ -1,7 +1,8 @@
 import { useState } from "react";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
 
-import { getBlockStatus } from "@/api/userManagement";
+import { getBlockStatus } from "@/api/userBlock";
 import { useModalContext } from "@/contexts/ModalContext";
 
 interface UserTableItemProps {
@@ -19,6 +20,8 @@ const UserTableItem = ({
   onHandleTransfer,
   onHandleBlock,
 }: UserTableItemProps) => {
+  console.log(item_)
+  const { data: session } = useSession();
   const { openTransferModal, openBlockUserModal } = useModalContext();
   const [item, setItem] = useState(item_);
   const [open, setOpen] = useState(false);
@@ -63,9 +66,10 @@ const UserTableItem = ({
             type="button"
             className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
             onClick={async () => {
-              const _blockStatus = await getBlockStatus(item._id, item.role);
+              const _blockStatus = await getBlockStatus(item._id, session.user.token, session.user.role);
+              console.log(_blockStatus[0].limits)
               openBlockUserModal();
-              onHandleBlock(item, _blockStatus);
+              onHandleBlock(item, _blockStatus[0].limits);
             }}
           >
             Block

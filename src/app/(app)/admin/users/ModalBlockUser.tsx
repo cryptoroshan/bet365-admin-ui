@@ -3,10 +3,21 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Modal } from "antd";
-import { useModalContext } from "@/contexts/ModalContext";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
-function BlockUserModal(props: any) {
+import { useModalContext } from "@/contexts/ModalContext";
+import { setLimit, setUnLimit } from "@/api/userBlock";
+
+interface BlockUserModalProps {
+  item: any;
+  blockStatus: any;
+}
+
+function BlockUserModal({ item, blockStatus }: BlockUserModalProps) {
+  const { data: session }: any = useSession();
   const { isBlockUserModalOpen, closeBlockUserModal } = useModalContext();
+
   const [name, setName] = useState("");
   const [currentTab, setCurrentTab] = useState("General");
   const [fullBlock, setFullBlock] = useState(false);
@@ -18,18 +29,106 @@ function BlockUserModal(props: any) {
   const [blockInstakasa, setBlockInstakasa] = useState(false);
 
   useEffect(() => {
-    if (props.item_ !== null) {
-      setName(props.item_.username);
+    if (item !== null) {
+      setName(item.username);
     }
-    if (props.blockStatus !== null) {
-      console.log(props.blockStatus)
+    if (blockStatus !== null) {
+      setBlockCashout(blockStatus.cashout);
+      setBlockPre(blockStatus.pregame);
+      setBlockLive(blockStatus.live);
+      setBlockSlots(blockStatus.slots);
+      setBlockCasino(blockStatus.casino);
     }
-  }, [props]);
+  }, [item, blockStatus]);
 
   const onHandleClose = () => {
     setCurrentTab("General");
     closeBlockUserModal();
   };
+
+  const handleFullBlock = async() => {
+    let _res;
+    if (fullBlock === true)
+      _res = await setUnLimit(item._id, session.user.token, session.user.role, "full");
+    else
+      _res = await setLimit(item._id, session.user.token, session.user.role, "full");
+
+    if (_res?.status === 200) {
+      setFullBlock(!fullBlock);
+      setBlockCashout(!fullBlock);
+      setBlockPre(!fullBlock);
+      setBlockLive(!fullBlock);
+      setBlockSlots(!fullBlock);
+      setBlockCasino(!fullBlock);
+    }
+    else
+      toast.error(_res?.data.message);
+  }
+
+  const handleBlockCashout = async() => {
+    let _res;
+    if (blockCashout === true)
+      _res = await setUnLimit(item._id, session.user.token, session.user.role, "cashout");
+    else
+      _res = await setLimit(item._id, session.user.token, session.user.role, "cashout");
+
+    if (_res?.status === 200)
+      setBlockCashout(!blockCashout);
+    else
+      toast.error(_res?.data.message);
+  }
+
+  const handleBlockPre = async() => {
+    let _res;
+    if (blockPre === true)
+      _res = await setUnLimit(item._id, session.user.token, session.user.role, "pregame");
+    else
+      _res = await setLimit(item._id, session.user.token, session.user.role, "pregame");
+
+    if (_res?.status === 200)
+      setBlockPre(!blockPre);
+    else
+      toast.error(_res?.data.message);
+  }
+
+  const handleBlockLive = async() => {
+    let _res;
+    if (blockLive === true)
+      _res = await setUnLimit(item._id, session.user.token, session.user.role, "live");
+    else
+      _res = await setLimit(item._id, session.user.token, session.user.role, "live");
+
+    if (_res?.status === 200)
+      setBlockLive(!blockLive);
+    else
+      toast.error(_res?.data.message);
+  }
+
+  const handleBlockSlots = async() => {
+    let _res;
+    if (blockSlots === true)
+      _res = await setUnLimit(item._id, session.user.token, session.user.role, "slots");
+    else
+      _res = await setLimit(item._id, session.user.token, session.user.role, "slots");
+
+    if (_res?.status === 200)
+      setBlockSlots(!blockSlots);
+    else
+      toast.error(_res?.data.message);
+  }
+
+  const handleBlockCasino = async() => {
+    let _res;
+    if (blockCasino === true)
+      _res = await setUnLimit(item._id, session.user.token, session.user.role, "casino");
+    else
+      _res = await setLimit(item._id, session.user.token, session.user.role, "casino");
+
+    if (_res?.status === 200)
+      setBlockCasino(!blockCasino);
+    else
+      toast.error(_res?.data.message);
+  }
 
   return (
     <Modal
@@ -94,7 +193,7 @@ function BlockUserModal(props: any) {
             </a>
           </li>
         </ul>
-        <section>
+        <div>
           <section
             className={clsx(
               "px-8 py-4",
@@ -106,7 +205,8 @@ function BlockUserModal(props: any) {
                 <input
                   type="checkbox"
                   className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setFullBlock(!fullBlock)}
+                  checked={fullBlock === true ? true : false}
+                  onChange={handleFullBlock}
                 />
                 <label
                   htmlFor="checked-checkbox"
@@ -119,7 +219,8 @@ function BlockUserModal(props: any) {
                 <input
                   type="checkbox"
                   className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setBlockCashout(!blockCashout)}
+                  checked={blockCashout === true ? true : false}
+                  onChange={handleBlockCashout}
                 />
                 <label
                   htmlFor="checked-checkbox"
@@ -134,7 +235,8 @@ function BlockUserModal(props: any) {
                 <input
                   type="checkbox"
                   className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setBlockPre(!blockPre)}
+                  checked={blockPre === true ? true : false}
+                  onChange={handleBlockPre}
                 />
                 <label
                   htmlFor="checked-checkbox"
@@ -147,7 +249,8 @@ function BlockUserModal(props: any) {
                 <input
                   type="checkbox"
                   className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setBlockLive(!blockLive)}
+                  checked={blockLive === true ? true : false}
+                  onChange={handleBlockLive}
                 />
                 <label
                   htmlFor="checked-checkbox"
@@ -160,7 +263,8 @@ function BlockUserModal(props: any) {
                 <input
                   type="checkbox"
                   className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setBlockSlots(!blockSlots)}
+                  checked={blockSlots === true ? true : false}
+                  onChange={handleBlockSlots}
                 />
                 <label
                   htmlFor="checked-checkbox"
@@ -173,7 +277,8 @@ function BlockUserModal(props: any) {
                 <input
                   type="checkbox"
                   className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setBlockCasino(!blockCasino)}
+                  checked={blockCasino === true ? true : false}
+                  onChange={handleBlockCasino}
                 />
                 <label
                   htmlFor="checked-checkbox"
@@ -281,7 +386,7 @@ function BlockUserModal(props: any) {
               </label>
             </div>
           </section>
-        </section>
+        </div>
       </section>
     </Modal>
   );

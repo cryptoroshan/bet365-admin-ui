@@ -32,8 +32,6 @@ export const getUsersCreatedBy = async (
 ) => {
   const API_ENDPOINT = env.SERVER_URL + `/admin/7/users/createdBy/${id}`;
   const myHeaders = new Headers();
-  console.log(API_ENDPOINT);
-  console.log(token);
   myHeaders.append("X-ACCESS-TOKEN", token);
 
   const requestOptions = {
@@ -140,44 +138,7 @@ export const newUser = async (
 
   try {
     const response = await fetch(API_ENDPOINT, requestOptions);
-    console.log(API_ENDPOINT);
     const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const getBlockStatus = async (id: number, role: string) => {
-  let role_url;
-  if (role === "SuperAgent") role_url = "superagent";
-  else if (role === "Type7Admin") role_url = "superagent";
-  else if (role === "Type5Admin") role_url = 7;
-  else if (role === "Type3Admin") role_url = 5;
-
-  const API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/users/${id}/limits`;
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  if (role_url === "superagent")
-    myHeaders.append("X-ACCESS-TOKEN", env.SUPER_AGENT_TOKEN);
-  else if (role_url === 7)
-    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_7_TOKEN);
-  else if (role_url === 5)
-    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_5_TOKEN);
-  else if (role_url === 3)
-    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_3_TOKEN);
-
-  const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-  };
-
-  try {
-    const response = await fetch(API_ENDPOINT, requestOptions);
-    console.log(API_ENDPOINT);
-    const data = await response.json();
-    console.log(data);
     return data;
   } catch (err) {
     console.log(err);

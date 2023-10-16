@@ -149,7 +149,7 @@ const UserPage = () => {
           )}
           <ModalTransfer item_={selectedItem} />
           <ModalNewUser />
-          <ModalBlockUser item_={selectedItem} blockStatus={blockStatus} />
+          <ModalBlockUser item={selectedItem} blockStatus={blockStatus} />
         </div>
       </section>
     </section>

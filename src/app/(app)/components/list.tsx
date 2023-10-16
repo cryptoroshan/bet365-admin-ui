@@ -1,13 +1,13 @@
 
 export const navItems = [
     {
-        label: "Dashboard",
-        link: "/admin/dashboard",
-    },
-    {
         label: "Users",
         link: "/admin/users",
     },
+    // {
+    //     label: "Payments",
+    //     link: "/admin/payments",
+    // },
     {
         label: "Reports",
         link: "/admin/reports/bets_list",
@@ -48,6 +48,10 @@ export const navItems = [
         label: "Casino",
         link: "/admin/casino",
     },
+    {
+        label: "Logout",
+        link: "/auth/signin",
+    }
 ]
 
 

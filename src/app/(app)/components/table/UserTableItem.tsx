@@ -58,7 +58,7 @@ const UserTableItem = ({
         <div className="flex gap-2 w-full justify-end">
           <button
             type="button"
-            className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
+            className={clsx("bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black", Number(item.createdBy) !== session.user._id ? "hidden" : "")}
             onClick={() => {
               openTransferModal();
               onHandleTransfer(item);

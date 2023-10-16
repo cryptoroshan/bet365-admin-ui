@@ -5,7 +5,6 @@ export const getBlockStatus = async (
   token: string,
   role: string
 ) => {
-  console.log(id, token, role);
   let role_url;
   if (role === "SuperAgent") role_url = "superagent";
   else if (role === "Type7Admin") role_url = 7;

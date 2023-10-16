@@ -30,6 +30,7 @@ function BlockUserModal({ item, blockStatus }: BlockUserModalProps) {
 
   useEffect(() => {
     if (item !== null) {
+      console.log(item)
       setName(item.username);
     }
     if (blockStatus !== null) {

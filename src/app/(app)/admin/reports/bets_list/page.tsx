@@ -5,14 +5,13 @@ import clsx from "clsx";
 
 import { useModalContext } from "@/contexts/ModalContext";
 import {
-  getUsersByQuery,
-  getUserById,
-  getUsersCreatedBy,
+  getUsersByQuery
 } from "@/api/userManagement";
+import { getCoupons } from "@/api/reports";
 import ModalCoupon from "@/app/(app)/components/admin/reports/BetsList/ModalCoupon";
 
 const BetsList = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const { openCouponModal } = useModalContext();
 
   const [startingOn, setStartingOn] = useState("");
@@ -23,12 +22,9 @@ const BetsList = () => {
   const [sumOdds, setSumOdds] = useState(0);
   const [cashout, setCashout] = useState("All");
   const [bonus, setBonus] = useState("All");
-  // user type
-  const [superAgent, setSuperAgent] = useState("All Agents");
-  const [type7, setType7] = useState("All Agents");
-  const [type5, setType5] = useState("All Agents");
-  const [type3, setType3] = useState("All Agents");
+
   const [user, setUser] = useState("");
+  const [selectedUser, setSelectedUser]: any = useState(null);
   const [descendants, setDescendants] = useState([]);
   const [descendantListView, setDescendantListView] = useState(false);
 
@@ -42,16 +38,12 @@ const BetsList = () => {
   const [lost, setLost] = useState(true);
   const [checking, setChecking] = useState(true);
 
-  const [superAgentList, setSuperAgentList] = useState([]);
-  const [type7List, setType7List] = useState([]);
-  const [type5List, setType5List] = useState([]);
-  const [type3List, setType3List] = useState([]);
-  const [userList, setUserList] = useState([]);
-
   const [betsList, setBetsList] = useState(bets_list);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const onHandleSearch = async () => {};
+  const onHandleSearch = async () => {
+    const _res = await getCoupons(session.user.token, session.user.role, selectedUser._id);
+  };
 
   return (
     <>
@@ -171,6 +163,7 @@ const BetsList = () => {
                     return (
                       <div key={index} className="hover:bg-red-400 px-4 cursor-pointer py-1" onClick={() => {
                         setUser(item.username);
+                        setSelectedUser(item);
                         setDescendantListView(false);
                       }}>{item.username}</div>
                     )
@@ -290,6 +283,7 @@ const BetsList = () => {
             <button
               className="w-16 h-8 text-sm rounded-md bg-brand-dialog-button hover:bg-white"
               onClick={onHandleSearch}
+              disabled={selectedUser === null ? true : false}
             >
               Search
             </button>

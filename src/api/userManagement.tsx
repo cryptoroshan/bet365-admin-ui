@@ -30,7 +30,14 @@ export const getUsersCreatedBy = async (
   token: string,
   role: string
 ) => {
-  const API_ENDPOINT = env.SERVER_URL + `/admin/7/users/createdBy/${id}`;
+  let role_url;
+  if (role === "SuperAgent") role_url = "superagent";
+  else if (role === "Type7Admin") role_url = 7;
+  else if (role === "Type5Admin") role_url = 5;
+  else if (role === "Type3Admin") role_url = 3;
+
+  const API_ENDPOINT =
+    env.SERVER_URL + `/admin/${role_url}/users/createdBy/${id}`;
   const myHeaders = new Headers();
   myHeaders.append("X-ACCESS-TOKEN", token);
 
@@ -49,25 +56,25 @@ export const getUsersCreatedBy = async (
 };
 
 export const transferBalance = async (
-  type: any,
+  token: string,
+  role: string,
   id: number,
   transfer_type: string,
   balance_type: string,
   balance: number
 ) => {
+  let role_url;
+  if (role === "SuperAgent") role_url = "superagent";
+  else if (role === "Type7Admin") role_url = 7;
+  else if (role === "Type5Admin") role_url = 5;
+  else if (role === "Type3Admin") role_url = 3;
+
   const API_ENDPOINT =
     env.SERVER_URL +
-    `/admin/${type}/users/${id}/balance/${transfer_type}/${balance_type}`;
+    `/admin/${role_url}/users/${id}/balance/${transfer_type}/${balance_type}`;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  if (type === "superagent")
-    myHeaders.append("X-ACCESS-TOKEN", env.SUPER_AGENT_TOKEN);
-  else if (type === 7)
-    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_7_TOKEN);
-  else if (type === 5)
-    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_5_TOKEN);
-  else if (type === 3)
-    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_3_TOKEN);
+  myHeaders.append("X-ACCESS-TOKEN", token);
 
   let raw;
 
@@ -93,40 +100,38 @@ export const transferBalance = async (
   try {
     const response = await fetch(API_ENDPOINT, requestOptions);
     const data = await response.json();
-    return data;
+    return {
+      status: response.status,
+      data: data
+    };
   } catch (err) {
     console.log(err);
   }
 };
 
 export const newUser = async (
-  username: string,
+  token: string,
   role: string,
+  username: string,
+  user_type: string,
   password: string
 ) => {
   let role_url;
   if (role === "SuperAgent") role_url = "superagent";
-  else if (role === "Type7Admin") role_url = "superagent";
-  else if (role === "Type5Admin") role_url = 7;
-  else if (role === "Type3Admin") role_url = 5;
+  else if (role === "Type7Admin") role_url = 7;
+  else if (role === "Type5Admin") role_url = 5;
+  else if (role === "Type3Admin") role_url = 3;
 
   const API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/users`;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  if (role_url === "superagent")
-    myHeaders.append("X-ACCESS-TOKEN", env.SUPER_AGENT_TOKEN);
-  else if (role_url === 7)
-    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_7_TOKEN);
-  else if (role_url === 5)
-    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_5_TOKEN);
-  else if (role_url === 3)
-    myHeaders.append("X-ACCESS-TOKEN", env.ADMIN_TYPE_3_TOKEN);
+  myHeaders.append("X-ACCESS-TOKEN", token);
 
   let raw;
 
   raw = JSON.stringify({
     username: username,
-    role: role,
+    role: user_type,
     password: password,
   });
 
@@ -139,7 +144,10 @@ export const newUser = async (
   try {
     const response = await fetch(API_ENDPOINT, requestOptions);
     const data = await response.json();
-    return data;
+    return {
+      status: response.status,
+      data: data,
+    };
   } catch (err) {
     console.log(err);
   }
@@ -152,7 +160,7 @@ export const getUsersByQuery = async (query: string, token: string) => {
   myHeaders.append("X-ACCESS-TOKEN", token);
 
   let raw = JSON.stringify({
-    query: query
+    query: query,
   });
 
   const requestOptions = {

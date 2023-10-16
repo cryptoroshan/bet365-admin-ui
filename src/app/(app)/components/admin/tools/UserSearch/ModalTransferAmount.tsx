@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Modal } from "antd";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 
 import { useModalContext } from "@/contexts/ModalContext";
 import { transferBalance } from "@/api/userManagement";
 
 function ModalTransferAmount(props: any) {
+  const { data: session }: any = useSession();
   const { isTransferAmountModalOpen, closeTransferAmountModal, openUserInfoModal } = useModalContext();
   const [id, setId] = useState(0);
   const [name, setName] = useState("");
@@ -31,26 +33,17 @@ function ModalTransferAmount(props: any) {
   }, [props]);
 
   const onHandleConfirm = async () => {
-    let _type;
-    if (props.item.role === "SuperAgent")
-      _type = "superagent";
-    else if (props.item.role === "Type7Admin")
-      _type = "superagent";
-    else if (props.item.role === "Type5Admin")
-      _type = 7;
-    else if (props.item.role === "Type3Admin")
-      _type = 5;
-    else
-      _type = 3;
-
     let _transferType;
     if (transactionType === "Deposit")
       _transferType = "increase";
     else
       _transferType = "decrease";
 
-    const _result = await transferBalance(_type, id, _transferType, balanceType, amount);
-    toast.success(_result.message);
+    const _result = await transferBalance(session.user.token, session.user.role, id, _transferType, balanceType, amount);
+    if (_result?.status === 200)
+      toast.success(_result?.data.message);
+    else
+      toast.error(_result?.data.message);
 
     setTransactionType("Deposit");
     setBalanceType("casino");

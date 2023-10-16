@@ -61,8 +61,6 @@ export const setLimit = async (
       status: response.status,
       data: data,
     };
-    // console.log(data);
-    // return data;
   } catch (err) {
     console.log(err);
   }
@@ -98,8 +96,6 @@ export const setUnLimit = async (
       status: response.status,
       data: data,
     };
-    // console.log(data);
-    // return data;
   } catch (err) {
     console.log(err);
   }

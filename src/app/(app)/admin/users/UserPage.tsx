@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
-import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
+import { getUsersCreatedBy } from "@/api/userManagement";
 import UserTable from "@/app/(app)/components/table/UserTable";
 import { useModalContext } from "@/contexts/ModalContext";
 import ModalTransfer from "./ModalTransfer";
@@ -10,7 +10,7 @@ import ModalNewUser from "./ModalNewUser";
 import ModalBlockUser from "./ModalBlockUser";
 
 const UserPage = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const { openNewUserModal } = useModalContext();
 
   const [userList, setUserList] = useState([]);
@@ -25,14 +25,14 @@ const UserPage = () => {
   }, [session]);
 
   const getUserInfo = async () => {
-    const _userinfo = await getUserById(
+    const _userinfo = await getUsersCreatedBy(
       session.user._id,
       session.user.token,
       session.user.role
     );
-    const _userList = [];
-    _userList.push(_userinfo);
-    setUserList([..._userList]);
+    // const _userList = [];
+    // _userList.push(_userinfo);
+    setUserList([..._userinfo]);
   };
 
   const getChildren = async (username: string, id: number) => {

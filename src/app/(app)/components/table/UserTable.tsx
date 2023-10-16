@@ -40,23 +40,23 @@ const UserTable = ({
           <tr>
             <th
               scope="col"
-              className="px-2 py-1.5 border border-gray-600 w-[25%]"
+              className="px-2 py-1.5 border border-gray-600"
             >
               User
             </th>
             <th
               scope="col"
-              className="max-sm:hidden px-2  py-1.5 border border-gray-600 w-[25%]"
+              className="max-sm:hidden px-2  py-1.5 border border-gray-600"
             >
               Type
             </th>
             <th
               scope="col"
-              className="px-2 py-1.5 border border-gray-600 w-[10%]"
+              className="px-2 py-1.5 border border-gray-600"
             >
               Sum
             </th>
-            <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate"></th>
+            <th scope="col" className="!p-0 w-6 border border-gray-600 truncate"></th>
           </tr>
         </thead>
         <tbody>

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 
+import { getUsersCreatedBy } from "@/api/userManagement";
 import { getBlockStatus } from "@/api/userBlock";
 import { useModalContext } from "@/contexts/ModalContext";
 
@@ -20,11 +21,28 @@ const UserTableItem = ({
   onHandleTransfer,
   onHandleBlock,
 }: UserTableItemProps) => {
-  console.log(item_)
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const { openTransferModal, openBlockUserModal } = useModalContext();
   const [item, setItem] = useState(item_);
   const [open, setOpen] = useState(false);
+  const [hasChildren, setHasChildren] = useState(false);
+
+  useEffect(() => {
+    if (item_.role !== "User")
+      getUserInfo();
+  })
+
+  const getUserInfo = async() => {
+    const _childrenInfo = await getUsersCreatedBy(
+      item_._id,
+      session.user.token,
+      session.user.role
+    );
+    if (_childrenInfo.length > 0)
+      setHasChildren(true);
+    else
+      setHasChildren(false);
+  }
 
   return (
     <>
@@ -37,7 +55,7 @@ const UserTableItem = ({
           item.balance.casino_bonus}
       </td>
       <td className="px-2 py-1.5 border border-gray-600 truncate">
-        <div className="flex gap-2 w-full justify-center">
+        <div className="flex gap-2 w-full justify-end">
           <button
             type="button"
             className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
@@ -52,7 +70,7 @@ const UserTableItem = ({
             type="button"
             className={clsx(
               "text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black",
-              open ? "bg-brand-clicked-button" : "bg-brand-button", item.role === 'User' ? "hidden" : "block"
+              open ? "bg-brand-clicked-button" : "bg-brand-button", hasChildren === false ? "hidden" : "block"
             )}
             onClick={() => {
               if (!open) getChildren(item.username, item._id);

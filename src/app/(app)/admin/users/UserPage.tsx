@@ -147,9 +147,9 @@ const UserPage = () => {
               }}
             />
           )}
-          <ModalTransfer item_={selectedItem} />
+          <ModalTransfer item={selectedItem} handleConfirm={() => getUserInfo()} />
           <ModalNewUser />
-          <ModalBlockUser item={selectedItem} blockStatus={blockStatus} />
+          <ModalBlockUser item={selectedItem} blockStatus={blockStatus} onhandleFullBlock={() => getUserInfo()} />
         </div>
       </section>
     </section>

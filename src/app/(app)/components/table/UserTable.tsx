@@ -1,8 +1,6 @@
 import { useState } from "react";
 import clsx from "clsx";
 
-import { useModalContext } from "@/contexts/ModalContext";
-import ModalTransfer from "@/app/admin/users/ModalTransfer";
 import UserTableItem from "./UserTableItem";
 
 interface UserTableProps {
@@ -13,7 +11,7 @@ interface UserTableProps {
   removeChildren: any;
   onHandleTransfer: any;
   onHandleBlock: any;
-};
+}
 
 const UserTable = ({
   parentId_,
@@ -38,10 +36,7 @@ const UserTable = ({
           )}
         >
           <tr>
-            <th
-              scope="col"
-              className="px-2 py-1.5 border border-gray-600"
-            >
+            <th scope="col" className="px-2 py-1.5 border border-gray-600">
               User
             </th>
             <th
@@ -50,23 +45,39 @@ const UserTable = ({
             >
               Type
             </th>
-            <th
-              scope="col"
-              className="px-2 py-1.5 border border-gray-600"
-            >
+            <th scope="col" className="px-2 py-1.5 border border-gray-600">
               Sum
             </th>
-            <th scope="col" className="!p-0 w-6 border border-gray-600 truncate"></th>
+            <th
+              scope="col"
+              className="!p-0 w-6 border border-gray-600 truncate"
+            ></th>
           </tr>
         </thead>
         <tbody>
           {Array.isArray(child) === true &&
             child?.map((item: any, index: number) => {
-              return (
-                <tr key={index} className="bg-[#666] text-white">
-                  {Array.isArray(item) === true &&
-                    createTable(item, open, parentId + 1)}
-                  {Array.isArray(item) === false && (
+              if (Array.isArray(item) === true) {
+                return (
+                  <tr key={index} className="text-white bg-[#666]">
+                    {createTable(item, open, parentId + 1)}
+                  </tr>
+                );
+              } else {
+                return (
+                  <tr
+                    key={index}
+                    className={clsx(
+                      "text-white",
+                      item.limits.cashout === true &&
+                        item.limits.pregame === true &&
+                        item.limits.live === true &&
+                        item.limits.slots === true &&
+                        item.limits.casino === true
+                        ? "bg-brand-red"
+                        : "bg-[#666]"
+                    )}
+                  >
                     <UserTableItem
                       item_={item}
                       onHandleTransfer={onHandleTransfer}
@@ -76,9 +87,9 @@ const UserTable = ({
                       }}
                       removeChildren={removeChildren}
                     />
-                  )}
-                </tr>
-              );
+                  </tr>
+                );
+              }
             })}
           {Array.isArray(child) === false && (
             <tr className="bg-[#666] text-white">

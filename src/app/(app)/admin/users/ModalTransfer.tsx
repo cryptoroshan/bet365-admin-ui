@@ -9,7 +9,12 @@ import { useSession } from "next-auth/react";
 import { useModalContext } from "@/contexts/ModalContext";
 import { transferBalance } from "@/api/userManagement";
 
-function TransferModal(props: any) {
+interface TransferModalProps {
+  item: any;
+  handleConfirm: any;
+}
+
+function TransferModal({ item, handleConfirm }: TransferModalProps) {
   const { data: session }: any = useSession();
   const { isTransferModalOpen, closeTransferModal } = useModalContext();
   const [id, setId] = useState(0);
@@ -20,17 +25,17 @@ function TransferModal(props: any) {
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
-    if (props.item_ !== null) {
-      setId(props.item_._id);
-      setName(props.item_.username);
+    if (item !== null) {
+      setId(item._id);
+      setName(item.username);
       setBalance(
-        props.item_.balance.sports_betting +
-          props.item_.balance.casino +
-          props.item_.balance.sports_betting_bonus +
-          props.item_.balance.casino_bonus
+        item.balance.sports_betting +
+          item.balance.casino +
+          item.balance.sports_betting_bonus +
+          item.balance.casino_bonus
       );
     }
-  }, [props]);
+  }, [item]);
 
   const onHandleConfirm = async () => {
     let _transferType;
@@ -49,6 +54,7 @@ function TransferModal(props: any) {
     setBalanceType("casino");
     setAmount(0);
     closeTransferModal();
+    handleConfirm();
   };
 
   const onHandleClose = () => {
@@ -116,7 +122,7 @@ function TransferModal(props: any) {
                 onChange={(e) => setBalanceType(e.target.value)}
               >
                 <option defaultValue="casino" value="casino">casino</option>
-                <option value="sports betting">sports betting</option>
+                <option value="sports_betting">sports betting</option>
                 <option value="agent">agent</option>
               </select>
             </div>

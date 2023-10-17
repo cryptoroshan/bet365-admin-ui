@@ -2,11 +2,10 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
+import { toast } from "react-toastify";
 
 import { useModalContext } from "@/contexts/ModalContext";
-import {
-  getUsersByQuery
-} from "@/api/userManagement";
+import { getUsersByQuery } from "@/api/userManagement";
 import { getCoupons } from "@/api/reports";
 import ModalCoupon from "@/app/(app)/components/admin/reports/BetsList/ModalCoupon";
 
@@ -14,8 +13,20 @@ const BetsList = () => {
   const { data: session }: any = useSession();
   const { openCouponModal } = useModalContext();
 
-  const [startingOn, setStartingOn] = useState("");
-  const [endingOn, setEndingOn] = useState("");
+  const [startingOn, setStartingOn] = useState(
+    new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate()
+  );
+  const [endingOn, setEndingOn] = useState(
+    new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate()
+  );
   const [betSymbol, setBetSymbol] = useState("All");
   const [betCost, setBetCost] = useState(0);
   const [sumSymbol, setSumSymbol] = useState("All");
@@ -38,11 +49,32 @@ const BetsList = () => {
   const [lost, setLost] = useState(true);
   const [checking, setChecking] = useState(true);
 
-  const [betsList, setBetsList] = useState(bets_list);
+  const [betsList, setBetsList]: Array<any> = useState(null);
+  const [totalInfo, setTotalInfo]: any = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const onHandleSearch = async () => {
-    const _res = await getCoupons(session.user.token, session.user.role, selectedUser._id);
+    const _res = await getCoupons(
+      session.user.token,
+      session.user.role,
+      selectedUser._id
+    );
+    if (_res.status === 200) {
+      setBetsList(_res.data);
+
+      let _totalAmount = 0;
+      for (let i = 0;i < _res.data.length;i++) {
+        _totalAmount += _res.data[i].stake;
+      }
+      setTotalInfo({
+        coupon_id: `Total: ${_res.data.length}`,
+        type: "Open: 0",
+        status: `Average: ${_totalAmount/_res.data.length}`,
+        amount: _totalAmount
+      });
+    }
+    else
+      toast.error(_res?.data.message);
   };
 
   return (
@@ -158,15 +190,26 @@ const BetsList = () => {
                     setDescendantListView(true);
                   }}
                 />
-                <div className={clsx("absolute right-0 flex-col bg-white rounded-sm", descendantListView === true ? "flex" : "hidden")}>
+                <div
+                  className={clsx(
+                    "absolute right-0 flex-col bg-white rounded-sm",
+                    descendantListView === true ? "flex" : "hidden"
+                  )}
+                >
                   {descendants.map((item: any, index: number) => {
                     return (
-                      <div key={index} className="hover:bg-red-400 px-4 cursor-pointer py-1" onClick={() => {
-                        setUser(item.username);
-                        setSelectedUser(item);
-                        setDescendantListView(false);
-                      }}>{item.username}</div>
-                    )
+                      <div
+                        key={index}
+                        className="hover:bg-red-400 px-4 cursor-pointer py-1"
+                        onClick={() => {
+                          setUser(item.username);
+                          setSelectedUser(item);
+                          setDescendantListView(false);
+                        }}
+                      >
+                        {item.username}
+                      </div>
+                    );
                   })}
                 </div>
               </div>
@@ -289,139 +332,135 @@ const BetsList = () => {
             </button>
           </div>
         </section>
-        <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
-          {betsList?.length === 0 ? (
-            <p className="text-lg font-bold text-center text-brand-button-text">
-              No results
-            </p>
-          ) : (
-            <table className="w-full text-sm text-gray-400 text-center">
-              <thead className="text-sm bg-brand-yellow text-black">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    User
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Coupon ID
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Type
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Pre/Live
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Status
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Amount
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Pos.Win.
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Bet Win
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="bg-brand-dark-grey text-white">
-                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
-                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    {total_info.coupon_id}
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    {total_info.type}
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    {total_info.status}
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    {total_info.amount}
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    {total_info.pos_win}
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    {total_info.bet_win}
-                  </td>
-                </tr>
-                {betsList?.map((item: any, index: number) => {
-                  return (
-                    <tr
-                      key={index}
-                      className="bg-brand-red text-white hover:cursor-pointer"
-                      onClick={() => {
-                        setSelectedItem(item);
-                        openCouponModal();
-                      }}
+        {betsList !== null && (
+          <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
+            {betsList.length === 0 ? (
+              <p className="text-lg font-bold text-center text-brand-button-text">
+                No results
+              </p>
+            ) : (
+              <table className="w-full text-sm text-gray-400 text-center">
+                <thead className="text-sm bg-brand-yellow text-black">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
                     >
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.user}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.date}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.coupon_id}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.type}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.pre_live}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.status}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.amount}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.pos_win}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.bet_win}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </section>
+                      User
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Date
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Coupon ID
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Type
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Pre/Live
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Status
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Pos.Win.
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Bet Win
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-brand-dark-grey text-white">
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalInfo.coupon_id}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalInfo.type}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalInfo.status}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalInfo.amount}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                    </td>
+                  </tr>
+                  {betsList.map((item: any, index: number) => {
+                    return (
+                      <tr
+                        key={index}
+                        className="bg-brand-red text-white hover:cursor-pointer"
+                        onClick={() => {
+                          setSelectedItem(item);
+                          openCouponModal();
+                        }}
+                      >
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                          {user}
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.timestamp}
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.type}
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.status}
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.stake}
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
+          </section>
+        )}
         <ModalCoupon item={selectedItem} />
       </section>
     </>

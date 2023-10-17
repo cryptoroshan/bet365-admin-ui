@@ -26,6 +26,10 @@ export const getCoupons = async (
     console.log(API_ENDPOINT);
     const data = await response.json();
     console.log(data);
+    return {
+      status: response.status,
+      data: data
+    };
     return data;
   } catch (err) {
     console.log(err);

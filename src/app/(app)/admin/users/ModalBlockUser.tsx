@@ -12,9 +12,10 @@ import { setLimit, setUnLimit } from "@/api/userBlock";
 interface BlockUserModalProps {
   item: any;
   blockStatus: any;
+  onhandleFullBlock: any;
 }
 
-function BlockUserModal({ item, blockStatus }: BlockUserModalProps) {
+function BlockUserModal({ item, blockStatus, onhandleFullBlock }: BlockUserModalProps) {
   const { data: session }: any = useSession();
   const { isBlockUserModalOpen, closeBlockUserModal } = useModalContext();
 
@@ -30,10 +31,13 @@ function BlockUserModal({ item, blockStatus }: BlockUserModalProps) {
 
   useEffect(() => {
     if (item !== null) {
-      console.log(item)
       setName(item.username);
     }
     if (blockStatus !== null) {
+      if (blockStatus.cashout === true && blockStatus.pregame === true && blockStatus.live === true && blockStatus.slots === true && blockStatus.casino === true)
+        setFullBlock(true);
+      else
+        setFullBlock(false);
       setBlockCashout(blockStatus.cashout);
       setBlockPre(blockStatus.pregame);
       setBlockLive(blockStatus.live);
@@ -61,6 +65,7 @@ function BlockUserModal({ item, blockStatus }: BlockUserModalProps) {
       setBlockLive(!fullBlock);
       setBlockSlots(!fullBlock);
       setBlockCasino(!fullBlock);
+      onhandleFullBlock();
     }
     else
       toast.error(_res?.data.message);

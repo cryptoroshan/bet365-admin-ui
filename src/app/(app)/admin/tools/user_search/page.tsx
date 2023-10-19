@@ -210,7 +210,7 @@ const UserSearch = ({ currentTab }: any) => {
         </section>
       )}
       <ModalUserInfo item={selectedItem} />
-      <BlockUserModal item_={selectedItem} />
+      {/* <BlockUserModal item={selectedItem} /> */}
       <ModalLocation item={selectedItem} />
     </section>
   );

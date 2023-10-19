@@ -39,15 +39,15 @@ const BetsList = () => {
   const [descendants, setDescendants] = useState([]);
   const [descendantListView, setDescendantListView] = useState(false);
 
-  const [single, setSingle] = useState(true);
+  const [solo, setSolo] = useState(true);
   const [multiple, setMultiple] = useState(true);
   const [system, setSystem] = useState(true);
-  const [pre, setPre] = useState(true);
-  const [inPlay, setInPlay] = useState(true);
-  const [current, setCurrent] = useState(true);
+  const [pregame, setPregame] = useState(true);
+  const [live, setLive] = useState(true);
+  const [mix, setMix] = useState(true);
   const [won, setWon] = useState(true);
   const [lost, setLost] = useState(true);
-  const [checking, setChecking] = useState(true);
+  const [open, setOpen] = useState(true);
 
   const [betsList, setBetsList]: Array<any> = useState(null);
   const [totalInfo, setTotalInfo]: any = useState(null);
@@ -57,20 +57,43 @@ const BetsList = () => {
     const _res = await getCoupons(
       session.user.token,
       session.user.role,
-      selectedUser._id
+      selectedUser._id,
+      startingOn,
+      endingOn,
+      solo,
+      multiple,
+      system,
+      pregame,
+      live,
+      mix,
+      won,
+      lost,
+      open,
+      betSymbol,
+      betCost,
+      sumSymbol,
+      sumOdds,
+      cashout,
+      bonus
     );
     if (_res.status === 200) {
       setBetsList(_res.data);
 
       let _totalAmount = 0;
+      let _totalPossibleWinnings = 0;
+      let _totalWonAmount = 0;
       for (let i = 0;i < _res.data.length;i++) {
         _totalAmount += _res.data[i].stake;
+        _totalPossibleWinnings += _res.data[i].possible_winnings;
+        _totalWonAmount += _res.data[i].won_amount;
       }
       setTotalInfo({
         coupon_id: `Total: ${_res.data.length}`,
         type: "Open: 0",
         status: `Average: ${_totalAmount/_res.data.length}`,
-        amount: _totalAmount
+        amount: _totalAmount,
+        possible_winnings: _totalPossibleWinnings,
+        won_amount: _totalWonAmount
       });
     }
     else
@@ -221,11 +244,11 @@ const BetsList = () => {
                 <input
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setSingle(!single)}
-                  checked={single === true ? true : false}
+                  onChange={() => setSolo(!solo)}
+                  checked={solo === true ? true : false}
                 />
                 <label className="ml-0.5 text-sm font-medium text-white">
-                  Single
+                  Solo
                 </label>
               </div>
               <div className="flex items-center">
@@ -256,33 +279,33 @@ const BetsList = () => {
                 <input
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setPre(!pre)}
-                  checked={pre === true ? true : false}
+                  onChange={() => setPregame(!pregame)}
+                  checked={pregame === true ? true : false}
                 />
                 <label className="ml-0.5 text-sm font-medium text-white">
-                  Pre
+                  Pregame
                 </label>
               </div>
               <div className="flex items-center">
                 <input
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setInPlay(!inPlay)}
-                  checked={inPlay === true ? true : false}
+                  onChange={() => setLive(!live)}
+                  checked={live === true ? true : false}
                 />
                 <label className="ml-0.5 text-sm font-medium text-white">
-                  In-Play
+                  Live
                 </label>
               </div>
               <div className="flex items-center">
                 <input
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setCurrent(!current)}
-                  checked={current === true ? true : false}
+                  onChange={() => setMix(!mix)}
+                  checked={mix === true ? true : false}
                 />
                 <label className="ml-0.5 text-sm font-medium text-white">
-                  Current
+                  Mix
                 </label>
               </div>
             </div>
@@ -313,11 +336,11 @@ const BetsList = () => {
                 <input
                   type="checkbox"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-100 focus:ring-0 focus:ring-offset-0"
-                  onChange={() => setChecking(!checking)}
-                  checked={checking === true ? true : false}
+                  onChange={() => setOpen(!open)}
+                  checked={open === true ? true : false}
                 />
                 <label className="ml-0.5 text-sm font-medium text-white">
-                  Checking
+                  Open
                 </label>
               </div>
             </div>
@@ -416,8 +439,10 @@ const BetsList = () => {
                       {totalInfo.amount}
                     </td>
                     <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalInfo.possible_winnings}
                     </td>
                     <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalInfo.won_amount}
                     </td>
                   </tr>
                   {betsList.map((item: any, index: number) => {
@@ -437,11 +462,13 @@ const BetsList = () => {
                           {item.timestamp}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item._id}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
                           {item.type}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.coupon_type}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
                           {item.status}
@@ -450,8 +477,10 @@ const BetsList = () => {
                           {item.stake}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.possible_winnings}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.won_amount}
                         </td>
                       </tr>
                     );
@@ -468,37 +497,3 @@ const BetsList = () => {
 };
 
 export default BetsList;
-
-const bets_list = [
-  {
-    user: "cryptoRoshan",
-    date: "03/09 03:17",
-    coupon_id: "422442",
-    type: "multiple",
-    pre_live: "Bonus Pre",
-    status: "Lost",
-    amount: "20.00",
-    pos_win: "0.00",
-    bet_win: "0.00",
-  },
-  {
-    user: "cryptoRoshan",
-    date: "03/09 03:17",
-    coupon_id: "422442",
-    type: "multiple",
-    pre_live: "Bonus Pre",
-    status: "Lost",
-    amount: "20.00",
-    pos_win: "0.00",
-    bet_win: "0.00",
-  },
-];
-
-const total_info = {
-  coupon_id: "Total: 2",
-  type: "Open: 0",
-  status: "Average: 20.00",
-  amount: "40.00",
-  pos_win: "0.00",
-  bet_win: "0.00",
-};

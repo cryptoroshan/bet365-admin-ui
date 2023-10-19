@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
 import { toast } from "react-toastify";
@@ -34,7 +34,10 @@ const BetsList = () => {
   const [cashout, setCashout] = useState("All");
   const [bonus, setBonus] = useState("All");
 
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({
+    _id: "",
+    username: ""
+  });
   const [selectedUser, setSelectedUser]: any = useState(null);
   const [descendants, setDescendants] = useState([]);
   const [descendantListView, setDescendantListView] = useState(false);
@@ -201,14 +204,17 @@ const BetsList = () => {
                 <input
                   type="text"
                   className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
-                  value={user}
+                  value={user.username}
                   onChange={async (e) => {
                     setDescendantListView(false);
-                    setUser(e.target.value);
+                    setUser({
+                      username: e.target.value
+                    });
                     const _res = await getUsersByQuery(
                       e.target.value,
                       session.user.token
                     );
+                    console.log(_res)
                     setDescendants(_res);
                     setDescendantListView(true);
                   }}
@@ -225,7 +231,7 @@ const BetsList = () => {
                         key={index}
                         className="hover:bg-red-400 px-4 cursor-pointer py-1"
                         onClick={() => {
-                          setUser(item.username);
+                          setUser(item);
                           setSelectedUser(item);
                           setDescendantListView(false);
                         }}
@@ -456,7 +462,7 @@ const BetsList = () => {
                         }}
                       >
                         <td className="px-2 py-1 border border-gray-600 truncate">
-                          {user}
+                        {user._id} - {user.username}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
                           {item.timestamp}
@@ -490,7 +496,7 @@ const BetsList = () => {
             )}
           </section>
         )}
-        <ModalCoupon item={selectedItem} />
+        <ModalCoupon item={selectedItem} user={user} />
       </section>
     </>
   );

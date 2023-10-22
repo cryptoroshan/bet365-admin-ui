@@ -7,10 +7,17 @@ import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
 import GeneralTable from "@/app/(app)/components/admin/reports/FinancialReport/GeneralTable";
 import UserTable from "@/app/(app)/components/admin/reports/FinancialReport/UserTable";
 
-const FinancialReport = ({ currentTab }: any) => {
-  const { data: session } = useSession();
-  const [startingOn, setStartingOn] = useState("");
-  const [endingOn, setEndingOn] = useState("");
+const FinancialReport = () => {
+  const { data: session }: any = useSession();
+
+  const [startingOn, setStartingOn] = useState("2022-10-23");
+  const [endingOn, setEndingOn] = useState(
+    new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate()
+  );
 
   const [prSelected, setPrSelected] = useState(false);
   const [userList, setUserList] = useState(null);
@@ -20,7 +27,7 @@ const FinancialReport = ({ currentTab }: any) => {
   }, [session]);
 
   const getUserInfo = async () => {
-    const _userinfo = await getUserById(
+    const _userinfo = await getUsersCreatedBy(
       session.user._id,
       session.user.token,
       session.user.role
@@ -133,6 +140,8 @@ const FinancialReport = ({ currentTab }: any) => {
           <UserTable
             parentId_={parentId}
             child={child}
+            startingOn={startingOn}
+            endingOn={endingOn}
             createTable={createTable}
             getChildren={getChildren}
             removeChildren={removeChildren}
@@ -144,7 +153,9 @@ const FinancialReport = ({ currentTab }: any) => {
     );
   };
 
-  const onHandleSearch = async () => {};
+  const onHandleSearch = async () => {
+
+  };
 
   return (
     <>
@@ -251,6 +262,8 @@ const FinancialReport = ({ currentTab }: any) => {
           <UserTable
             parentId_={0}
             child={userList}
+            startingOn={startingOn}
+            endingOn={endingOn}
             createTable={createTable}
             getChildren={getChildren}
             removeChildren={removeChildren}

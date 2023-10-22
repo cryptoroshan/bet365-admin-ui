@@ -91,9 +91,45 @@ export const getCoupons = async (
 
   try {
     const response = await fetch(API_ENDPOINT, requestOptions);
-    console.log(API_ENDPOINT);
     const data = await response.json();
-    console.log(data);
+    return {
+      status: response.status,
+      data: data
+    };
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getFinalcialReports = async (
+  token: string,
+  role: string,
+  id: number,
+  start_date: string,
+  end_date: string
+) => {
+  let role_url;
+  if (role === "SuperAgent") role_url = "superagent";
+  else if (role === "Type7Admin") role_url = 7;
+  else if (role === "Type5Admin") role_url = 5;
+  else if (role === "Type3Admin") role_url = 3;
+
+  const API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/funds?user_id=${id}&from_date=${start_date}&to_date=${end_date}`;
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("X-ACCESS-TOKEN", token);
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+  };
+
+  try {
+    const response = await fetch(API_ENDPOINT, requestOptions);
+    console.log(API_ENDPOINT)
+    const data = await response.json();
+    console.log(data)
     return {
       status: response.status,
       data: data

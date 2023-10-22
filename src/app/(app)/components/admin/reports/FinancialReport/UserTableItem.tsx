@@ -1,16 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import clsx from "clsx";
+import { toast } from "react-toastify";
+
+import { getFinalcialReports } from "@/api/reports";
 
 const UserTableItem = ({
   item_,
+  startingOn,
+  endingOn,
   getChildren,
   removeChildren,
   addGeneralTable,
   removeGeneralTable,
 }) => {
   const [prSelected, setPrSelected] = useState(false);
+  const { data: session } = useSession();
+
   const [item, setItem] = useState(item_);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (item_ !== null)
+      getFinancialReports();
+  }, [item_])
+
+  const getFinancialReports = async() => {
+    const _res = await getFinalcialReports(session.user.token, session.user.role, item_._id, startingOn, endingOn);
+    console.log(_res.status, _res.data)
+
+    if (_res.status === 200) {
+    }
+  }
 
   return (
     <>

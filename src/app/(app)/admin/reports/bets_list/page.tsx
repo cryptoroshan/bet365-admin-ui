@@ -208,6 +208,7 @@ const BetsList = () => {
                   onChange={async (e) => {
                     setDescendantListView(false);
                     setUser({
+                      id: "",
                       username: e.target.value
                     });
                     const _res = await getUsersByQuery(

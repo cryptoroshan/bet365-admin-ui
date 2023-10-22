@@ -8,6 +8,8 @@ import UserTableItem from "./UserTableItem";
 const UserTable = ({
   parentId_,
   child,
+  startingOn,
+  endingOn,
   createTable,
   getChildren,
   removeChildren,
@@ -65,6 +67,8 @@ const UserTable = ({
                     item.prSelected === undefined && (
                       <UserTableItem
                         item_={item}
+                        startingOn={startingOn}
+                        endingOn={endingOn}
                         getChildren={(username: string, id: number) => {
                           getChildren(username, id);
                         }}

@@ -127,9 +127,7 @@ export const getFinalcialReports = async (
 
   try {
     const response = await fetch(API_ENDPOINT, requestOptions);
-    console.log(API_ENDPOINT)
     const data = await response.json();
-    console.log(data)
     return {
       status: response.status,
       data: data

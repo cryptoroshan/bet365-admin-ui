@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
 
-import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
+import { getUsersCreatedBy } from "@/api/userManagement";
 import GeneralTable from "@/app/(app)/components/admin/reports/FinancialReport/GeneralTable";
 import UserTable from "@/app/(app)/components/admin/reports/FinancialReport/UserTable";
 
@@ -34,7 +34,7 @@ const FinancialReport = () => {
     );
     const _userList = [];
     _userList.push(_userinfo);
-    setUserList([..._userList]);
+    setUserList(..._userList);
   };
 
   const getChildren = async (username: string, id: number) => {

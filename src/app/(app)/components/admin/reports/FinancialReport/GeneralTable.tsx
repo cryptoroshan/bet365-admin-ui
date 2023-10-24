@@ -1,6 +1,37 @@
+import { useState, useEffect } from "react";
 import clsx from "clsx";
 
-const GeneralTable = () => {
+interface GeneralTableProps {
+  financialReportData: any;
+}
+
+const GeneralTable = ({
+  financialReportData,
+}: GeneralTableProps) => {
+  const [IN, setIN] = useState(0);
+  const [out, setOut] = useState(0);
+  const [ggr, setGGR] = useState(0);
+  const [share, setShare] = useState(0);
+  const [bonus, setBonus] = useState(0);
+  const [converted, setConverted] = useState(0);
+  const [ngr, setNGR] = useState(0);
+  const [open, setOpen] = useState(0);
+  const [sumOpen, setSumOpen] = useState(0);
+
+  const [financialData, setFinancialData] = useState(null);
+
+  useEffect(() => {
+    if (
+      financialReportData.slots !== undefined &&
+      financialReportData.slots.length > 0
+    ) {
+      setFinancialData(financialReportData);
+      setIN(financialReportData.slots[0].overallTotal[0].total_in);
+      setOut(financialReportData.slots[0].overallTotal[0].total_out);
+      setGGR(financialReportData.slots[0].overallTotal[0].ggr);
+    }
+  }, [financialReportData]);
+
   return (
     <table className="w-full text-sm text-white text-center">
       <thead className="text-sm bg-[#222] uppercase">
@@ -36,29 +67,46 @@ const GeneralTable = () => {
         </tr>
       </thead>
       <tbody>
-        {general_table?.map((item, index) => {
-          return (
-            <tr key={index} className="bg-brand-dark-grey">
+        {financialData !== null &&
+          financialData.slots !== undefined &&
+          financialData.slots.length > 0 && (
+            <tr className="bg-brand-dark-grey">
               <td className="px-2 py-1 border border-black">
-                {item.name === "SLOTS" || item.name === "CASINO" ? "+ " : ""}
-                {item.name}
+                {financialData.slots[0].totalsPerSlot.length > 1
+                  ? "+ SLOTS"
+                  : "SLOTS"}
               </td>
-              <td className="px-2 py-1 border border-black">{item.in}</td>
-              <td className={clsx("px-2 py-1 border border-black", item.out !== "0.00" ? "bg-brand-plus-cell" : "")}>
-                {item.out}
+              <td className="px-2 py-1 border border-black">{IN.toFixed(2)}</td>
+              <td className="px-2 py-1 border border-black">
+                {out.toFixed(2)}
               </td>
-              <td className="px-2 py-1 border border-black">{item.ggr}</td>
-              <td className="px-2 py-1 border border-black">{item.share}</td>
-              <td className="px-2 py-1 border border-black">{item.bonus}</td>
-              <td className={clsx("px-2 py-1 border border-black", item.converted !== "0.00" ? "bg-brand-plus-cell" : "")}>
-                {item.converted}
+              <td
+                className={clsx(
+                  "px-2 py-1 border border-black",
+                  ggr === 0
+                    ? "bg-brand-dark-grey"
+                    : ggr > 0
+                    ? "bg-brand-plus-cell"
+                    : "bg-brand-minus-cell"
+                )}
+              >
+                {ggr.toFixed(2)}
               </td>
-              <td className="px-2 py-1 border border-black">{item.ngr}</td>
-              <td className="px-2 py-1 border border-black">{item.open}</td>
-              <td className="px-2 py-1 border border-black">{item.sum_open}</td>
+              <td className="px-2 py-1 border border-black">{share}</td>
+              <td className="px-2 py-1 border border-black">{bonus}</td>
+              <td
+                className={clsx(
+                  "px-2 py-1 border border-black",
+                  converted !== 0 ? "bg-brand-plus-cell" : ""
+                )}
+              >
+                {converted}
+              </td>
+              <td className="px-2 py-1 border border-black">{ngr}</td>
+              <td className="px-2 py-1 border border-black">{open}</td>
+              <td className="px-2 py-1 border border-black">{sumOpen}</td>
             </tr>
-          );
-        })}
+          )}
       </tbody>
     </table>
   );

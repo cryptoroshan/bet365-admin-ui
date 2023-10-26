@@ -38,7 +38,10 @@ const BetsList = () => {
     _id: "",
     username: ""
   });
-  const [selectedUser, setSelectedUser]: any = useState(null);
+  const [selectedUser, setSelectedUser]: any = useState({
+    _id: "",
+    username: ""
+  });
   const [descendants, setDescendants] = useState([]);
   const [descendantListView, setDescendantListView] = useState(false);
 
@@ -356,7 +359,6 @@ const BetsList = () => {
             <button
               className="w-16 h-8 text-sm rounded-md bg-brand-dialog-button hover:bg-white"
               onClick={onHandleSearch}
-              disabled={selectedUser === null ? true : false}
             >
               Search
             </button>

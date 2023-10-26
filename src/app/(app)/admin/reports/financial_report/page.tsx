@@ -1,9 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
+import { toast } from "react-toastify";
 
 import { getUsersCreatedBy } from "@/api/userManagement";
+import { getFinalcialReports } from "@/api/reports";
+
 import GeneralTable from "@/app/(app)/components/admin/reports/FinancialReport/GeneralTable";
 import UserTable from "@/app/(app)/components/admin/reports/FinancialReport/UserTable";
 
@@ -22,9 +25,44 @@ const FinancialReport = () => {
   const [prSelected, setPrSelected] = useState(false);
   const [userList, setUserList] = useState(null);
 
-  useEffect(() => {
-    if (session !== undefined) getUserInfo();
-  }, [session]);
+  const [totaltax, setTotalTax] = useState(0);
+  const [totalggr, setTotalGGR] = useState(0);
+  const [totalto, setTotalTo] = useState(0);
+  const [totalbonus, setTotalBonus] = useState(0);
+  const [totalconverted, setTotalConverted] = useState(0);
+  const [totalngr, setTotalNGR] = useState(0);
+  const [totalhands, setTotalHands] = useState(0);
+  const [totalpartner, setTotalPartner] = useState(0);
+
+  const getTotalFinancialReportData = async () => {
+    const _res = await getFinalcialReports(
+      session.user.token,
+      session.user.role,
+      session.user._id,
+      startingOn,
+      endingOn
+    );
+    console.log(_res.data)
+
+    if (_res.status === 200) {
+      // ggr
+      let ggr = 0;
+      if (_res.data.pre !== undefined && _res.data.pre.length > 0)
+        ggr += _res.data.pre[0].overallTotal[0].ggr;
+      if (_res.data.live !== undefined && _res.data.live.length > 0)
+        ggr += _res.data.live[0].overallTotal[0].ggr;
+      if (_res.data.slots !== undefined && _res.data.slots.length > 0)
+        ggr += _res.data.slots[0].overallTotal[0].ggr;
+      if (_res.data.casino !== undefined && _res.data.casino.length > 0)
+        ggr += _res.data.casino[0].overallTotal[0].ggr;
+      if (
+        _res.data.sports_betting !== undefined &&
+        _res.data.sports_betting.length > 0
+      )
+        ggr += _res.data.sports_betting[_res.data.sports_betting.length - 1].ggr;
+      setTotalGGR(ggr);
+    } else toast.error(_res?.data.error);
+  }
 
   const getUserInfo = async () => {
     const _userinfo = await getUsersCreatedBy(
@@ -33,6 +71,7 @@ const FinancialReport = () => {
       session.user.role
     );
     const _userList = [];
+    for (let i = 0; i < _userinfo.length; i++) _userinfo[i].prSelected = false;
     _userList.push(_userinfo);
     setUserList(..._userList);
   };
@@ -43,6 +82,8 @@ const FinancialReport = () => {
       session.user.token,
       session.user.role
     );
+    for (let i = 0; i < _childrenInfo.length; i++)
+      _childrenInfo[i].prSelected = false;
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
       setUserList([..._newUserList]);
@@ -95,11 +136,14 @@ const FinancialReport = () => {
   const _addGeneralTable = (userInfo_: any[], username: string) => {
     for (let i = 0; i < userInfo_.length; i++) {
       if (Array.isArray(userInfo_[i]) === true) {
-        _addGeneralTable(userInfo_[i], username, { prSelected: false });
+        _addGeneralTable(userInfo_[i], username);
         if (i === userInfo_.length - 1) break;
       }
       if (userInfo_[i].username === username) {
-        userInfo_.splice(i + 1, 0, { prSelected: false });
+        userInfo_.splice(i + 1, 0, {
+          _id: userInfo_[i]._id,
+          generalTable: true,
+        });
         break;
       }
     }
@@ -124,7 +168,7 @@ const FinancialReport = () => {
         }
       } else {
         if (userInfo_[i]._id === id) {
-          if (userInfo_[i + 1].prSelected === undefined)
+          if (userInfo_[i + 1].generalTable === undefined)
             userInfo_.splice(i + 2, 1);
           else userInfo_.splice(i + 1, 1);
         }
@@ -153,8 +197,9 @@ const FinancialReport = () => {
     );
   };
 
-  const onHandleSearch = async () => {
-
+  const onHandleSearch = () => {
+    getTotalFinancialReportData();
+    getUserInfo();
   };
 
   return (
@@ -190,87 +235,89 @@ const FinancialReport = () => {
             </button>
           </div>
         </section>
-        <section className="flex flex-col gap-4 pt-4">
-          <div className="w-full overflow-x-scroll md:overflow-hidden">
-            <table className="w-full text-sm text-white text-center">
-              <thead className="text-sm bg-[#222] uppercase">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-black"
-                  ></th>
-                  <th scope="col" className="px-2 py-1.5 border border-black">
-                    tax
-                  </th>
-                  <th scope="col" className="px-2 py-1.5 border border-black">
-                    ggr
-                  </th>
-                  <th scope="col" className="px-2 py-1.5 border border-black">
-                    t.o.
-                  </th>
-                  <th scope="col" className="px-2 py-1.5 border border-black">
-                    bonus
-                  </th>
-                  <th scope="col" className="px-2 py-1.5 border border-black">
-                    converted
-                  </th>
-                  <th scope="col" className="px-2 py-1.5 border border-black">
-                    ngr
-                  </th>
-                  <th scope="col" className="px-2 py-1.5 border border-black">
-                    hands
-                  </th>
-                  <th scope="col" className="px-2 py-1.5 border border-black">
-                    to partners
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="bg-brand-dark-grey border border-black">
-                  <td
-                    className={clsx(
-                      "px-6 py-1 border border-black cursor-pointer hover:bg-brand-yellow text-black w-14",
-                      prSelected === true ? "bg-brand-yellow" : "bg-white"
-                    )}
-                    onClick={() => setPrSelected(!prSelected)}
-                  >
-                    Pr
-                  </td>
-                  <td className="px-2 py-1 border border-black">0.00</td>
-                  <td className="px-2 py-1 border border-black bg-brand-plus-cell">
-                    28,126.59
-                  </td>
-                  <td className="px-2 py-1 border border-black">0.00</td>
-                  <td className="px-2 py-1 border border-black">1,940.36</td>
-                  <td className="px-2 py-1 border border-black">1,311.81</td>
-                  <td className="px-2 py-1 border border-black bg-brand-plus-cell">
-                    26,814.78
-                  </td>
-                  <td className="px-2 py-1 border border-black">26,814.63</td>
-                  <td className="px-2 py-1 border border-black">0.15</td>
-                </tr>
-                {prSelected === true && (
-                  <tr className="bg-brand-dark-grey border border-black">
-                    <td colSpan={9} className="p-4">
-                      <GeneralTable />
-                    </td>
+        {userList !== null && (
+          <section className="flex flex-col gap-4 pt-4">
+            <div className="w-full overflow-x-scroll md:overflow-hidden">
+              <table className="w-full text-sm text-white text-center">
+                <thead className="text-sm bg-[#222] uppercase">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-black"
+                    ></th>
+                    <th scope="col" className="px-2 py-1.5 border border-black">
+                      tax
+                    </th>
+                    <th scope="col" className="px-2 py-1.5 border border-black">
+                      ggr
+                    </th>
+                    <th scope="col" className="px-2 py-1.5 border border-black">
+                      t.o.
+                    </th>
+                    <th scope="col" className="px-2 py-1.5 border border-black">
+                      bonus
+                    </th>
+                    <th scope="col" className="px-2 py-1.5 border border-black">
+                      converted
+                    </th>
+                    <th scope="col" className="px-2 py-1.5 border border-black">
+                      ngr
+                    </th>
+                    <th scope="col" className="px-2 py-1.5 border border-black">
+                      hands
+                    </th>
+                    <th scope="col" className="px-2 py-1.5 border border-black">
+                      to partners
+                    </th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-          <UserTable
-            parentId_={0}
-            child={userList}
-            startingOn={startingOn}
-            endingOn={endingOn}
-            createTable={createTable}
-            getChildren={getChildren}
-            removeChildren={removeChildren}
-            addGeneralTable={addGeneralTable}
-            removeGeneralTable={removeGeneralTable}
-          />
-        </section>
+                </thead>
+                <tbody>
+                  <tr className="bg-brand-dark-grey border border-black">
+                    <td
+                      className={clsx(
+                        "px-6 py-1 border border-black cursor-pointer hover:bg-brand-yellow text-black w-14",
+                        prSelected === true ? "bg-brand-yellow" : "bg-white"
+                      )}
+                      onClick={() => setPrSelected(!prSelected)}
+                    >
+                      Pr
+                    </td>
+                    <td className="px-2 py-1 border border-black">{totaltax}</td>
+                    <td className="px-2 py-1 border border-black bg-brand-plus-cell">
+                      {totalggr}
+                    </td>
+                    <td className="px-2 py-1 border border-black">{totalto}</td>
+                    <td className="px-2 py-1 border border-black">{totalbonus}</td>
+                    <td className="px-2 py-1 border border-black">{totalconverted}</td>
+                    <td className="px-2 py-1 border border-black bg-brand-plus-cell">
+                      {totalngr}
+                    </td>
+                    <td className="px-2 py-1 border border-black">{totalhands}</td>
+                    <td className="px-2 py-1 border border-black">{totalpartner}</td>
+                  </tr>
+                  {/* {prSelected === true && (
+                <tr className="bg-brand-dark-grey border border-black">
+                  <td colSpan={9} className="p-4">
+                    <GeneralTable />
+                  </td>
+                </tr>
+              )} */}
+                </tbody>
+              </table>
+            </div>
+            <UserTable
+              parentId_={0}
+              child={userList}
+              startingOn={startingOn}
+              endingOn={endingOn}
+              createTable={createTable}
+              getChildren={getChildren}
+              removeChildren={removeChildren}
+              addGeneralTable={addGeneralTable}
+              removeGeneralTable={removeGeneralTable}
+            />
+          </section>
+        )}
       </section>
     </>
   );

@@ -28,8 +28,7 @@ const UserTable = ({
 }: UserTableProps) => {
   const [parentId, setParentId] = useState(parentId_);
   const [financialReportData, setFinancialReportData] = useState(null);
-  const [selectedUserName, setSelectedUserName] = useState("");
-  const [selectedItemName, setSelectedItemName] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   return (
     <div className="w-full overflow-x-scroll md:overflow-hidden">
@@ -82,7 +81,7 @@ const UserTable = ({
                     </tr>
                   );
                 } else {
-                  if (item.prSelected === undefined) {
+                  if (item.generalTable === undefined) {
                     return (
                       <tr key={index} className="bg-brand-dark-grey">
                         <UserTableItem
@@ -95,6 +94,7 @@ const UserTable = ({
                           removeChildren={removeChildren}
                           addGeneralTable={(username: string, financialReportData: any) => {
                             addGeneralTable(username);
+                            setSelectedItem(item);
                             setFinancialReportData(financialReportData);
                           }}
                           removeGeneralTable={removeGeneralTable}
@@ -105,7 +105,7 @@ const UserTable = ({
                     return (
                       <tr key={index} className="bg-brand-dark-grey">
                         <td colSpan={11} className="p-4 border border-black">
-                          <GeneralTable financialReportData={financialReportData} />
+                          <GeneralTable item_={item} startingOn={startingOn} endingOn={endingOn} />
                         </td>
                       </tr>
                     );
@@ -124,6 +124,7 @@ const UserTable = ({
                   removeChildren={removeChildren}
                   addGeneralTable={(username: string, financialReportData: any) => {
                     addGeneralTable(username);
+                    setSelectedItem(child);
                     setFinancialReportData(financialReportData);
                   }}
                   removeGeneralTable={removeGeneralTable}

@@ -24,7 +24,7 @@ const UserTableItem = ({
   addGeneralTable,
   removeGeneralTable,
 }: UserTableItemProps) => {
-  const [prSelected, setPrSelected] = useState(false);
+  const [prSelected, setPrSelected] = useState();
   const { data: session }: any = useSession();
 
   const [financialReportData, setFinancialReportData] = useState(null);
@@ -43,7 +43,7 @@ const UserTableItem = ({
   useEffect(() => {
     if (item_ !== null) {
       setItem(item_);
-      console.log(item_.username);
+      setPrSelected(item_.prSelected);
       getFinancialReports();
     }
   }, [item_]);
@@ -58,7 +58,6 @@ const UserTableItem = ({
     );
 
     setFinancialReportData(_res.data);
-    // console.log(_res.data)
 
     if (_res.status === 200) {
       // ggr
@@ -75,7 +74,7 @@ const UserTableItem = ({
         _res.data.sports_betting !== undefined &&
         _res.data.sports_betting.length > 0
       )
-        ggr += _res.data.sports_betting[0].overallTotal[0].ggr;
+        ggr += _res.data.sports_betting[_res.data.sports_betting.length - 1].ggr;
       setGGR(ggr);
     } else toast.error(_res?.data.message);
   };
@@ -93,7 +92,8 @@ const UserTableItem = ({
               if (!prSelected)
                 addGeneralTable(item.username, financialReportData);
               else removeGeneralTable(item.username, item._id);
-              setPrSelected(!prSelected);
+              item.prSelected = !item.prSelected;
+              setPrSelected(item.prSelected);
             }}
           >
             Pr

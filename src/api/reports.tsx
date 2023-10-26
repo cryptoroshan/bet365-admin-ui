@@ -3,7 +3,7 @@ import * as env from "@/app/env";
 export const getCoupons = async (
   token: string,
   role: string,
-  id: number,
+  id: string,
   start_date: string,
   end_date: string,
   solo: boolean,
@@ -79,7 +79,11 @@ export const getCoupons = async (
   else if (open === true)
     status = "Open";
 
-  const API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/coupons?user_id=${id}&start_date=${start_date}&end_date=${end_date}&type=${type}&coupon_type=${coupon_type}&status=${status}&bet_sign=${betSymbol}bet_cost=${betCost}&odds_sign=${sumSymbol}&odds_sum=${sumOdds}&&cashout=${cashout}&bonus=${bonus}`;
+  let API_ENDPOINT = "";
+  if (id == "")
+    API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/coupons?start_date=${start_date}&end_date=${end_date}&type=${type}&coupon_type=${coupon_type}&status=${status}&bet_sign=${betSymbol}bet_cost=${betCost}&odds_sign=${sumSymbol}&odds_sum=${sumOdds}&&cashout=${cashout}&bonus=${bonus}`;
+  else
+    API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/coupons?user_id=${id}&start_date=${start_date}&end_date=${end_date}&type=${type}&coupon_type=${coupon_type}&status=${status}&bet_sign=${betSymbol}bet_cost=${betCost}&odds_sign=${sumSymbol}&odds_sum=${sumOdds}&&cashout=${cashout}&bonus=${bonus}`;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("X-ACCESS-TOKEN", token);

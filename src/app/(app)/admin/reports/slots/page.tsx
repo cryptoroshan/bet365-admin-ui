@@ -15,7 +15,7 @@ import UserTable from "@/app/(app)/components/admin/reports/Slots/UserTable";
 const Slots = () => {
   const searchParams = useSearchParams();
   const username = searchParams?.get("username");
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const [startingOn, setStartingOn] = useState("");
   const [endingOn, setEndingOn] = useState("");
   const [provider, setProvider] = useState("All");
@@ -38,6 +38,7 @@ const Slots = () => {
       session.user.token,
       session.user.role
     );
+    _userinfo.vendorSelected = false;
     const _userList = [];
     _userList.push(_userinfo);
     setUserList([..._userList]);
@@ -49,6 +50,8 @@ const Slots = () => {
       session.user.token,
       session.user.role
     );
+    for (let i = 0;i < _childrenInfo.length;i++)
+      _childrenInfo[i].vendorSelected = false;
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
       setUserList([..._newUserList]);

@@ -42,7 +42,6 @@ const FinancialReport = () => {
       startingOn,
       endingOn
     );
-    console.log(_res.data)
 
     if (_res.status === 200) {
       // ggr
@@ -59,10 +58,11 @@ const FinancialReport = () => {
         _res.data.sports_betting !== undefined &&
         _res.data.sports_betting.length > 0
       )
-        ggr += _res.data.sports_betting[_res.data.sports_betting.length - 1].ggr;
+        ggr +=
+          _res.data.sports_betting[_res.data.sports_betting.length - 1].ggr;
       setTotalGGR(ggr);
     } else toast.error(_res?.data.error);
-  }
+  };
 
   const getUserInfo = async () => {
     const _userinfo = await getUsersCreatedBy(
@@ -282,26 +282,36 @@ const FinancialReport = () => {
                     >
                       Pr
                     </td>
-                    <td className="px-2 py-1 border border-black">{totaltax}</td>
+                    <td className="px-2 py-1 border border-black">
+                      {totaltax}
+                    </td>
                     <td className="px-2 py-1 border border-black bg-brand-plus-cell">
                       {totalggr}
                     </td>
                     <td className="px-2 py-1 border border-black">{totalto}</td>
-                    <td className="px-2 py-1 border border-black">{totalbonus}</td>
-                    <td className="px-2 py-1 border border-black">{totalconverted}</td>
+                    <td className="px-2 py-1 border border-black">
+                      {totalbonus}
+                    </td>
+                    <td className="px-2 py-1 border border-black">
+                      {totalconverted}
+                    </td>
                     <td className="px-2 py-1 border border-black bg-brand-plus-cell">
                       {totalngr}
                     </td>
-                    <td className="px-2 py-1 border border-black">{totalhands}</td>
-                    <td className="px-2 py-1 border border-black">{totalpartner}</td>
+                    <td className="px-2 py-1 border border-black">
+                      {totalhands}
+                    </td>
+                    <td className="px-2 py-1 border border-black">
+                      {totalpartner}
+                    </td>
                   </tr>
-                  {/* {prSelected === true && (
-                <tr className="bg-brand-dark-grey border border-black">
-                  <td colSpan={9} className="p-4">
-                    <GeneralTable />
-                  </td>
-                </tr>
-              )} */}
+                  {prSelected === true && (
+                    <tr className="bg-brand-dark-grey border border-black">
+                      <td colSpan={9} className="p-4">
+                        <GeneralTable item_={session.user} startingOn={startingOn} endingOn={endingOn} />
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

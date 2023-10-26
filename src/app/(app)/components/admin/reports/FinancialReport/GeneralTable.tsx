@@ -24,13 +24,10 @@ const GeneralTable = ({ item_, startingOn, endingOn }: GeneralTableProps) => {
   const [open, setOpen] = useState(0);
   const [sumOpen, setSumOpen] = useState(0);
 
-  const [item, setItem]: any = useState(null);
-  const [financialData, setFinancialData] = useState(null);
+  const [financialData, setFinancialData]: any = useState(null);
 
   useEffect(() => {
     if (item_ !== null) {
-      setItem(item_);
-      console.log(item_);
       getFinancialReports();
     }
   }, [item_]);
@@ -89,46 +86,106 @@ const GeneralTable = ({ item_, startingOn, endingOn }: GeneralTableProps) => {
         </tr>
       </thead>
       <tbody>
-        {financialData !== null &&
-          financialData.slots !== undefined &&
-          financialData.slots.length > 0 && (
-            <tr className="bg-brand-dark-grey">
-              <td className="px-2 py-1 border border-black">
-                {financialData.slots[0].totalsPerSlot.length > 1
-                  ? "+ SLOTS"
-                  : "SLOTS"}
-              </td>
-              <td className="px-2 py-1 border border-black">{IN.toFixed(2)}</td>
-              <td className="px-2 py-1 border border-black">
-                {out.toFixed(2)}
-              </td>
-              <td
-                className={clsx(
-                  "px-2 py-1 border border-black",
-                  ggr === 0
-                    ? "bg-brand-dark-grey"
-                    : ggr > 0
-                    ? "bg-brand-plus-cell"
-                    : "bg-brand-minus-cell"
-                )}
-              >
-                {ggr.toFixed(2)}
-              </td>
-              <td className="px-2 py-1 border border-black">{share}</td>
-              <td className="px-2 py-1 border border-black">{bonus}</td>
-              <td
-                className={clsx(
-                  "px-2 py-1 border border-black",
-                  converted !== 0 ? "bg-brand-plus-cell" : ""
-                )}
-              >
-                {converted}
-              </td>
-              <td className="px-2 py-1 border border-black">{ngr}</td>
-              <td className="px-2 py-1 border border-black">{open}</td>
-              <td className="px-2 py-1 border border-black">{sumOpen}</td>
-            </tr>
-          )}
+        {financialData !== null && (
+          <>
+            {financialData?.sports_betting.map((item: any, index: number) => {
+              if (index !== financialData?.sports_betting.length - 1)
+                return (
+                  <tr key={index} className="bg-brand-dark-grey">
+                    <td className="px-2 py-1 border border-black">
+                      {item._id.coupon_type}
+                    </td>
+                    <td className="px-2 py-1 border border-black">
+                      {item.total_in.toFixed(2)}
+                    </td>
+                    <td className="px-2 py-1 border border-black">
+                      {item.total_out.toFixed(2)}
+                    </td>
+                    <td
+                      className={clsx(
+                        "px-2 py-1 border border-black",
+                        item.ggr === 0
+                          ? "bg-brand-dark-grey"
+                          : item.ggr > 0
+                          ? "bg-brand-plus-cell"
+                          : "bg-brand-minus-cell"
+                      )}
+                    >
+                      {item.ggr.toFixed(2)}
+                    </td>
+                    <td className="px-2 py-1 border border-black">
+                      {item.share}
+                    </td>
+                    <td className="px-2 py-1 border border-black">
+                      {item.bonus}
+                    </td>
+                    <td
+                      className={clsx(
+                        "px-2 py-1 border border-black",
+                        item.converted === 0 || item.converted === undefined
+                          ? "bg-brand-dark-grey"
+                          : item.converted > 0
+                          ? "bg-brand-plus-cell"
+                          : "bg-brand-minus-cell"
+                      )}
+                    >
+                      {item.converted === undefined ? 0 : item.converted}
+                    </td>
+                    <td className="px-2 py-1 border border-black">
+                      {item.ngr === undefined ? 0 : item.ngr}
+                    </td>
+                    <td className="px-2 py-1 border border-black">
+                      {item.open}
+                    </td>
+                    <td className="px-2 py-1 border border-black">
+                      {item.sumOpen}
+                    </td>
+                  </tr>
+                );
+            })}
+            {financialData.slots !== undefined &&
+              financialData.slots.length > 0 && (
+                <tr className="bg-brand-dark-grey">
+                  <td className="px-2 py-1 border border-black">
+                    {financialData.slots[0].totalsPerSlot.length > 1
+                      ? "+ SLOTS"
+                      : "SLOTS"}
+                  </td>
+                  <td className="px-2 py-1 border border-black">
+                    {IN.toFixed(2)}
+                  </td>
+                  <td className="px-2 py-1 border border-black">
+                    {out.toFixed(2)}
+                  </td>
+                  <td
+                    className={clsx(
+                      "px-2 py-1 border border-black",
+                      ggr === 0
+                        ? "bg-brand-dark-grey"
+                        : ggr > 0
+                        ? "bg-brand-plus-cell"
+                        : "bg-brand-minus-cell"
+                    )}
+                  >
+                    {ggr.toFixed(2)}
+                  </td>
+                  <td className="px-2 py-1 border border-black">{share}</td>
+                  <td className="px-2 py-1 border border-black">{bonus}</td>
+                  <td
+                    className={clsx(
+                      "px-2 py-1 border border-black",
+                      converted !== 0 ? "bg-brand-plus-cell" : ""
+                    )}
+                  >
+                    {converted}
+                  </td>
+                  <td className="px-2 py-1 border border-black">{ngr}</td>
+                  <td className="px-2 py-1 border border-black">{open}</td>
+                  <td className="px-2 py-1 border border-black">{sumOpen}</td>
+                </tr>
+              )}
+          </>
+        )}
       </tbody>
     </table>
   );

@@ -58,6 +58,7 @@ const UserTableItem = ({
     );
 
     setFinancialReportData(_res.data);
+    console.log(_res.data)
 
     if (_res.status === 200) {
       // ggr

@@ -1,8 +1,9 @@
 interface TransactionTableProps {
-  currentPage: number
+  currentPage: number;
+  transactionData: Array<any>;
 }
 
-const TransactionTable = ({ currentPage }: TransactionTableProps) => {
+const TransactionTable = ({ currentPage, transactionData }: TransactionTableProps) => {
   return (
     <div className="w-full overflow-x-scroll md:overflow-hidden">
       <table className="w-full text-sm text-white text-center">
@@ -26,17 +27,17 @@ const TransactionTable = ({ currentPage }: TransactionTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {transaction_table?.map((item, index) => {
+          {transactionData?.map((item, index) => {
             if (index >= currentPage * 5 && index < (currentPage + 1) * 5)
               return (
                 <tr key={index} className="bg-[#666]">
-                  <td className="px-2 py-1 border border-gray-600 truncate">{item.date}</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate">{`${new Date(item.timestamp).getMonth() + 1}/${new Date(item.timestamp).getDate()} ${new Date(item.timestamp).getHours()}:${new Date(item.timestamp).getMinutes()}`}</td>
                   <td className="px-2 py-1 border border-gray-600 truncate">
-                    {item.description}
+                    {`${item.action_user_id}•${item.action_user_username} - ${item.comment} - ${item.target_user_id}•${item.target_user_username}`}
                   </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">{item.type}</td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">{item.kind}</td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">{item.amount}</td>
+                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
                 </tr>
               );
           })}
@@ -47,90 +48,3 @@ const TransactionTable = ({ currentPage }: TransactionTableProps) => {
 };
 
 export default TransactionTable;
-
-const transaction_table = [
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan1",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan2",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan3",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan4",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan5",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan6",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan7",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan8",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan9",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan10",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan11",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-  {
-    date: "07/09 21:43",
-    description: "From cryptoRoshan12",
-    type: "In",
-    kind: "",
-    amount: "5000.00",
-  },
-];

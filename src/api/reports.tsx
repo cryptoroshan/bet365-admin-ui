@@ -136,7 +136,51 @@ export const getFinalcialReports = async (
       status: response.status,
       data: data
     };
-    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getTransactions = async (
+  token: string,
+  role: string,
+  action_user_id: number,
+  action_user_name: string,
+  target_user_id: number,
+  target_user_name: string,
+  start_date: string,
+  end_date: string,
+  type: string
+) => {
+  let role_url;
+  if (role === "SuperAgent") role_url = "superagent";
+  else if (role === "Type7Admin") role_url = 7;
+  else if (role === "Type5Admin") role_url = 5;
+  else if (role === "Type3Admin") role_url = 3;
+
+  let API_ENDPOINT = "";
+  if (type === "All")
+    API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/logs?&from_date=${start_date}&to_date=${end_date}&target_user_id=${target_user_id}&target_user_username=${target_user_name}&action_user_id=${action_user_id}&action_user_username=${action_user_name}`;
+  else
+    API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/logs?&from_date=${start_date}&to_date=${end_date}&comment=${type}&target_user_id=${target_user_id}&target_user_username=${target_user_name}&action_user_id=${action_user_id}&action_user_username=${action_user_name}`;
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("X-ACCESS-TOKEN", token);
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+  };
+
+  try {
+    const response = await fetch(API_ENDPOINT, requestOptions);
+    console.log(response)
+    const data = await response.json();
+    console.log(data)
+    return {
+      status: response.status,
+      data: data
+    };
   } catch (err) {
     console.log(err);
   }

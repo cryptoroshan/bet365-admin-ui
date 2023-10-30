@@ -1,23 +1,76 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+import clsx from "clsx";
+import { toast } from "react-toastify";
 
+import { getUsersByQuery } from "@/api/userManagement";
+import { getTransactions } from "@/api/reports";
 import TransactionTable from "@/app/(app)/components/admin/reports/Transactions/TransactionTable";
 import Pagination from "@/components/ui/Pagination";
 
 const Transactions = () => {
+  const { data: session }: any = useSession();
   const searchParams = useSearchParams();
   const username = searchParams?.get("username");
-  const [startingOn, setStartingOn] = useState("");
-  const [endingOn, setEndingOn] = useState("");
+  const [startingOn, setStartingOn] = useState(
+    new Date().getFullYear() -
+      1 +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate()
+  );
+  const [endingOn, setEndingOn] = useState(
+    new Date().getFullYear() +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate()
+  );
   const [kind, setKind] = useState("All");
   const [type, setType] = useState("All");
-  const [user, setUser] = useState("");
 
-  const [pageTotalCount, setPageTotalCount] = useState(3);
+  const [actionUser, setActionUser] = useState("");
+  const [selectedActionUser, setSelectedActionUser]: any = useState({
+    _id: "",
+    username: "",
+  });
+  const [actionDescendants, setActionDescendants] = useState([]);
+  const [actionDescendantListView, setActionDescendantListView] = useState(false);
+
+  const [targetUser, setTargetUser] = useState("");
+  const [selectedTargetUser, setSelectedTargetUser]: any = useState({
+    _id: "",
+    username: "",
+  });
+  const [targetDescendants, setTargetDescendants] = useState([]);
+  const [targetDescendantListView, setTargetDescendantListView] = useState(false);
+
+  const [pageTotalCount, setPageTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
+  const [transactionData, setTransactionData] = useState([]);
 
-  const onHandleSearch = async () => {};
+  const onHandleSearch = async () => {
+    const _res = await getTransactions(
+      session.user.token,
+      session.user.role,
+      selectedActionUser._id,
+      selectedActionUser.username,
+      selectedTargetUser._id,
+      selectedTargetUser.username,
+      startingOn,
+      endingOn,
+      type
+    );
+    if (_res?.status === 200) {
+      setTransactionData(_res?.data);
+      setPageTotalCount(Math.ceil(_res?.data.length/5));
+    }
+    else
+      toast.error(_res?.data.message);
+  };
 
   return (
     <section className="flex flex-col gap-4 p-4">
@@ -71,18 +124,93 @@ const Transactions = () => {
                   onChange={(e) => setType(e.target.value)}
                 >
                   <option value="All">All</option>
-                  <option value="In">In</option>
-                  <option value="Out">Out</option>
+                  <option value="In">Increase</option>
+                  <option value="Out">Decrease</option>
                 </select>
               </div>
               <div className="flex flex-col">
-                <p className="text-sm text-white">User:</p>
-                <input
-                  type="text"
-                  className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
-                  value={user}
-                  onChange={(e) => setUser(e.target.value)}
-                />
+                <p className="text-sm text-white">Action User:</p>
+                <div className="relative">
+                  <input
+                    type="text"
+                    className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
+                    value={actionUser}
+                    onChange={async (e) => {
+                      setActionDescendantListView(false);
+                      setActionUser(e.target.value);
+                      const _res = await getUsersByQuery(
+                        e.target.value,
+                        session.user.token
+                      );
+                      setActionDescendants(_res);
+                      setActionDescendantListView(true);
+                    }}
+                  />
+                  <div
+                    className={clsx(
+                      "absolute right-0 flex-col bg-white rounded-sm",
+                      actionDescendantListView === true ? "flex" : "hidden"
+                    )}
+                  >
+                    {actionDescendants.map((item: any, index: number) => {
+                      return (
+                        <div
+                          key={index}
+                          className="hover:bg-red-400 px-4 cursor-pointer py-1"
+                          onClick={() => {
+                            setActionUser(item.username);
+                            setSelectedActionUser(item);
+                            setActionDescendantListView(false);
+                          }}
+                        >
+                          {item.username}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <p className="text-sm text-white">Target User:</p>
+                <div className="relative">
+                  <input
+                    type="text"
+                    className="bg-white border-gray-300 w-48 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
+                    value={targetUser}
+                    onChange={async (e) => {
+                      setTargetDescendantListView(false);
+                      setTargetUser(e.target.value);
+                      const _res = await getUsersByQuery(
+                        e.target.value,
+                        session.user.token
+                      );
+                      setTargetDescendants(_res);
+                      setTargetDescendantListView(true);
+                    }}
+                  />
+                  <div
+                    className={clsx(
+                      "absolute right-0 flex-col bg-white rounded-sm",
+                      targetDescendantListView === true ? "flex" : "hidden"
+                    )}
+                  >
+                    {targetDescendants.map((item: any, index: number) => {
+                      return (
+                        <div
+                          key={index}
+                          className="hover:bg-red-400 px-4 cursor-pointer py-1"
+                          onClick={() => {
+                            setTargetUser(item.username);
+                            setSelectedTargetUser(item);
+                            setTargetDescendantListView(false);
+                          }}
+                        >
+                          {item.username}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </>
           )}
@@ -121,15 +249,26 @@ const Transactions = () => {
           </button>
         </div>
       </section>
-      <section className="flex flex-col gap-4 pt-4">
-        <TransactionTable currentPage={currentPage} />
-        <div className="flex flex-row justify-center">
-          <Pagination
-            pageCount={pageTotalCount}
-            gotoPage={(page: number) => setCurrentPage(page)}
+      {transactionData?.length === 0 ? (
+        <p className="text-lg font-bold text-center text-brand-button-text">
+          No results
+        </p>
+      ) : (
+        <section className="flex flex-col gap-4 pt-4">
+          <TransactionTable
+            currentPage={currentPage}
+            transactionData={transactionData}
           />
-        </div>
-      </section>
+          {pageTotalCount > 1 && (
+            <div className="flex flex-row justify-center">
+              <Pagination
+                pageCount={pageTotalCount}
+                gotoPage={(page: number) => setCurrentPage(page)}
+              />
+            </div>
+          )}
+        </section>
+      )}
     </section>
   );
 };

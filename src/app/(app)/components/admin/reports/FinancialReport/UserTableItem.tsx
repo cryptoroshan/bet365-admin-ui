@@ -57,10 +57,9 @@ const UserTableItem = ({
       endingOn
     );
 
-    setFinancialReportData(_res.data);
-    console.log(_res.data)
+    setFinancialReportData(_res?.data);
 
-    if (_res.status === 200) {
+    if (_res?.status === 200) {
       // ggr
       let ggr = 0;
       if (_res.data.pre !== undefined && _res.data.pre.length > 0)

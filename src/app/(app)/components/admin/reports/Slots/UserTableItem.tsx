@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import clsx from "clsx";
+import { toast } from "react-toastify";
+
+import { getFinalcialReports } from "@/api/reports";
 
 interface UserTableItemProps {
   item_: any;
+  startingOn: any;
+  endingOn: any;
   getChildren: any;
   removeChildren: any;
   addGeneralTable: any;
@@ -11,21 +17,51 @@ interface UserTableItemProps {
 
 const UserTableItem = ({
   item_,
+  startingOn,
+  endingOn,
   getChildren,
   removeChildren,
   addGeneralTable,
   removeGeneralTable,
 }: UserTableItemProps) => {
-  const [vendorSelected, setVendorSelected] = useState(false);
+  const [vendorSelected, setVendorSelected] = useState();
+  const { data: session }: any = useSession();
+
+  const [financialReportData, setFinancialReportData] = useState(null);
   const [item, setItem]: any = useState(null);
   const [open, setOpen] = useState(false);
+
+  const [totalIn, setTotalIn] = useState(0);
+  const [totalOut, setTotalOut] = useState(0);
+  const [totalGGR, setTotalGGR] = useState(0);
 
   useEffect(() => {
     if (item_ !== null) {
       setItem(item_);
-      setVendorSelected(item_.vendorSelected);
+      setVendorSelected(item_.vendorsSelected);
+      getFinancialReports();
     }
   }, [item_]);
+
+  const getFinancialReports = async () => {
+    const _res = await getFinalcialReports(
+      session.user.token,
+      session.user.role,
+      item_._id,
+      startingOn,
+      endingOn
+    );
+
+    setFinancialReportData(_res?.data);
+
+    if (_res?.status === 200) {
+      if (_res.data.slots !== undefined) {
+        setTotalIn(_res.data.slots[0].overallTotal[0].total_in);
+        setTotalOut(_res.data.slots[0].overallTotal[0].total_out);
+        setTotalGGR(_res.data.slots[0].overallTotal[0].ggr);
+      }
+    } else toast.error(_res?.data.message);
+  };
 
   return (
     <>
@@ -44,10 +80,11 @@ const UserTableItem = ({
                   vendorSelected === true ? "bg-orange-400" : "bg-white"
                 )}
                 onClick={() => {
-                  if (!vendorSelected) addGeneralTable(item.username);
+                  if (!vendorSelected)
+                    addGeneralTable(item.username, financialReportData);
                   else removeGeneralTable(item.username, item._id);
-                  item.vendorSelected = !item.vendorSelected;
-                  setVendorSelected(item.vendorSelected);
+                  item.vendorsSelected = !item.vendorsSelected;
+                  setVendorSelected(item.vendorsSelected);
                 }}
               >
                 Vendors
@@ -55,8 +92,14 @@ const UserTableItem = ({
               {item.role !== "User" && (
                 <div
                   className={clsx(
-                    "bg-white text-black border border-black w-16 py-1.5 cursor-pointer hover:bg-orange-400",
-                    open === true ? "bg-orange-400" : ""
+                    "px-2 py-1 border border-black",
+                    item.role === "User" && "bg-brand-dark-grey",
+                    item.role !== "User" &&
+                      open === true &&
+                      "bg-brand-yellow hover:bg-brand-yellow cursor-pointer text-black",
+                    item.role !== "User" &&
+                      open === false &&
+                      "bg-white hover:bg-brand-yellow cursor-pointer text-black"
                   )}
                   onClick={() => {
                     if (!open) getChildren(item.username, item._id);
@@ -71,9 +114,9 @@ const UserTableItem = ({
           </td>
           <td className="px-2 py-1 border border-black">{item.username}</td>
           <td className="px-2 py-1 border border-black">{item.role}</td>
-          <td className="px-2 py-1 border border-black">15,154.94</td>
-          <td className="px-2 py-1 border border-black">18,353.67</td>
-          <td className="px-2 py-1 border border-black">-3,198.73</td>
+          <td className="px-2 py-1 border border-black">{totalIn.toFixed(2)}</td>
+          <td className="px-2 py-1 border border-black">{totalOut.toFixed(2)}</td>
+          <td className="px-2 py-1 border border-black">{totalGGR.toFixed(2)}</td>
         </>
       )}
     </>

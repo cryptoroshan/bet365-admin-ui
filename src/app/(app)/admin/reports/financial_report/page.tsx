@@ -13,7 +13,13 @@ import UserTable from "@/app/(app)/components/admin/reports/FinancialReport/User
 const FinancialReport = () => {
   const { data: session }: any = useSession();
 
-  const [startingOn, setStartingOn] = useState("2022-10-23");
+  const [startingOn, setStartingOn] = useState(
+    (new Date().getFullYear() - 1) +
+      "-" +
+      (new Date().getMonth() + 1) +
+      "-" +
+      new Date().getDate()
+  );
   const [endingOn, setEndingOn] = useState(
     new Date().getFullYear() +
       "-" +
@@ -23,7 +29,7 @@ const FinancialReport = () => {
   );
 
   const [prSelected, setPrSelected] = useState(false);
-  const [userList, setUserList] = useState(null);
+  const [userList, setUserList]: Array<any> = useState(null);
 
   const [totaltax, setTotalTax] = useState(0);
   const [totalggr, setTotalGGR] = useState(0);
@@ -43,7 +49,7 @@ const FinancialReport = () => {
       endingOn
     );
 
-    if (_res.status === 200) {
+    if (_res?.status === 200) {
       // ggr
       let ggr = 0;
       if (_res.data.pre !== undefined && _res.data.pre.length > 0)

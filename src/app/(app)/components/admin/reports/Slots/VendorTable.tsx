@@ -1,4 +1,41 @@
-const VendorTable = () => {
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
+
+import { getFinalcialReports } from "@/api/reports";
+
+interface VendorTableProps {
+  item_: any;
+  startingOn: string;
+  endingOn: string;
+}
+
+const VendorTable = ({ item_, startingOn, endingOn }: VendorTableProps) => {
+  const { data: session }: any = useSession();
+
+  const [financialData, setFinancialData]: any = useState(null);
+  
+  useEffect(() => {
+    if (item_ !== null) {
+      getFinancialReports();
+    }
+  }, [item_]);
+
+  const getFinancialReports = async () => {
+    const _res = await getFinalcialReports(
+      session.user.token,
+      session.user.role,
+      item_._id,
+      startingOn,
+      endingOn
+    );
+
+    if (_res?.status === 200) {
+      if (_res.data.slots !== undefined)
+        setFinancialData(_res.data.slots[0].totalsPerSlot);
+    } else toast.error(_res?.data.message);
+  };
+
   return (
     <table className="w-full text-sm text-white text-center">
       <thead className="text-sm bg-[#222]">
@@ -7,10 +44,10 @@ const VendorTable = () => {
             Vendor
           </th>
           <th scope="col" className="px-2 py-1.5 border border-black">
-            Sum Bet
+            IN
           </th>
           <th scope="col" className="px-2 py-1.5 border border-black">
-            Sum Win
+            OUT
           </th>
           <th scope="col" className="px-2 py-1.5 border border-black">
             GGR
@@ -18,13 +55,13 @@ const VendorTable = () => {
         </tr>
       </thead>
       <tbody>
-        {general_table?.map((item, index) => {
+        {financialData?.map((item: any, index: number) => {
           return (
             <tr key={index} className="bg-brand-dark-grey">
-              <td className="px-2 py-1 border border-black">{item.vendor}</td>
-              <td className="px-2 py-1 border border-black">{item.sum_bet}</td>
-              <td className="px-2 py-1 border border-black">{item.sum_win}</td>
-              <td className="px-2 py-1 border border-black">{item.ggr}</td>
+              <td className="px-2 py-1 border border-black">{item._id}</td>
+              <td className="px-2 py-1 border border-black">{item.total_in.toFixed(2)}</td>
+              <td className="px-2 py-1 border border-black">{item.total_out.toFixed(2)}</td>
+              <td className="px-2 py-1 border border-black">{item.ggr.toFixed(2)}</td>
             </tr>
           );
         })}
@@ -34,24 +71,3 @@ const VendorTable = () => {
 };
 
 export default VendorTable;
-
-const general_table = [
-  {
-    vendor: "amatic",
-    sum_bet: "66,962.00",
-    sum_win: "69,089.53",
-    ggr: "-2,127.53",
-  },
-  {
-    vendor: "egt",
-    sum_bet: "82,914.28",
-    sum_win: "74,393.49",
-    ggr: "8,520.79",
-  },
-  {
-    vendor: "netent",
-    sum_bet: "1,045.25",
-    sum_win: "857.23",
-    ggr: "188.02",
-  },
-];

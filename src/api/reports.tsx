@@ -100,7 +100,6 @@ export const getCoupons = async (
       status: response.status,
       data: data
     };
-    return data;
   } catch (err) {
     console.log(err);
   }
@@ -174,9 +173,7 @@ export const getTransactions = async (
 
   try {
     const response = await fetch(API_ENDPOINT, requestOptions);
-    console.log(response)
     const data = await response.json();
-    console.log(data)
     return {
       status: response.status,
       data: data

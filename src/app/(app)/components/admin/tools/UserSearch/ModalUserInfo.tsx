@@ -11,8 +11,8 @@ const ModalUserInfo = ({ item }: any) => {
   const { isUserInfoModalOpen, closeUserInfoModal, openTransferAmountModal, openChangePasswordModal } = useModalContext();
   const [currentTab, setCurrentTab] = useState("Info");
   const [editMode, setEditMode] = useState(false);
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
+  const [name, setName] = useState(item?.username);
+  const [surname, setSurname] = useState(item?.username);
   const [country, setCountry] = useState("");
   const [region, setRegion] = useState("");
   const [city, setCity] = useState("");
@@ -96,7 +96,7 @@ const ModalUserInfo = ({ item }: any) => {
                 </div>
                 <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
                   <p className="w-full text-right m-auto">Register:</p>
-                  <p className="w-full m-auto">{item.createdDate}</p>
+                  <p className="w-full m-auto">{new Date(item.createdDate).toString()}</p>
                 </div>
                 <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
                   <p className="w-full text-right m-auto">Balance:</p>
@@ -144,7 +144,13 @@ const ModalUserInfo = ({ item }: any) => {
                 </div>
                 <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
                   <p className="w-full text-right m-auto">Parents:</p>
-                  <p className="w-full m-auto"></p>
+                  <div className="flex flex-col w-full mt-2">
+                    {item.parents?.map((parent: any, index: number) => {
+                      return (
+                        <p key={index} className="w-full m-auto">{parent.id} • {parent.username}</p>
+                      )
+                    })}
+                  </div>
                 </div>
               </section>
               <section

@@ -12,9 +12,8 @@ import ModalLocation from "@/app/(app)/components/admin/tools/UserSearch/ModalLo
 import Button from "@/app/(app)/components/ui/Button";
 import { useModalContext } from "@/contexts/ModalContext";
 
-import { getUserById } from "@/api/userManagement";
+import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
 import { getUserInfo } from "@/api/tools";
-
 
 const UserSearch = () => {
   const router = useRouter();
@@ -27,11 +26,12 @@ const UserSearch = () => {
   const [user, setUser] = useState("");
   const [userList, setUserList]: any = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [blockStatus, setBlockStatus] = useState(null);
 
   const onHandleSearch = async () => {
     const _res = await getUserInfo(session.user.token, session.user.role, userId);
-    if (_res.status === 200) {
-
+    if (_res?.status === 200) {
+      setUserList(_res.data);
     }
     else
       toast.error(_res?.data.error);
@@ -119,108 +119,104 @@ const UserSearch = () => {
                 </tr>
               </thead>
               <tbody>
-                {userList.map((item: any, index: number) => {
-                  return (
-                    <tr key={index} className="bg-[#666] border border-black">
-                      <td
-                        className={clsx(
-                          "px-1 py-1 border border-black text-black w-14"
-                        )}
-                      >
-                        <div
-                          className="flex gap-2 p-2 border border-black w-full justify-center bg-[#333] cursor-pointer text-brand-button-text hover:text-white"
-                          onClick={() => {
-                            setSelectedItem(item);
-                            openUserInfoModal();
-                          }}
-                        >
-                          {item.username}
-                        </div>
-                      </td>
-                      <td className="px-2 py-1 border border-black">
-                        {item.role}
-                      </td>
-                      <td className="px-2 py-1 border border-black">
-                        {item.createdBy}
-                      </td>
-                      <td className="px-2 py-1 border border-black">
-                        {item.createdDate}
-                      </td>
-                      <td className="px-1 py-1 border border-black w-48">
-                        <div className="flex gap-1 w-full justify-center">
-                          <Button
-                            type="action"
-                            name="Block"
-                            onHandleClick={() => {
-                              setSelectedItem(item);
-                              openBlockUserModal();
-                            }}
-                          />
-                          <Button
-                            type="action"
-                            name="Location"
-                            onHandleClick={() => {
-                              setSelectedItem(item);
-                              openLocationModal();
-                            }}
-                          />
-                          <Button
-                            type="action"
-                            name="Bets"
-                            onHandleClick={() =>
-                              router.push(
-                                `/admin/reports/bets_list?username=${item.username}`
-                              )
-                            }
-                          />
-                          <Button
-                            type="action"
-                            name="Slots"
-                            onHandleClick={() =>
-                              router.push(
-                                `/admin/reports/slots?username=${item.username}`
-                              )
-                            }
-                          />
-                          <Button
-                            type="action"
-                            name="Casino"
-                            onHandleClick={() =>
-                              router.push(
-                                `/admin/reports/casino?username=${item.username}`
-                              )
-                            }
-                          />
-                          <Button
-                            type="action"
-                            name="Transactions"
-                            onHandleClick={() =>
-                              router.push(
-                                `/admin/reports/transactions?username=${item.username}`
-                              )
-                            }
-                          />
-                          <Button
-                            type="action"
-                            name="Activity"
-                            onHandleClick={() =>
-                              router.push(
-                                `/admin/reports/transactions?username=${item.username}`
-                              )
-                            }
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
+                <tr className="bg-[#666] border border-black">
+                  <td
+                    className={clsx(
+                      "px-1 py-1 border border-black text-black w-14"
+                    )}
+                  >
+                    <div
+                      className="flex gap-2 p-2 border border-black w-full justify-center bg-[#333] cursor-pointer text-brand-button-text hover:text-white"
+                      onClick={() => {
+                        setSelectedItem(userList);
+                        openUserInfoModal();
+                      }}
+                    >
+                      {userList.username}
+                    </div>
+                  </td>
+                  <td className="px-2 py-1 border border-black">
+                    {userList.role}
+                  </td>
+                  <td className="px-2 py-1 border border-black">
+                    {userList.createdBy}
+                  </td>
+                  <td className="px-2 py-1 border border-black">
+                    {new Date(userList.createdDate).toString()}
+                  </td>
+                  <td className="px-1 py-1 border border-black w-48">
+                    <div className="flex gap-1 w-full justify-center">
+                      <Button
+                        type="action"
+                        name="Block"
+                        onHandleClick={() => {
+                          setSelectedItem(userList);
+                          openBlockUserModal();
+                        }}
+                      />
+                      <Button
+                        type="action"
+                        name="Location"
+                        onHandleClick={() => {
+                          setSelectedItem(userList);
+                          openLocationModal();
+                        }}
+                      />
+                      <Button
+                        type="action"
+                        name="Bets"
+                        onHandleClick={() =>
+                          router.push(
+                            `/admin/reports/bets_list?username=${userList.username}`
+                          )
+                        }
+                      />
+                      <Button
+                        type="action"
+                        name="Slots"
+                        onHandleClick={() =>
+                          router.push(
+                            `/admin/reports/slots?username=${userList.username}`
+                          )
+                        }
+                      />
+                      <Button
+                        type="action"
+                        name="Casino"
+                        onHandleClick={() =>
+                          router.push(
+                            `/admin/reports/casino?username=${userList.username}`
+                          )
+                        }
+                      />
+                      <Button
+                        type="action"
+                        name="Transactions"
+                        onHandleClick={() =>
+                          router.push(
+                            `/admin/reports/transactions?username=${userList.username}`
+                          )
+                        }
+                      />
+                      <Button
+                        type="action"
+                        name="Activity"
+                        onHandleClick={() =>
+                          router.push(
+                            `/admin/reports/transactions?username=${userList.username}`
+                          )
+                        }
+                      />
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
         </section>
       )}
       <ModalUserInfo item={selectedItem} />
-      {/* <BlockUserModal item={selectedItem} /> */}
+      <BlockUserModal item={selectedItem} blockStatus={blockStatus} onhandleFullBlock={() => {}} />
       <ModalLocation item={selectedItem} />
     </section>
   );

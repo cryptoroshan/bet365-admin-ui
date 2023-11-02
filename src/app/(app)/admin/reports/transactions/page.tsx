@@ -14,21 +14,22 @@ const Transactions = () => {
   const { data: session }: any = useSession();
   const searchParams = useSearchParams();
   const username = searchParams?.get("username");
+
   const [startingOn, setStartingOn] = useState(
-    new Date().getFullYear() -
-      1 +
+    new Date().getFullYear() +
       "-" +
-      (new Date().getMonth() + 1) +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
       "-" +
-      new Date().getDate()
+      String(new Date().getDate()).padStart(2, "0")
   );
   const [endingOn, setEndingOn] = useState(
     new Date().getFullYear() +
       "-" +
-      (new Date().getMonth() + 1) +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
       "-" +
-      new Date().getDate()
+      String(new Date().getDate()).padStart(2, "0")
   );
+  
   const [kind, setKind] = useState("All");
   const [type, setType] = useState("All");
 

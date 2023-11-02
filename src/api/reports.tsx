@@ -79,11 +79,19 @@ export const getCoupons = async (
   else if (open === true)
     status = "Open";
 
-  let API_ENDPOINT = "";
-  if (id == "")
-    API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/coupons?start_date=${start_date}&end_date=${end_date}&type=${type}&coupon_type=${coupon_type}&status=${status}&bet_sign=${betSymbol}bet_cost=${betCost}&odds_sign=${sumSymbol}&odds_sum=${sumOdds}&&cashout=${cashout}&bonus=${bonus}`;
-  else
-    API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/coupons?user_id=${id}&start_date=${start_date}&end_date=${end_date}&type=${type}&coupon_type=${coupon_type}&status=${status}&bet_sign=${betSymbol}bet_cost=${betCost}&odds_sign=${sumSymbol}&odds_sum=${sumOdds}&&cashout=${cashout}&bonus=${bonus}`;
+  let API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/coupons?start_date=${start_date}&end_date=${end_date}&bet_sign=${betSymbol}bet_cost=${betCost}&odds_sign=${sumSymbol}&odds_sum=${sumOdds}&&cashout=${cashout}&bonus=${bonus}`;
+  if (id !== "")
+    API_ENDPOINT += `&user_id=${id}`;
+
+  if (type !== "")
+    API_ENDPOINT += `&type=${type}`;
+
+  if (coupon_type !== "")
+    API_ENDPOINT += `&coupon_type=${coupon_type}`;
+
+  if (status !== "")
+    API_ENDPOINT += `&status=${status}`;
+
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("X-ACCESS-TOKEN", token);
@@ -143,9 +151,9 @@ export const getFinalcialReports = async (
 export const getTransactions = async (
   token: string,
   role: string,
-  action_user_id: number,
+  action_user_id: any,
   action_user_name: string,
-  target_user_id: number,
+  target_user_id: any,
   target_user_name: string,
   start_date: string,
   end_date: string,
@@ -157,11 +165,16 @@ export const getTransactions = async (
   else if (role === "Type5Admin") role_url = 5;
   else if (role === "Type3Admin") role_url = 3;
 
-  let API_ENDPOINT = "";
-  if (type === "All")
-    API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/logs?&from_date=${start_date}&to_date=${end_date}&target_user_id=${target_user_id}&target_user_username=${target_user_name}&action_user_id=${action_user_id}&action_user_username=${action_user_name}`;
-  else
-    API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/logs?&from_date=${start_date}&to_date=${end_date}&comment=${type}&target_user_id=${target_user_id}&target_user_username=${target_user_name}&action_user_id=${action_user_id}&action_user_username=${action_user_name}`;
+  let API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/logs?&from_date=${start_date}&to_date=${end_date}`;
+  if (type !== "All")
+    API_ENDPOINT += `&comment=${type}`;
+
+  if (action_user_name !== "")
+    API_ENDPOINT += `&action_user_id=${action_user_id}&action_user_username=${action_user_name}`;
+
+  if (target_user_name !== "")
+    API_ENDPOINT += `&target_user_id=${target_user_id}&target_user_username=${target_user_name}`;
+
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("X-ACCESS-TOKEN", token);

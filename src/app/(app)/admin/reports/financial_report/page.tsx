@@ -14,18 +14,18 @@ const FinancialReport = () => {
   const { data: session }: any = useSession();
 
   const [startingOn, setStartingOn] = useState(
-    (new Date().getFullYear() - 1) +
+    new Date().getFullYear() +
       "-" +
-      (new Date().getMonth() + 1) +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
       "-" +
-      new Date().getDate()
+      String(new Date().getDate()).padStart(2, "0")
   );
   const [endingOn, setEndingOn] = useState(
     new Date().getFullYear() +
       "-" +
-      (new Date().getMonth() + 1) +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
       "-" +
-      new Date().getDate()
+      String(new Date().getDate()).padStart(2, "0")
   );
 
   const [prSelected, setPrSelected] = useState(false);

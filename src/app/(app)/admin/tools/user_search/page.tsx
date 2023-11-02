@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import clsx from "clsx";
 
 import ModalUserInfo from "@/app/(app)/components/admin/tools/UserSearch/ModalUserInfo";
@@ -9,32 +10,41 @@ import BlockUserModal from "../../users/ModalBlockUser";
 import ModalLocation from "@/app/(app)/components/admin/tools/UserSearch/ModalLocation";
 
 import Button from "@/app/(app)/components/ui/Button";
-import { getUserById } from "@/api/userManagement";
 import { useModalContext } from "@/contexts/ModalContext";
 
-const UserSearch = ({ currentTab }: any) => {
+import { getUserById } from "@/api/userManagement";
+import { getUserInfo } from "@/api/tools";
+
+
+const UserSearch = () => {
   const router = useRouter();
   const { openUserInfoModal, openBlockUserModal, openLocationModal } =
     useModalContext();
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   const [userId, setUserId] = useState(0);
   const [loginName, setLoginName] = useState("");
   const [user, setUser] = useState("");
-  const [userList, setUserList] = useState(null);
+  const [userList, setUserList]: any = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const onHandleSearch = async () => {
-    const _userinfo = await getUserById(
-      userId,
-      session.user.token,
-      session.user.role
-    );
-    if (_userinfo !== undefined) {
-      const _userList = [];
-      _userList.push(_userinfo);
-      setUserList([..._userList]);
+    const _res = await getUserInfo(session.user.token, session.user.role, userId);
+    if (_res.status === 200) {
+
     }
+    else
+      toast.error(_res?.data.error);
+    // const _userinfo = await getUserById(
+    //   userId,
+    //   session.user.token,
+    //   session.user.role
+    // );
+    // if (_userinfo !== undefined) {
+    //   const _userList = [];
+    //   _userList.push(_userinfo);
+    //   setUserList([..._userList]);
+    // }
   };
 
   return (

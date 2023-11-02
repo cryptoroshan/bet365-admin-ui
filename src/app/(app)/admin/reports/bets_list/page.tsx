@@ -16,17 +16,18 @@ const BetsList = () => {
   const [startingOn, setStartingOn] = useState(
     new Date().getFullYear() +
       "-" +
-      (new Date().getMonth() + 1) +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
       "-" +
-      new Date().getDate()
+      String(new Date().getDate()).padStart(2, "0")
   );
   const [endingOn, setEndingOn] = useState(
     new Date().getFullYear() +
       "-" +
-      (new Date().getMonth() + 1) +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
       "-" +
-      new Date().getDate()
+      String(new Date().getDate()).padStart(2, "0")
   );
+  
   const [betSymbol, setBetSymbol] = useState("All");
   const [betCost, setBetCost] = useState(0);
   const [sumSymbol, setSumSymbol] = useState("All");
@@ -36,11 +37,11 @@ const BetsList = () => {
 
   const [user, setUser] = useState({
     _id: "",
-    username: ""
+    username: "",
   });
   const [selectedUser, setSelectedUser]: any = useState({
     _id: "",
-    username: ""
+    username: "",
   });
   const [descendants, setDescendants] = useState([]);
   const [descendantListView, setDescendantListView] = useState(false);
@@ -82,13 +83,13 @@ const BetsList = () => {
       cashout,
       bonus
     );
-    if (_res.status === 200) {
+    if (_res?.status === 200) {
       setBetsList(_res.data);
 
       let _totalAmount = 0;
       let _totalPossibleWinnings = 0;
       let _totalWonAmount = 0;
-      for (let i = 0;i < _res.data.length;i++) {
+      for (let i = 0; i < _res.data.length; i++) {
         _totalAmount += _res.data[i].stake;
         _totalPossibleWinnings += _res.data[i].possible_winnings;
         _totalWonAmount += _res.data[i].won_amount;
@@ -96,14 +97,12 @@ const BetsList = () => {
       setTotalInfo({
         coupon_id: `Total: ${_res.data.length}`,
         type: "Open: 0",
-        status: `Average: ${_totalAmount/_res.data.length}`,
+        status: `Average: ${_totalAmount / _res.data.length}`,
         amount: _totalAmount,
         possible_winnings: _totalPossibleWinnings,
-        won_amount: _totalWonAmount
+        won_amount: _totalWonAmount,
       });
-    }
-    else
-      toast.error(_res?.data.message);
+    } else toast.error(_res?.data.message);
   };
 
   return (
@@ -212,13 +211,12 @@ const BetsList = () => {
                     setDescendantListView(false);
                     setUser({
                       _id: "",
-                      username: e.target.value
+                      username: e.target.value,
                     });
                     const _res = await getUsersByQuery(
                       e.target.value,
                       session.user.token
                     );
-                    console.log(_res)
                     setDescendants(_res);
                     setDescendantListView(true);
                   }}
@@ -465,7 +463,7 @@ const BetsList = () => {
                         }}
                       >
                         <td className="px-2 py-1 border border-gray-600 truncate">
-                        {user._id} - {user.username}
+                          {user._id} - {user.username}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
                           {item.timestamp}

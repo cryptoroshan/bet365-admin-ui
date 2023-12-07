@@ -2,24 +2,35 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
+import { toast } from "react-toastify";
 
+import * as env from "@/app/env";
 import { useModalContext } from "@/contexts/ModalContext";
-import {
-  getUsersByQuery,
-  getUserById,
-  getUsersCreatedBy,
-} from "@/api/userManagement";
+import { getUsersByQuery } from "@/api/userManagement";
+import { getSlotTransactions } from "@/api/tools";
 import ModalGameTransaction from "@/app/(app)/components/admin/tools/SlotsTransactions/ModalGameTransaction";
 import Input from "@/app/(app)/components/ui/Input";
+import Pagination from "@/components/ui/Pagination";
 
 const SlotTransactions = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const { openGameTransactionModal } = useModalContext();
 
-  const [startingOn, setStartingOn] = useState("");
-  const [endingOn, setEndingOn] = useState("");
-  const [cashout, setCashout] = useState("All");
-  const [bonus, setBonus] = useState("All");
+  const [startingOn, setStartingOn] = useState(
+    new Date().getFullYear() +
+      "-" +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(new Date().getDate()).padStart(2, "0")
+  );
+  const [endingOn, setEndingOn] = useState(
+    new Date().getFullYear() +
+      "-" +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(new Date().getDate()).padStart(2, "0")
+  );
+
   const [betSymbol, setBetSymbol] = useState("All");
   const [betCost, setBetCost] = useState(0);
   const [winSymbol, setWinSymbol] = useState("All");
@@ -28,13 +39,51 @@ const SlotTransactions = () => {
   const [vendors, setVendors] = useState("All");
 
   const [user, setUser] = useState("");
-  const [searchList, setSearchList] = useState(search_list);
+  const [searchList, setSearchList] = useState(null);
   const [descendants, setDescendants] = useState([]);
   const [descendantListView, setDescendantListView] = useState(false);
 
   const [selectedItem, setSelectedItem] = useState(null);
+  const [pageTotalCount, setPageTotalCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const onHandleSearch = async () => {};
+  const [totalUserCount, setTotalUserCount] = useState(0);
+  const [totalBetAmount, setTotalBetAmount] = useState(0);
+  const [totalWinAmount, setTotalWinAmount] = useState(0);
+  const [totalBalanceAmount, setTotalBalanceAmount] = useState(0);
+  const [totalGameCount, setTotalGameCount] = useState(0);
+
+  const onHandleSearch = async () => {
+    const _res = await getSlotTransactions(
+      session.user.token,
+      session.user.role,
+      user,
+      startingOn,
+      endingOn,
+      betSymbol,
+      betCost,
+      winSymbol,
+      winAmount
+    );
+    if (_res?.status === 200) {
+      setPageTotalCount(Math.ceil(_res.data.length / env.PAGE_ITEMCOUNT));
+      setSearchList(_res.data);
+
+      let _totalBetAmount = 0;
+      let _totalWinAmount = 0;
+      let _totalBalanceAmount = 0;
+      for (let i = 0;i < _res.data.length;i++) {
+        _totalBetAmount += _res.data[i].bet;
+        _totalWinAmount += _res.data[i].win;
+        _totalBalanceAmount += _res.data[i].new_balance;
+      }
+      setTotalUserCount(_res.data.length);
+      setTotalBetAmount(_totalBetAmount);
+      setTotalWinAmount(_totalWinAmount);
+      setTotalBalanceAmount(_totalBalanceAmount);
+      setTotalGameCount(_res.data.length);
+    } else toast.error(_res?.data.error);
+  };
 
   return (
     <>
@@ -181,165 +230,155 @@ const SlotTransactions = () => {
             </button>
           </div>
         </section>
-        <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
-          {searchList?.length === 0 ? (
-            <p className="text-lg font-bold text-center text-brand-button-text">
-              No results
-            </p>
-          ) : (
-            <table className="w-full text-sm text-gray-400 text-center">
-              <thead className="text-sm bg-brand-yellow text-black">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Id
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    User
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Type
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Bet
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Win
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Balance
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Vendor
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Game
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="bg-brand-dark-grey text-white">
-                  <td className="px-2 py-1 border border-gray-600 truncate"></td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">Players: 36</td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">Total Bet: 31,572.69</td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    Total Win: 32,884.40
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    Total: -1,311.71
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    Games: 144
-                  </td>
-                </tr>
-                {searchList.map((item: any, index: number) => {
-                  return (
-                    <tr
-                      key={index}
-                      className="text-white bg-[#777] hover:cursor-pointer"
-                      onClick={() => {
-                        setSelectedItem(item);
-                        openGameTransactionModal();
-                      }}
+        {searchList !== null && (
+          <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
+            {searchList?.length === 0 ? (
+              <p className="text-lg font-bold text-center text-brand-button-text">
+                No results
+              </p>
+            ) : (
+              <table className="w-full text-sm text-gray-400 text-center">
+                <thead className="text-sm bg-brand-yellow text-black">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
                     >
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.id}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.user}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.date}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.type}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.bet_amount}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.win_amount}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.balance}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.vendor}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.game}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </section>
+                      Id
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      User
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Date
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Type
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Bet
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Win
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Balance
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Vendor
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Game
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-brand-dark-grey text-white">
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      Players: {totalUserCount}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      Total Bet: {totalBetAmount.toFixed(2)}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      Total Win: {totalWinAmount.toFixed(2)}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      Total: {totalBalanceAmount.toFixed(2)}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      Games: {totalGameCount}
+                    </td>
+                  </tr>
+                  {searchList.map((item: any, index: number) => {
+                    if (
+                      index >= currentPage * env.PAGE_ITEMCOUNT &&
+                      index < (currentPage + 1) * env.PAGE_ITEMCOUNT
+                    )
+                      return (
+                        <tr
+                          key={index}
+                          className="text-white bg-[#777] hover:cursor-pointer"
+                          onClick={() => {
+                            setSelectedItem(item);
+                            openGameTransactionModal();
+                          }}
+                        >
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item._id}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.user_id}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {new Date(item.updated_at).toString()}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.label}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.bet}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.win}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.new_balance}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.label}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.game_id}
+                          </td>
+                        </tr>
+                      );
+                  })}
+                </tbody>
+              </table>
+            )}
+          </section>
+        )}
       </section>
+      {pageTotalCount >= 2 && (
+        <div className="flex flex-row justify-center">
+          <Pagination
+            pageCount={pageTotalCount}
+            gotoPage={(page: number) => setCurrentPage(page)}
+          />
+        </div>
+      )}
       <ModalGameTransaction item={selectedItem} />
     </>
   );
 };
 
 export default SlotTransactions;
-
-const search_list = [
-  {
-    id: "17179924",
-    user: "cryptoRoshan",
-    date: "07/09 12:31:56",
-    type: "BETWIN",
-    bet_amount: "0.20",
-    win_amount: "0.18",
-    balance: "7.20",
-    vendor: "ekko",
-    game: "9k Yeti"
-  },
-  {
-    id: "17179924",
-    user: "cryptoRoshan",
-    date: "07/09 12:31:56",
-    type: "BETWIN",
-    bet_amount: "0.20",
-    win_amount: "0.18",
-    balance: "7.20",
-    vendor: "ekko",
-    game: "9k Yeti"
-  }
-];

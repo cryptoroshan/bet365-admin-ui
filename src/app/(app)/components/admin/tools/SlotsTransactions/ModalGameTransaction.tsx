@@ -7,7 +7,7 @@ const ModalGameTransaction = ({ item }: any) => {
 
   return (
     <Modal
-      title={"Game Transaction (" + item?.id + ")"}
+      title={"Game Transaction (" + item?._id + ")"}
       open={isGameTransactionModalOpen}
       onCancel={closeGameTransactionModal}
       footer={[
@@ -26,35 +26,35 @@ const ModalGameTransaction = ({ item }: any) => {
           <section className="flex flex-col bg-brand-dialog items-center px-2 w-full">
             <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
               <p className="w-full text-right m-auto">User</p>
-              <p className="w-full m-auto">{item.user}</p>
+              <p className="w-full m-auto">{item.user_id}</p>
             </div>
             <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
               <p className="w-full text-right m-auto">Date</p>
-              <p className="w-full m-auto">{item.date}</p>
+              <p className="w-full m-auto">{new Date(item.updated_at).toString()}</p>
             </div>
             <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
               <p className="w-full text-right m-auto">Type</p>
-              <p className="w-full m-auto">{item.type}</p>
+              <p className="w-full m-auto">{item.label}</p>
             </div>
             <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
               <p className="w-full text-right m-auto">Bet</p>
-              <p className="w-full m-auto">{item.bet_amount}</p>
+              <p className="w-full m-auto">{item.bet}</p>
             </div>
             <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
               <p className="w-full text-right m-auto">Win</p>
-              <p className="w-full m-auto">{item.win_amount}</p>
+              <p className="w-full m-auto">{item.win}</p>
             </div>
             <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
               <p className="w-full text-right m-auto">Balance</p>
-              <p className="w-full m-auto">{item.balance}</p>
+              <p className="w-full m-auto">{item.new_balance}</p>
             </div>
             <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
               <p className="w-full text-right m-auto">Provider</p>
-              <p className="w-full m-auto">{item.vendor}</p>
+              <p className="w-full m-auto">{item.label}</p>
             </div>
             <div className="flex gap-2 md:gap-4 justify-center h-10 w-full text-white">
               <p className="w-full text-right m-auto">Game</p>
-              <p className="w-full m-auto">{item.game}</p>
+              <p className="w-full m-auto">{item.game_id}</p>
             </div>
           </section>
         )}

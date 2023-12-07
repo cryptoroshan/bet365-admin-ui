@@ -12,7 +12,6 @@ import ModalLocation from "@/app/(app)/components/admin/tools/UserSearch/ModalLo
 import Button from "@/app/(app)/components/ui/Button";
 import { useModalContext } from "@/contexts/ModalContext";
 
-import { getUserById, getUsersCreatedBy } from "@/api/userManagement";
 import { getUserInfo } from "@/api/tools";
 
 const UserSearch = () => {
@@ -35,16 +34,6 @@ const UserSearch = () => {
     }
     else
       toast.error(_res?.data.error);
-    // const _userinfo = await getUserById(
-    //   userId,
-    //   session.user.token,
-    //   session.user.role
-    // );
-    // if (_userinfo !== undefined) {
-    //   const _userList = [];
-    //   _userList.push(_userinfo);
-    //   setUserList([..._userList]);
-    // }
   };
 
   return (

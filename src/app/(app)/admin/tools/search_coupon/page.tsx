@@ -1,33 +1,56 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 import clsx from "clsx";
 
 import { useModalContext } from "@/contexts/ModalContext";
-import {
-  getUsersByQuery,
-  getUserById,
-  getUsersCreatedBy,
-} from "@/api/userManagement";
+import { searchCoupon, getCoupon } from "@/api/tools";
 import ModalSearchCoupon from "@/app/(app)/components/admin/tools/SearchCoupon/ModalSearchCoupon";
 import ModalDetails from "@/app/(app)/components/admin/tools/SearchCoupon/ModalDetails";
 import Input from "@/app/(app)/components/ui/Input";
 
 const SearchCoupon = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const { openSearchCouponModal, openDetailsModal } = useModalContext();
 
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(
+    new Date().getFullYear() +
+      "-" +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(new Date().getDate()).padStart(2, "0")
+  );
   const [sport, setSport] = useState("Select Sport");
   const [country, setCountry] = useState("All Countries");
   const [league, setLeague] = useState("All League");
   const [gameId, setGameId] = useState("");
 
-  const [gameList, setGameList] = useState(game_list);
+  const [couponList, setCouponList] = useState(null);
 
-  const [selectedItem, setSelectedItem] = useState(coupon_list);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [couponData, setCouponData] = useState(null);
 
-  const onHandleSearch = async () => {};
+  const onHandleSearch = async () => {
+    const _res = await searchCoupon(
+      session.user.token,
+      session.user.role,
+      gameId,
+      league,
+      sport
+    );
+    if (_res?.status === 200) {
+      setCouponList(_res.data);
+    } else toast.error(_res?.data.error);
+  };
+
+  const getCouponData = async (event_name: string) => {
+    const _res = await getCoupon(session.user.token, session.user.role, event_name);
+    if (_res?.status === 200) {
+      setCouponData(_res.data);
+      openSearchCouponModal();
+    } else toast.error(_res?.data.error);
+  }
 
   return (
     <>
@@ -89,143 +112,114 @@ const SearchCoupon = () => {
             </button>
           </div>
         </section>
-        <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
-          {gameList?.length === 0 ? (
-            <p className="text-lg font-bold text-center text-brand-button-text">
-              No results
-            </p>
-          ) : (
-            <table className="w-full text-sm text-gray-400 text-center">
-              <thead className="text-sm bg-brand-yellow text-black">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-10 py-1.5 border border-gray-600"
-                  >
-                    {"Games (" + gameList.length + ")"}
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Sport
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Country
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    League
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Start Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Coupons
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    Details
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {gameList?.map((item: any, index: number) => {
-                  return (
-                    <tr
-                      key={index}
-                      className="text-white bg-[#666]"
+        {couponList !== null && (
+          <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
+            {couponList?.length === 0 ? (
+              <p className="text-lg font-bold text-center text-brand-button-text">
+                No results
+              </p>
+            ) : (
+              <table className="w-full text-sm text-gray-400 text-center">
+                <thead className="text-sm bg-brand-yellow text-black">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-10 py-1.5 border border-gray-600"
                     >
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.game_name}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.sport}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.country}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.league}
-                      </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">
-                        {item.start_date}
-                      </td>
-                      <td className="border border-gray-600 w-36">
-                        <div className="py-1 bg-green-700 cursor-pointer" onClick={openSearchCouponModal}>{item.coupons}</div>
-                      </td>
-                      <td className="border border-gray-600 w-36">
-                        <div className="py-1 bg-green-700 cursor-pointer" onClick={openDetailsModal}>Details</div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </section>
+                      {"Games (" + couponList.length + ")"}
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Sport
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Country
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      League
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Start Date
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Coupons
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Details
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {couponList?.map((item: any, index: number) => {
+                    return (
+                      <tr key={index} className="text-white bg-[#666]">
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.game_id + " " + item.event_name}
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.sport}
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.country}
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.league}
+                        </td>
+                        <td className="px-2 py-1 border border-gray-600 truncate">
+                          {item.date}
+                        </td>
+                        <td className="border border-gray-600 w-36">
+                          <div
+                            className="py-1 bg-green-700 cursor-pointer"
+                            onClick={() => {
+                              setSelectedItem(item);
+                              getCouponData(item.event_name);
+                            }}
+                          >
+                            {item.coupons}
+                          </div>
+                        </td>
+                        <td className="border border-gray-600 w-36">
+                          <div
+                            className="py-1 bg-green-700 cursor-pointer"
+                            onClick={() => {
+                              setSelectedItem(item);
+                              openDetailsModal();
+                            }}
+                          >
+                            Details
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
+          </section>
+        )}
       </section>
-      <ModalSearchCoupon item={selectedItem} />
+      <ModalSearchCoupon item={selectedItem} couponData={couponData} />
       <ModalDetails item={selectedItem} />
     </>
   );
 };
 
 export default SearchCoupon;
-
-const game_list = [
-  {
-    game_name: "Ceara SC - Londrina EC PR",
-    sport: "Football",
-    country: "Brazil",
-    league: "Serie B",
-    start_date: "07/09 03:30",
-    coupons: "36"
-  }
-];
-
-const coupon_list = [
-  {
-    id: 425682,
-    user: "cryptoRoshan",
-    date: "06/09 13:22",
-    coupon_status: "Won",
-    game_status: "Won",
-    bet_type: "Match Result (3-ways) 1",
-    bet: "9.10",
-    win: "5.11"
-  },
-  {
-    id: 425910,
-    user: "cryptoRoshan",
-    date: "06/09 13:22",
-    coupon_status: "Lost",
-    game_status: "Won",
-    bet_type: "Match Result (3-ways) 1",
-    bet: "9.10",
-    win: "5.11"
-  },
-  {
-    id: 425910,
-    user: "cryptoRoshan",
-    date: "06/09 13:22",
-    coupon_status: "Current",
-    game_status: "Won",
-    bet_type: "Match Result (3-ways) 1",
-    bet: "9.10",
-    win: "5.11"
-  }
-];

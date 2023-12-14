@@ -17,6 +17,7 @@ function ModalCoupon({ item, user }: ModalCouponProps) {
 
   useEffect(() => {
     if (item !== null) {
+      console.log(item)
       let _totalSumOdds = 0;
       for (let i = 0; i < item.selections.length; i++)
         _totalSumOdds += item.selections[i].value_eu;
@@ -42,7 +43,7 @@ function ModalCoupon({ item, user }: ModalCouponProps) {
       ]}
     >
       <>
-        {item !== null && (
+        {item !== null && user !== undefined && (
           <section className="px-4">
             <section className="flex flex-col gap-6 bg-brand-dialog items-center pt-4">
               <table className="w-full text-sm text-gray-400 text-center">

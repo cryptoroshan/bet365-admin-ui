@@ -5,7 +5,7 @@ import { Modal } from "antd";
 import { useModalContext } from "@/contexts/ModalContext";
 import ModalCoupon from "../../reports/BetsList/ModalCoupon";
 
-function ModalSearchCoupon({ item }: any) {
+function ModalSearchCoupon({ item, couponData }: any) {
   const { isSearchCouponModalOpen, closeSearchCouponModal, openCouponModal } =
     useModalContext();
   const [betType, setBetType] = useState("All");
@@ -14,7 +14,7 @@ function ModalSearchCoupon({ item }: any) {
     <>
       <Modal
         className="modal-search-coupon"
-        title="Ceara SC - Londrina EC PR"
+        title={item?.event_name}
         open={isSearchCouponModalOpen}
         onCancel={closeSearchCouponModal}
         footer={[
@@ -39,7 +39,7 @@ function ModalSearchCoupon({ item }: any) {
                 <option value="All">All</option>
               </select>
             </div>
-            {item !== null && (
+            {item !== null && couponData !== null && (
               <section className="w-full overflow-x-scroll md:overflow-hidden">
                 <table className="w-full text-sm text-gray-400 text-center">
                   <thead className="text-sm bg-brand-yellow text-black">
@@ -91,26 +91,32 @@ function ModalSearchCoupon({ item }: any) {
                   <tbody className="bg-[#777] text-white text-xs">
                     <tr className="bg-[#333]">
                       <td className="px-2 py-1 border border-gray-600 truncate">
-                        Total: 36
+                        Total: {couponData.length}
                       </td>
                       <td className="px-2 py-1 border border-gray-600 truncate">
-                        Open: 9
+                        Open: 0
                       </td>
                       <td className="px-2 py-1 border border-gray-600 truncate"></td>
                       <td className="px-2 py-1 border border-gray-600 truncate">
-                        Average: 4.87
+                        Average: 0
                       </td>
                       <td className="px-2 py-1 border border-gray-600 truncate">
-                        Pos.Win.: 1057.71
+                        Pos.Win.: 0
                       </td>
                       <td className="px-2 py-1 border border-gray-600 truncate">
-                        175.45
+                        0
                       </td>
-                      <td className="px-2 py-1 border border-gray-600 truncate">5.11</td>
+                      <td className="px-2 py-1 border border-gray-600 truncate">
+                        0
+                      </td>
                     </tr>
-                    {item.map((item: any, index: number) => {
+                    {couponData.map((item: any, index: number) => {
                       return (
-                        <tr key={index} className="cursor-pointer" onClick={openCouponModal}>
+                        <tr
+                          key={index}
+                          className="cursor-pointer"
+                          onClick={openCouponModal}
+                        >
                           <td className="px-2 py-1 border border-gray-600 truncate">
                             {item.user}
                           </td>
@@ -150,7 +156,7 @@ function ModalSearchCoupon({ item }: any) {
           </section>
         </section>
       </Modal>
-      <ModalCoupon item={item} />
+      {/* <ModalCoupon item={item} user={undefined} /> */}
     </>
   );
 }

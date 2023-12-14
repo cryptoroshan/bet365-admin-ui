@@ -70,10 +70,10 @@ function ModalDetails({ item }: any) {
                   <tbody className="bg-[#777] text-white text-xs">
                     <tr>
                       <td className="px-2 py-1 border border-gray-600 truncate">
-                        22963873
+                        {item.game_id}
                       </td>
                       <td className="px-2 py-1 border border-gray-600 truncate">
-                        Ceara SC - Londriina EC PR
+                        {item.event_name}
                       </td>
                       <td className="px-2 py-1 border border-gray-600 truncate">
                         <div className="flex">

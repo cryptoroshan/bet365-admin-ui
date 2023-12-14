@@ -1,8 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
-import clsx from "clsx";
 
 import { useModalContext } from "@/contexts/ModalContext";
 import { searchCoupon, getCoupon } from "@/api/tools";

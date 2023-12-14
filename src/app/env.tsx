@@ -4,4 +4,4 @@ export const ADMIN_TYPE_5_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQi
 export const ADMIN_TYPE_3_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjIsInVzZXJuYW1lIjoiYWRtaW4zIiwicm9sZSI6IlR5cGUzQWRtaW4iLCJpYXQiOjE2ODIyMTY3NDAsImV4cCI6MTcxMzc1Mjc0MH0.o0TOL-obYb1r0h0aS2wXAOk0mPasgGqk88_irvxBAAs";
 export const USER_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjUsInVzZXJuYW1lIjoidXNlciIsInJvbGUiOiJVc2VyIiwiaWF0IjoxNjk0OTEzMDQ4LCJleHAiOjE3MjY0NDkwNDh9.j-MAYadP9pq0leZoU8NUVzw5bupgcPFmCrAjNNa5gRY";
 export const SERVER_URL="http://odds.f11-sport.net:3000";
-export const PAGE_ITEMCOUNT=15;
+export const PAGE_ITEMCOUNT=13;

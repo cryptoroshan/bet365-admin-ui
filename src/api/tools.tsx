@@ -112,9 +112,7 @@ export const searchCoupon = async (
 
   try {
     const response = await fetch(API_ENDPOINT, requestOptions);
-    console.log(API_ENDPOINT);
     const data = await response.json();
-    console.log(data);
     return {
       status: response.status,
       data: data,
@@ -136,6 +134,74 @@ export const getCoupon = async (
   else if (role === "Type3Admin") role_url = 3;
 
   const API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/search/coupons?event_name=${event_name}`;
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("X-ACCESS-TOKEN", token);
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+  };
+
+  try {
+    const response = await fetch(API_ENDPOINT, requestOptions);
+    const data = await response.json();
+    return {
+      status: response.status,
+      data: data,
+    };
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getCountries = async (
+  token: string,
+  role: string
+) => {
+  let role_url;
+  if (role === "SuperAgent") role_url = "superagent";
+  else if (role === "Type7Admin") role_url = 7;
+  else if (role === "Type5Admin") role_url = 5;
+  else if (role === "Type3Admin") role_url = 3;
+
+  const API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/get_countries`;
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("X-ACCESS-TOKEN", token);
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+  };
+
+  try {
+    const response = await fetch(API_ENDPOINT, requestOptions);
+    console.log(API_ENDPOINT);
+    const data = await response.json();
+    console.log(data);
+    return {
+      status: response.status,
+      data: data,
+    };
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getLeagues = async (
+  token: string,
+  role: string
+) => {
+  let role_url;
+  if (role === "SuperAgent") role_url = "superagent";
+  else if (role === "Type7Admin") role_url = 7;
+  else if (role === "Type5Admin") role_url = 5;
+  else if (role === "Type3Admin") role_url = 3;
+
+  const API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/get_leagues`;
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");

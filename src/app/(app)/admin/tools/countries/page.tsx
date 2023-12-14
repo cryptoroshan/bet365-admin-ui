@@ -2,24 +2,33 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
-import {
-  getUsersByQuery,
-  getUserById,
-  getUsersCreatedBy,
-} from "@/api/userManagement";
+import { getCountries } from "@/api/tools";
 import CountriesTable from "@/app/(app)/components/admin/tools/Countries/CountryTable";
 import Pagination from "@/components/ui/Pagination";
 
 const Countries = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const router = useRouter();
 
   const [sport, setSport] = useState("Football");
 
-  const [searchList, setSearchList] = useState(search_list);
-  const [pageTotalCount, setPageTotalCount] = useState(2);
+  const [searchList, setSearchList] = useState(null);
+  const [pageTotalCount, setPageTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
+
+  useEffect(() => {
+    const getCountriesData = async () => {
+      const _res = await getCountries(session?.user.token, session?.user.role);
+      if (_res?.status === 200) {
+        setSearchList(_res.data);
+        setPageTotalCount(_res.data.length);
+      } else toast.error(_res?.data.error);
+    };
+
+    if (session?.user !== undefined) getCountriesData();
+  }, [session]);
 
   return (
     <section className="flex flex-col gap-4 p-4">
@@ -49,59 +58,16 @@ const Countries = () => {
         </button>
       </section>
       <CountriesTable tableList={searchList} currentPage={currentPage} />
-      <div className="flex flex-row justify-center">
-        <Pagination
-          pageCount={pageTotalCount}
-          gotoPage={(page: number) => setCurrentPage(page)}
-        />
-      </div>
+      {pageTotalCount >= 2 && (
+        <div className="flex flex-row justify-center">
+          <Pagination
+            pageCount={pageTotalCount}
+            gotoPage={(page: number) => setCurrentPage(page)}
+          />
+        </div>
+      )}
     </section>
   );
 };
 
 export default Countries;
-
-const search_list = [
-  {
-    id: 527,
-    name: "Europe",
-    order: 10,
-    group: "Internationals"
-  },
-  {
-    id: 243,
-    name: "England",
-    order: 20,
-    group: "No Group"
-  },
-  {
-    id: 161,
-    name: "Germany",
-    order: 30,
-    group: "No Group"
-  },
-  {
-    id: 147,
-    name: "France",
-    order: 40,
-    group: "No Group"
-  },
-  {
-    id: 142,
-    name: "Spain",
-    order: 50,
-    group: "No Group"
-  },
-  {
-    id: 215,
-    name: "Italy",
-    order: 60,
-    group: "No Group"
-  },
-  {
-    id: 48,
-    name: "Greece",
-    order: 70,
-    group: "No Group"
-  },
-];

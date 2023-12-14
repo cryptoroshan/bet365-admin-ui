@@ -2,12 +2,12 @@ import { Modal } from "antd";
 
 import { useModalContext } from "@/contexts/ModalContext";
 
-const ModalTransalte = ({ name }: { name: string }) => {
+const ModalTransalte = ({ item }: { item: any }) => {
   const { isTranslateModalOpen, closeTranslateModal } = useModalContext();
 
   return (
     <Modal
-      title={"Translate - " + name}
+      title={"Translate - " + item?.bet_country_name}
       open={isTranslateModalOpen}
       onCancel={closeTranslateModal}
       footer={[
@@ -25,23 +25,45 @@ const ModalTransalte = ({ name }: { name: string }) => {
         <table className="w-full text-sm text-white bg-[#666] text-center">
           <thead className="text-sm bg-brand-yellow text-black">
             <tr>
-              <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
+              <th
+                scope="col"
+                className="px-2 py-1.5 border border-gray-600 truncate"
+              >
                 Language
               </th>
-              <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
+              <th
+                scope="col"
+                className="px-2 py-1.5 border border-gray-600 truncate"
+              >
                 Name
               </th>
             </tr>
           </thead>
           <tbody>
-            {matchResultList.map((item: any, index: number) => {
-              return (
-                <tr key={index} className="cursor-pointer">
-                  <td className="px-2 py-1.5 border border-gray-600">{item.language}</td>
-                  <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">{name}</td>
-                </tr>
-              )
-            })}
+            <tr className="cursor-pointer">
+              <td className="px-2 py-1.5 border border-gray-600">
+                en
+              </td>
+              <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
+                {item?.display_name_en}
+              </td>
+            </tr>
+            <tr className="cursor-pointer">
+              <td className="px-2 py-1.5 border border-gray-600">
+                tr
+              </td>
+              <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
+                {item?.display_name_de}
+              </td>
+            </tr>
+            <tr className="cursor-pointer">
+              <td className="px-2 py-1.5 border border-gray-600">
+                de
+              </td>
+              <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
+                {item?.display_name_tr}
+              </td>
+            </tr>
           </tbody>
         </table>
       </section>
@@ -53,12 +75,12 @@ export default ModalTransalte;
 
 const matchResultList = [
   {
-    language: "EN"
+    language: "EN",
   },
   {
-    language: "ES"
+    language: "ES",
   },
   {
-    language: "DE"
-  }
+    language: "DE",
+  },
 ];

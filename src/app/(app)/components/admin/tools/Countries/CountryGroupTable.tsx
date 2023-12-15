@@ -64,7 +64,7 @@ const CountryGroupTable = ({ tableList, currentPage }: CountryGroupTableProps) =
           </table>
         )}
       </section>
-      <ModalTransalte name={selectedName} />
+      <ModalTransalte item={selectedName} />
     </>
   );
 };

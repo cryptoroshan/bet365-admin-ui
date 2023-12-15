@@ -11,19 +11,18 @@ const LeagueTableItem = ({
 }: LeagueTableItemProps) => {
   return (
     <tr className="text-white bg-[#777]">
-      <td className="px-2 py-1 border border-gray-600 truncate">{item.sport}</td>
-      <td className="px-2 py-1 border border-gray-600 truncate">{item.country}</td>
+      <td className="px-2 py-1 border border-gray-600 truncate">{item.league_sport_id}</td>
+      <td className="px-2 py-1 border border-gray-600 truncate">{item.country_id}</td>
       <td className="px-2 py-1 border border-gray-600 truncate">
-        {item.league_default_name}
+        {item.league_display_name}
       </td>
-      <td className="px-2 py-1 border border-gray-600 truncate">{item.league_id}</td>
+      <td className="px-2 py-1 border border-gray-600 truncate">{item.bet_league_id}</td>
       <td className="px-2 py-1 border border-gray-600 bg-white text-black">
-        {item.order}
       </td>
       <td className="w-48 border border-gray-600">
         <button
           className="button px-2 py-2 bg-green-700 hover:bg-green-600 w-full"
-          onClick={() => onHandleTranslateClick(item.league_default_name)}
+          onClick={() => onHandleTranslateClick()}
         >
           Translate
         </button>

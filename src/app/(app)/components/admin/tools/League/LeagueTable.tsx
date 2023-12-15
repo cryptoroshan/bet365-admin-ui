@@ -1,8 +1,9 @@
 import { useState } from "react";
 
+import * as env from "@/app/env";
 import { useModalContext } from "@/contexts/ModalContext";
 import LeagueTableItem from "./LeagueTableItem";
-import ModalTransalte from "@/components/ui/ModalDialog/ModalTranslate";
+import ModalTranslate from "./ModalTranslate";
 
 interface LeagueTableProps {
   tableList: any;
@@ -11,7 +12,7 @@ interface LeagueTableProps {
 
 const LeagueTable = ({ tableList, currentPage }: LeagueTableProps) => {
   const { openTranslateModal } = useModalContext();
-  const [selectedName, setSelectedName] = useState("");
+  const [selectedItem, setSelectedItem] = useState("");
 
   return (
     <>
@@ -65,13 +66,13 @@ const LeagueTable = ({ tableList, currentPage }: LeagueTableProps) => {
               </thead>
               <tbody>
                 {tableList.map((item: any, index: number) => {
-                  if (index >= currentPage * 5 && index < (currentPage + 1) * 5)
+                  if (index >= currentPage * env.PAGE_ITEMCOUNT && index < (currentPage + 1) * env.PAGE_ITEMCOUNT)
                     return (
                       <LeagueTableItem
                         key={index}
                         item={item}
-                        onHandleTranslateClick={(name: string) => {
-                          setSelectedName(name);
+                        onHandleTranslateClick={() => {
+                          setSelectedItem(item);
                           openTranslateModal();
                         }}
                       />
@@ -82,7 +83,7 @@ const LeagueTable = ({ tableList, currentPage }: LeagueTableProps) => {
           )}
         </section>
       )}
-      <ModalTransalte item={selectedName} />
+      <ModalTranslate item={selectedItem} />
     </>
   );
 };
